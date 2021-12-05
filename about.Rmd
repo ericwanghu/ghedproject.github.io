@@ -1,3 +1,28 @@
 ---
 title: "About Us"
 ---
+
+#### Trisha Dwiveldi
+
+[LinkedIn](https://www.linkedin.com/in/trishadwivedi/)
+
+#### Pooja Mukund
+
+[LinkedIn](https://www.linkedin.com/in/pooja-mukund-903b58130/)
+
+#### Ragyie Rawal
+
+[LinkedIn](https://www.linkedin.com/in/ragyie-rawal-a75b52139/)
+
+#### Safiya Sirota
+
+[LinkedIn](https://www.linkedin.com/in/safiya-sirota/)
+
+#### Eric Wang
+
+[LinkedIn](https://www.linkedin.com/in/ericwanggg)
+
+<br>
+<center>
+
+Click here to return to the [main](index.html) page.

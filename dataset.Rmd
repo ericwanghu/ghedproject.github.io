@@ -2,6 +2,10 @@
 title: "Data Set"
 ---
 
-#### Data Set
-
 We obtained our data from the [Global Health Expenditure Database](https://apps.who.int/nha/database).
+
+
+<br>
+<center>
+
+Click here to return to the [main](index.html) page.

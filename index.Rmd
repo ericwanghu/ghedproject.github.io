@@ -1,11 +1,12 @@
 ---
 title: "Global Health Expenditure Database"
+subtitle: "Creative Title"
 output: 
   html_document:
     code_folding: hide
 ---
 
-<h6 style="text-align: left;" markdown="1">Eric Wang,  Pooja Mukund,  Ragyie Rawal,  Safiya Sirota,  Trisha Dwiveldi </h6>
+<h6 style="text-align: left;" markdown="1">Trisha Dwiveldi, Pooja Mukund,  Ragyie Rawal,  Safiya Sirota, Eric Wang</h6>
 
 <br>
 <center>
