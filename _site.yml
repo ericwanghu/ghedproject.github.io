@@ -1,7 +1,7 @@
-name: "Yay internet!"
+name: "GHED"
 output_dir: "."
 navbar:
-  title: "Home"
+  title: "GHED"
   right:
     - text: "About"
       href: about.html

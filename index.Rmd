@@ -1,6 +1,29 @@
 ---
-title: "Global Health Expenditure"
+title: "Global Health Expenditure Database"
 output: 
   html_document:
     code_folding: hide
 ---
+
+<h6 style="text-align: left;" markdown="1">Eric Wang |  Pooja Mukund |  Ragyie Rawal |  Safiya Sirota |  Trisha Dwiveldi </h6>
+
+#### Background
+
+yes
+
+#### Data Set
+
+We obtained our data from the [Global Health Expenditure Database](https://apps.who.int/nha/database).
+
+<br>
+<center>
+
+Explore Our Project
+
+[Data Set](dataset.html)
+
+[Findings](findings.html)
+
+[About Us](about.html)
+
+<img src="images/columbiabiostats.png" style="width:60%">
