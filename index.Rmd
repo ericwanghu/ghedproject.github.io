@@ -1,8 +1,6 @@
 ---
-title: "My awesome website"
+title: "Global Health Expenditure"
 output: 
   html_document:
-    toc: true
-    toc_float: true
-    theme: cerulean
+    code_folding: hide
 ---

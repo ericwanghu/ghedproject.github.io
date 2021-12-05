@@ -1,10 +1,7 @@
----
-title: "P8105 Final Project"
-output: github_document
----
+P8105 Final Project
+================
 
-```{r}
-
+``` r
 library(tidyverse)
 library(readxl)
 
@@ -21,14 +18,11 @@ options(
 
 scale_coulour_discrete = scale_color_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
-
 ```
 
 ## Data Import
 
-```{r}
-
+``` r
 ghed_df <- 
   read_excel("data/GHED_data.xlsx")
-
 ```
