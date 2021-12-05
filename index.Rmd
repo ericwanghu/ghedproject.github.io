@@ -18,12 +18,10 @@ We obtained our data from the [Global Health Expenditure Database](https://apps.
 <br>
 <center>
 
+<img src="images/columbiabiostats.png" style="width:60%">
+
 Explore Our Project
 
 [Data Set](dataset.html)
 
-[Findings](findings.html)
-
 [About Us](about.html)
-
-<img src="images/columbiabiostats.png" style="width:60%">
