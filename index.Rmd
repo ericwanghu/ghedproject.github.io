@@ -5,15 +5,7 @@ output:
     code_folding: hide
 ---
 
-<h6 style="text-align: left;" markdown="1">Eric Wang |  Pooja Mukund |  Ragyie Rawal |  Safiya Sirota |  Trisha Dwiveldi </h6>
-
-#### Background
-
-yes
-
-#### Data Set
-
-We obtained our data from the [Global Health Expenditure Database](https://apps.who.int/nha/database).
+<h6 style="text-align: left;" markdown="1">Eric Wang,  Pooja Mukund,  Ragyie Rawal,  Safiya Sirota,  Trisha Dwiveldi </h6>
 
 <br>
 <center>
@@ -23,5 +15,11 @@ We obtained our data from the [Global Health Expenditure Database](https://apps.
 Explore Our Project
 
 [Data Set](dataset.html)
+
+[Exploratory Analysis](analysis.html)
+
+[Zoomin In: USA](usa.html)
+
+[Dashboard](dashboard.html)
 
 [About Us](about.html)
