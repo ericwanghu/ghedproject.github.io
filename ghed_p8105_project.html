@@ -317,10 +317,10 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 <div id="safiyas-section" class="section level3">
 <h3>Safiya’s section</h3>
 <p><strong>Indicators</strong> Primary health care - phc_usd_pc<br />
-Infectious disease - dis1_usd2018<br />
-Noncommunicable disease - dis4_usd2018<br />
-Preventive care - hc6_usd2018<br />
-Curative care - hc1_usd2018<br />
+Infectious disease - dis1_usd2019<br />
+Noncommunicable disease - dis4_usd2019<br />
+Preventive care - hc6_usd2019<br />
+Curative care - hc1_usd2019<br />
 GDP - gdp_pc_usd<br />
 CHE - che_pc_usd</p>
 <p><strong>Primary Health Care Spending</strong></p>
@@ -328,7 +328,7 @@ CHE - che_pc_usd</p>
 <pre class="r"><code>PHC_df &lt;-
   ghed_df %&gt;% 
     janitor::clean_names() %&gt;% 
-    filter(year == 2018) %&gt;% 
+    filter(year == 2019) %&gt;% 
     drop_na(phc_usd_pc) %&gt;% 
     group_by(income_group) %&gt;% 
     summarize(
@@ -350,7 +350,7 @@ PHC_df %&gt;%
 <pre class="r"><code>PHC_df &lt;-
   ghed_df %&gt;% 
     janitor::clean_names() %&gt;% 
-    filter(year == 2018) %&gt;% 
+    filter(year == 2019) %&gt;% 
     drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
     group_by(income_group) %&gt;% 
     summarize(
@@ -372,7 +372,7 @@ PHC_df %&gt;%
 <pre class="r"><code>PHC_df &lt;-
   ghed_df %&gt;% 
     janitor::clean_names() %&gt;% 
-    filter(year == 2018) %&gt;% 
+    filter(year == 2019) %&gt;% 
     drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
     group_by(income_group) %&gt;% 
     summarize(
@@ -391,6 +391,123 @@ PHC_df %&gt;%
   theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
 <p><strong>Preventive vs. Curative Spending</strong></p>
+<p>Primary health care spending by income level (USD per capita)</p>
+<pre class="r"><code>prev_df &lt;-
+  ghed_df %&gt;% 
+    janitor::clean_names() %&gt;% 
+    filter(year == 2019) %&gt;% 
+    drop_na(hc6_usd) %&gt;% 
+    group_by(income_group) %&gt;% 
+    summarize(
+      n_countries = n(),
+      `Preventive` = mean(hc6_usd2019))
+
+cur_df &lt;-
+  ghed_df %&gt;% 
+    janitor::clean_names() %&gt;% 
+    filter(year == 2019) %&gt;% 
+    drop_na(hc1_usd) %&gt;% 
+    group_by(income_group) %&gt;% 
+    summarize(
+      n_countries = n(),
+      `Curative` = mean(hc1_usd2019))
+
+prev_cur_df &lt;-
+  left_join(prev_df, cur_df) %&gt;% 
+  pivot_longer(
+    `Preventive`:`Curative`,
+    names_to = &quot;Type of Spending&quot;,
+    values_to = &quot;avg_spend&quot;
+  )</code></pre>
+<pre><code>## Joining, by = c(&quot;income_group&quot;, &quot;n_countries&quot;)</code></pre>
+<pre class="r"><code>prev_cur_df %&gt;% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_spend, fill = `Type of Spending`)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  labs(
+    title = &quot;Preventive vs. Curative Spending&quot;,
+    x = &quot;Income level&quot;,
+    y = &quot;Average spending \n (million USD)&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-6-1.png" width="90%" /></p>
+<p>Primary health care spending by income level (as as proportion of GDP)</p>
+<pre class="r"><code>prev_df &lt;-
+  ghed_df %&gt;% 
+    janitor::clean_names() %&gt;% 
+    filter(year == 2019) %&gt;% 
+    drop_na(hc6_usd, gdp_pc_usd) %&gt;% 
+    group_by(income_group) %&gt;% 
+    summarize(
+      n_countries = n(),
+      `Preventive` = mean(hc6_usd2019 / gdp_usd2019))
+
+cur_df &lt;-
+  ghed_df %&gt;% 
+    janitor::clean_names() %&gt;% 
+    filter(year == 2019) %&gt;% 
+    drop_na(hc1_usd, gdp_pc_usd) %&gt;% 
+    group_by(income_group) %&gt;% 
+    summarize(
+      n_countries = n(),
+      `Curative` = mean(hc1_usd2019 / gdp_usd2019))
+
+prev_cur_df &lt;-
+  left_join(prev_df, cur_df) %&gt;% 
+  pivot_longer(
+    `Preventive`:`Curative`,
+    names_to = &quot;Type of Spending&quot;,
+    values_to = &quot;avg_spend&quot;
+  )</code></pre>
+<pre><code>## Joining, by = c(&quot;income_group&quot;, &quot;n_countries&quot;)</code></pre>
+<pre class="r"><code>prev_cur_df %&gt;%
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_spend, fill = `Type of Spending`)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  labs(
+    title = &quot;Preventive vs. Curative Spending&quot;,
+    x = &quot;Income level&quot;,
+    y = &quot;Average spending (as proportion of GDP)&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-7-1.png" width="90%" /></p>
+<p>Primary health care spending by income level (as as proportion of health expenditure)</p>
+<pre class="r"><code>prev_df &lt;-
+  ghed_df %&gt;% 
+    janitor::clean_names() %&gt;% 
+    filter(year == 2019) %&gt;% 
+    drop_na(hc6_usd, gdp_pc_usd) %&gt;% 
+    group_by(income_group) %&gt;% 
+    summarize(
+      n_countries = n(),
+      `Preventive` = mean(hc6_usd2019 / che_usd2019))
+
+cur_df &lt;-
+  ghed_df %&gt;% 
+    janitor::clean_names() %&gt;% 
+    filter(year == 2019) %&gt;% 
+    drop_na(hc1_usd, gdp_pc_usd) %&gt;% 
+    group_by(income_group) %&gt;% 
+    summarize(
+      n_countries = n(),
+      `Curative` = mean(hc1_usd2019 / che_usd2019))
+
+prev_cur_df &lt;-
+  left_join(prev_df, cur_df) %&gt;% 
+  pivot_longer(
+    `Preventive`:`Curative`,
+    names_to = &quot;Type of Spending&quot;,
+    values_to = &quot;avg_spend&quot;
+  )</code></pre>
+<pre><code>## Joining, by = c(&quot;income_group&quot;, &quot;n_countries&quot;)</code></pre>
+<pre class="r"><code>prev_cur_df %&gt;%
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_spend, fill = `Type of Spending`)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  labs(
+    title = &quot;Preventive vs. Curative Spending&quot;,
+    x = &quot;Income level&quot;,
+    y = &quot;Average spending (as proportion \n of total health expenditure)&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
 </div>
 <div id="other-sections" class="section level3">
 <h3>Other sections</h3>

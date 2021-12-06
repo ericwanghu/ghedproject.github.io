@@ -37,10 +37,10 @@ ghed_df <-
 
 __Indicators__
 Primary health care - phc_usd_pc  
-Infectious disease - dis1_usd2018  
-Noncommunicable disease - dis4_usd2018  
-Preventive care - hc6_usd2018  
-Curative care - hc1_usd2018  
+Infectious disease - dis1_usd2019  
+Noncommunicable disease - dis4_usd2019  
+Preventive care - hc6_usd2019  
+Curative care - hc1_usd2019  
 GDP - gdp_pc_usd  
 CHE - che_pc_usd  
 
@@ -52,7 +52,7 @@ Primary health care spending by income level (USD per capita)
 PHC_df <-
   ghed_df %>% 
     janitor::clean_names() %>% 
-    filter(year == 2018) %>% 
+    filter(year == 2019) %>% 
     drop_na(phc_usd_pc) %>% 
     group_by(income_group) %>% 
     summarize(
@@ -77,7 +77,7 @@ Primary health care spending by income level (as as proportion of per capita GDP
 PHC_df <-
   ghed_df %>% 
     janitor::clean_names() %>% 
-    filter(year == 2018) %>% 
+    filter(year == 2019) %>% 
     drop_na(phc_usd_pc, gdp_pc_usd) %>% 
     group_by(income_group) %>% 
     summarize(
@@ -90,7 +90,7 @@ PHC_df %>%
   labs(
     title = "Primary Health Care Spending",
     x = "Income level",
-    y = "Average PHC spending (as proprtion of \n per capita GDP)"
+    y = "Average PHC spending (as proportion of \n per capita GDP)"
   ) + 
   theme(axis.text.x = element_text(angle = 90)) +
   theme(legend.position = "none")
@@ -102,7 +102,7 @@ Primary health care spending by income level (as a proportion of per capita heal
 PHC_df <-
   ghed_df %>% 
     janitor::clean_names() %>% 
-    filter(year == 2018) %>% 
+    filter(year == 2019) %>% 
     drop_na(phc_usd_pc, gdp_pc_usd) %>% 
     group_by(income_group) %>% 
     summarize(
@@ -122,6 +122,135 @@ PHC_df %>%
 ```
 
 __Preventive vs. Curative Spending__
+
+Primary health care spending by income level (USD per capita)
+
+```{r}
+prev_df <-
+  ghed_df %>% 
+    janitor::clean_names() %>% 
+    filter(year == 2019) %>% 
+    drop_na(hc6_usd) %>% 
+    group_by(income_group) %>% 
+    summarize(
+      n_countries = n(),
+      `Preventive` = mean(hc6_usd2019))
+
+cur_df <-
+  ghed_df %>% 
+    janitor::clean_names() %>% 
+    filter(year == 2019) %>% 
+    drop_na(hc1_usd) %>% 
+    group_by(income_group) %>% 
+    summarize(
+      n_countries = n(),
+      `Curative` = mean(hc1_usd2019))
+
+prev_cur_df <-
+  left_join(prev_df, cur_df) %>% 
+  pivot_longer(
+    `Preventive`:`Curative`,
+    names_to = "Type of Spending",
+    values_to = "avg_spend"
+  )
+
+prev_cur_df %>% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c("Low", "Low-Mid", "Up-Mid", "Hi")), y = avg_spend, fill = `Type of Spending`)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Preventive vs. Curative Spending",
+    x = "Income level",
+    y = "Average spending \n (million USD)"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+Primary health care spending by income level (as as proportion of GDP)
+
+```{r}
+prev_df <-
+  ghed_df %>% 
+    janitor::clean_names() %>% 
+    filter(year == 2019) %>% 
+    drop_na(hc6_usd, gdp_pc_usd) %>% 
+    group_by(income_group) %>% 
+    summarize(
+      n_countries = n(),
+      `Preventive` = mean(hc6_usd2019 / gdp_usd2019))
+
+cur_df <-
+  ghed_df %>% 
+    janitor::clean_names() %>% 
+    filter(year == 2019) %>% 
+    drop_na(hc1_usd, gdp_pc_usd) %>% 
+    group_by(income_group) %>% 
+    summarize(
+      n_countries = n(),
+      `Curative` = mean(hc1_usd2019 / gdp_usd2019))
+
+prev_cur_df <-
+  left_join(prev_df, cur_df) %>% 
+  pivot_longer(
+    `Preventive`:`Curative`,
+    names_to = "Type of Spending",
+    values_to = "avg_spend"
+  )
+
+prev_cur_df %>%
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c("Low", "Low-Mid", "Up-Mid", "Hi")), y = avg_spend, fill = `Type of Spending`)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Preventive vs. Curative Spending",
+    x = "Income level",
+    y = "Average spending (as proportion \n of GDP)"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+Primary health care spending by income level (as proportion of health expenditure)
+
+```{r}
+prev_df <-
+  ghed_df %>% 
+    janitor::clean_names() %>% 
+    filter(year == 2019) %>% 
+    drop_na(hc6_usd, gdp_pc_usd) %>% 
+    group_by(income_group) %>% 
+    summarize(
+      n_countries = n(),
+      `Preventive` = mean(hc6_usd2019 / che_usd2019))
+
+cur_df <-
+  ghed_df %>% 
+    janitor::clean_names() %>% 
+    filter(year == 2019) %>% 
+    drop_na(hc1_usd, gdp_pc_usd) %>% 
+    group_by(income_group) %>% 
+    summarize(
+      n_countries = n(),
+      `Curative` = mean(hc1_usd2019 / che_usd2019))
+
+prev_cur_df <-
+  left_join(prev_df, cur_df) %>% 
+  pivot_longer(
+    `Preventive`:`Curative`,
+    names_to = "Type of Spending",
+    values_to = "avg_spend"
+  )
+
+prev_cur_df %>%
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c("Low", "Low-Mid", "Up-Mid", "Hi")), y = avg_spend, fill = `Type of Spending`)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Preventive vs. Curative Spending",
+    x = "Income level",
+    y = "Average spending (as proportion \n of total health expenditure)"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+__Infectious vs. Non-communicable Diseases__
+
 
 
 ### Other sections
