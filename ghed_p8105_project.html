@@ -11,7 +11,9 @@
 
 
 
-<title>ghed_p8105_project</title>
+
+<title>P8105 Final Project</title>
+
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,6 +34,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -126,6 +130,7 @@ pre code {
   border-radius: 6px 0 6px 6px;
 }
 </style>
+
 
 <script type="text/javascript">
 // manage active state of menu based on current page
@@ -279,6 +284,8 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">P8105 Final Project</h1>
+
 
 </div>
 
@@ -320,6 +327,7 @@ PHC_df %&gt;%
   ) + 
   theme(axis.text.x = element_text(angle = 90)) +
   theme(legend.position = &quot;none&quot;)</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-2-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as as proportion of per capita GDP)</p>
 <pre class="r"><code>PHC_df &lt;-
@@ -342,6 +350,7 @@ PHC_df %&gt;%
   ) + 
   theme(axis.text.x = element_text(angle = 90)) +
   theme(legend.position = &quot;none&quot;)</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-3-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as a proportion of per capita health expenditure)</p>
 <pre class="r"><code>PHC_df &lt;-
@@ -364,6 +373,7 @@ PHC_df %&gt;%
   ) + 
   theme(axis.text.x = element_text(angle = 90)) +
   theme(legend.position = &quot;none&quot;)</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-4-1.png" width="90%" /></p>
 <p><strong>Preventive vs. Curative Spending</strong></p>
 <p>Primary health care spending by income level (USD per capita)</p>
@@ -404,6 +414,7 @@ prev_cur_df &lt;-
     y = &quot;Average spending \n (million USD)&quot;
   ) + 
   theme(axis.text.x = element_text(angle = 90))</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-5-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as as proportion of GDP)</p>
 <pre class="r"><code>prev_df &lt;-
@@ -443,6 +454,7 @@ prev_cur_df &lt;-
     y = &quot;Average spending (as proportion \n of GDP)&quot;
   ) + 
   theme(axis.text.x = element_text(angle = 90))</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-6-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as proportion of health expenditure)</p>
 <pre class="r"><code>prev_df &lt;-
@@ -482,7 +494,9 @@ prev_cur_df &lt;-
     y = &quot;Average spending (as proportion \n of total health expenditure)&quot;
   ) + 
   theme(axis.text.x = element_text(angle = 90))</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-7-1.png" width="90%" /></p>
+
 <p><strong>Infectious vs. Non-communicable Diseases</strong></p>
 </div>
 <div id="ragyies-section" class="section level3">
@@ -524,7 +538,9 @@ prev_cur_df &lt;-
     y = &quot;Average PHC spending in million constant USD$&quot;
   ) + 
   theme(legend.position = &quot;none&quot;)</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/avg_phc_plot-1.png" width="90%" /></p>
+
 <p>Average primary health care expenditure for each WHO region with spending as a percent of GDP</p>
 <p>To see how much different WHO regions are spending with regards to what resources they actually have</p>
 <pre class="r"><code>phc_gdp_ghed =
@@ -547,6 +563,7 @@ prev_cur_df &lt;-
     y = &quot;Average PHC spending per capita GDP&quot;
   ) + 
   theme(legend.position = &quot;none&quot;)</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/phc_gdp_plot-1.png" width="90%" /></p>
 <p>Average primary health care expenditure for each WHO region with spending as a percentage of current health expenditure</p>
 <p>To investigate how much of health spending goes toward each category for each WHO region</p>
@@ -570,6 +587,7 @@ prev_cur_df &lt;-
     y = &quot;Average PHC spending per capita health expenditure&quot;
   ) + 
   theme(legend.position = &quot;none&quot;)</code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/phc_che_plot-1.png" width="90%" /></p>
 <p><strong>Curative care vs. preventative care</strong></p>
 <p>Comparing average curative expenditure and average preventative expenditure for each WHO region</p>
@@ -599,6 +617,7 @@ prev_cur_df &lt;-
     x = &quot;WHO region&quot;, 
     y = &quot;Average spending in million constant USD$&quot;
   ) </code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/avg_cp_plot-1.png" width="90%" /></p>
 <p>Average curative vs. preventative expenditure for each WHO region with spending as a percent of GDP</p>
 <pre class="r"><code>cp_gdp_df = 
@@ -626,6 +645,7 @@ prev_cur_df &lt;-
     x = &quot;WHO region&quot;, 
     y = &quot;Average spending per capita GDP&quot;
   ) </code></pre>
+
 <p><img src="ghed_p8105_project_files/figure-gfm/cp_gdp_plot-1.png" width="90%" /></p>
 <p>Average curative vs. preventative expenditure for each WHO region with spending as a percentage of current health expenditure</p>
 <pre class="r"><code>cp_che_df = 
@@ -653,13 +673,315 @@ prev_cur_df &lt;-
     x = &quot;WHO region&quot;, 
     y = &quot;Average spending per capita health expenditure&quot;
   ) </code></pre>
-<p><img src="ghed_p8105_project_files/figure-gfm/cp_che_plot-1.png" width="90%" /></p>
+
+<p><img src="ghed_p8105_project_files/figure-html/cp_che_plot-1.png" width="90%" /></p>
 </div>
+<div id="trishas-section" class="section level3">
+<h3>Trisha’s section</h3>
+<pre class="r"><code>ghed_df = 
+  ghed_df %&gt;%
+  janitor::clean_names()</code></pre>
+</div>
+</div>
+<div id="distribution-of-income-levels-of-countries-in-each-who-region" class="section level2">
+<h2>Distribution of income levels of countries in each WHO region</h2>
+<pre class="r"><code>ghed_df %&gt;%
+  select(country, country_code, region_who, income_group) %&gt;%
+  distinct() %&gt;%
+  mutate(
+    income_group = as.factor(income_group),
+    income_group = factor(income_group, levels = c(&quot;Low&quot;,&quot;Low-Mid&quot;,&quot;Up-Mid&quot;,&quot;Hi&quot;))
+  ) %&gt;%
+  group_by(region_who) %&gt;%
+  mutate(
+    num_countries = n()
+  ) %&gt;%
+  group_by(region_who, income_group, num_countries) %&gt;%
+  summarize(n = n()) %&gt;%
+  mutate(
+    perc_income_group = 100*(n/num_countries)
+  ) %&gt;%
+  ggplot(aes(x=income_group,y=perc_income_group)) +
+  geom_bar(aes(fill=income_group),stat=&quot;identity&quot;) +
+  facet_grid(~region_who) +
+  theme(axis.text.x = element_text(angle = 80, hjust = 1)) +
+  ggtitle(&quot;Distribution of income levels of countries in each WHO region&quot;) +
+  ylab(&quot;% of countries in region&quot;) +
+  xlab(&quot;country income group (2019)&quot;)</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;region_who&#39;, &#39;income_group&#39;. You can override using the `.groups` argument.</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-9-1.png" width="90%" /></p>
+<p>The figure above shows the distribution of income levels of countries (categorized in 2019) in each WHO region: AFR (African Region), AMR (Region of the Americas), EMR (Eastern Mediterranean Region), EUR (European Region), SEAR (South-East Asian Region), and WPR (Western Pacific Region).<br />
+</p>
+<p>Highest proportion of income group type by region:<br />
+Low income: AFR<br />
+Low-Mid income: SEAR<br />
+Up-Mid income: AMR<br />
+Hi income: EUR</p>
+</div>
+<div id="income-group-and-total-healthcare-expenditure" class="section level2">
+<h2>Income group and total healthcare expenditure</h2>
+<pre class="r"><code>ghed_df %&gt;%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %&gt;%
+  filter(year == 2019) %&gt;%
+  mutate(
+    income_group= as.factor(income_group),
+    income_group = factor(income_group, levels = c(&quot;Low&quot;,&quot;Low-Mid&quot;,&quot;Up-Mid&quot;,&quot;Hi&quot;))
+  ) %&gt;%
+  group_by(income_group) %&gt;%
+  summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %&gt;%
+  knitr::kable(digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">income_group</th>
+<th align="right">mean_che_gdp</th>
+<th align="right">mean_che_pc_usd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Low</td>
+<td align="right">6.01</td>
+<td align="right">39.25</td>
+</tr>
+<tr class="even">
+<td align="left">Low-Mid</td>
+<td align="right">5.08</td>
+<td align="right">126.69</td>
+</tr>
+<tr class="odd">
+<td align="left">Up-Mid</td>
+<td align="right">6.90</td>
+<td align="right">482.74</td>
+</tr>
+<tr class="even">
+<td align="left">Hi</td>
+<td align="right">7.69</td>
+<td align="right">2937.29</td>
+</tr>
+</tbody>
+</table>
+<p>The above table describes the following variables for all income groups:<br />
+che_gdp: Current Health Expenditure (CHE) as % Gross Domestic Product (GDP) [Percentage]<br />
+che_pc_usd: Current Health Expenditure (CHE) per Capita in US$ [Ones]<br />
+</p>
+<p>As we can see, the mean CHE per capita in US$ increases as we go from low income groups to high income groups. The highest CHE as % of GDP belongs to countries in the highest income group at 7.67%; however, we see that this percentage for all income groups ranges from roughly 5-8%, so the amount per capita a country is able to dedicate for health expenditure depends and varies based on country GDP and income level.</p>
+</div>
+<div id="who-region-and-total-healthcare-expenditure" class="section level2">
+<h2>WHO region and total healthcare expenditure</h2>
+<pre class="r"><code>ghed_df %&gt;%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %&gt;%
+  filter(year == 2019) %&gt;%
+  group_by(region_who) %&gt;%
+  summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %&gt;%
+  arrange(mean_che_pc_usd) %&gt;%
+  knitr::kable(digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">region_who</th>
+<th align="right">mean_che_gdp</th>
+<th align="right">mean_che_pc_usd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFR</td>
+<td align="right">5.33</td>
+<td align="right">128.38</td>
+</tr>
+<tr class="even">
+<td align="left">SEAR</td>
+<td align="right">4.42</td>
+<td align="right">186.29</td>
+</tr>
+<tr class="odd">
+<td align="left">EMR</td>
+<td align="right">5.52</td>
+<td align="right">634.23</td>
+</tr>
+<tr class="even">
+<td align="left">AMR</td>
+<td align="right">7.20</td>
+<td align="right">1081.32</td>
+</tr>
+<tr class="odd">
+<td align="left">WPR</td>
+<td align="right">7.32</td>
+<td align="right">1107.48</td>
+</tr>
+<tr class="even">
+<td align="left">EUR</td>
+<td align="right">7.63</td>
+<td align="right">2461.09</td>
+</tr>
+</tbody>
+</table>
+<p>The above table describes the following variables for all WHO regions:<br />
+che_gdp: Current Health Expenditure (CHE) as % Gross Domestic Product (GDP) [Percentage]<br />
+che_pc_usd: Current Health Expenditure (CHE) per Capita in US$ [Ones]<br />
+</p>
+</div>
+<div id="developed-countries---total-spending-over-time" class="section level2">
+<h2>Developed countries - total spending over time</h2>
+<p>major developed economies (UN): Canada, Japan, France, Germany, Italy, UK, US</p>
+<pre class="r"><code>ghed_df %&gt;%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %&gt;%
+  filter(country == &quot;United States of America&quot; |
+         country == &quot;United Kingdom&quot; |
+         country == &quot;Italy&quot; |
+         country == &quot;Germany&quot; |
+         country == &quot;France&quot; |
+         country == &quot;Japan&quot; |
+         country == &quot;Canada&quot;) %&gt;%
+  mutate(
+    year = as.numeric(year)
+  ) %&gt;%
+  group_by(country) %&gt;%
+  ggplot(aes(x=year,y=che_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle(&quot;Total spending over time in developed countries&quot;) +
+  scale_colour_viridis_d()</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-12-1.png" width="90%" /></p>
+</div>
+<div id="developed-countries---government-spending-over-time" class="section level2">
+<h2>Developed countries - government spending over time</h2>
+<p>gghed_pc_usd Domestic General Government Health Expenditure (GGHE-D) per Capita in US$</p>
+<pre class="r"><code>ghed_df %&gt;%
+  select(country, country_code, region_who, income_group, year, gghed_pc_usd) %&gt;%
+  filter(country == &quot;United States of America&quot; |
+         country == &quot;United Kingdom&quot; |
+         country == &quot;Italy&quot; |
+         country == &quot;Germany&quot; |
+         country == &quot;France&quot; |
+         country == &quot;Japan&quot; |
+         country == &quot;Canada&quot;) %&gt;%
+  mutate(
+    year = as.numeric(year)
+  ) %&gt;%
+  group_by(country) %&gt;%
+  ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle(&quot;Government spending over time in developed countries&quot;) +
+  scale_colour_viridis_d()</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-13-1.png" width="90%" /></p>
+</div>
+<div id="developing-countries---total-spending-over-time" class="section level2">
+<h2>Developing countries - total spending over time</h2>
+<p>developing economies: Morocco, Uganda, South Africa, Senegal Nepal, Iraq, Haiti, Mexico, Argentina</p>
+<pre class="r"><code>ghed_df %&gt;%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %&gt;%
+  filter(country == &quot;Morocco&quot; |
+         country == &quot;Uganda&quot; |
+         country == &quot;South Africa&quot; |
+         country == &quot;Senegal&quot; |
+         country == &quot;Nepal&quot; |
+         country == &quot;Iraq&quot; |
+         country == &quot;Haiti&quot; |
+         country == &quot;Mexico&quot; |
+         country == &quot;Argentina&quot;) %&gt;%
+  mutate(
+    year = as.numeric(year)
+  ) %&gt;%
+  group_by(country) %&gt;%
+  ggplot(aes(x=year,y=che_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle(&quot;Total spending over time in developing countries&quot;) +
+  scale_colour_viridis_d()</code></pre>
+<pre><code>## Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-14-1.png" width="90%" /></p>
+</div>
+<div id="developing-countries---government-spending-over-time" class="section level2">
+<h2>Developing countries - government spending over time</h2>
+<pre class="r"><code>ghed_df %&gt;%
+  select(country, country_code, region_who, income_group, year, gghed_pc_usd) %&gt;%
+  filter(country == &quot;Morocco&quot; |
+         country == &quot;Uganda&quot; |
+         country == &quot;South Africa&quot; |
+         country == &quot;Senegal&quot; |
+         country == &quot;Nepal&quot; |
+         country == &quot;Iraq&quot; |
+         country == &quot;Haiti&quot; |
+         country == &quot;Mexico&quot; |
+         country == &quot;Argentina&quot;) %&gt;%
+  mutate(
+    year = as.numeric(year)
+  ) %&gt;%
+  group_by(country) %&gt;%
+  ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle(&quot;Government spending over time in developing countries&quot;) +
+  scale_colour_viridis_d()</code></pre>
+<pre><code>## Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-15-1.png" width="90%" /></p>
+</div>
+<div id="lm---correlation-between-who-region-external-funding-private-spending-and-government-expenditure-and-income-group" class="section level2">
+<h2>LM - correlation between WHO region, external funding, private spending, and government expenditure and income group</h2>
+<pre class="r"><code>ghed_lm_df = 
+  ghed_df %&gt;%
+  select(country, country_code, region_who, income_group, ext_pc_usd, pvtd_pc_usd, gghed_pc_usd) %&gt;%
+  drop_na() %&gt;%
+  mutate(
+    income_group = as.factor(income_group),
+    income_group = factor(income_group, levels = c(&quot;Low&quot;,&quot;Low-Mid&quot;,&quot;Up-Mid&quot;,&quot;Hi&quot;)),
+    income_group = fct_recode(income_group, &#39;1&#39;=&quot;Low&quot;,&#39;2&#39;=&quot;Low-Mid&quot;, &#39;3&#39;=&quot;Up-Mid&quot;, &#39;4&#39;=&quot;Hi&quot;)
+  )</code></pre>
+<pre class="r"><code>ghed_lm_df_shuffled = ghed_lm_df[sample(nrow(ghed_lm_df)),]
+
+ghed_lm_df_shuffled = 
+  ghed_lm_df_shuffled %&gt;%
+  mutate(
+    sum_pc = ext_pc_usd + pvtd_pc_usd + gghed_pc_usd,
+    ext_pc_usd = ext_pc_usd/sum_pc,
+    pvtd_pc_usd = pvtd_pc_usd/sum_pc,
+    gghed_pc_usd = gghed_pc_usd/sum_pc
+  )</code></pre>
+<pre class="r"><code>fit_exp_dstbn = lm(as.numeric(income_group) ~ ext_pc_usd + pvtd_pc_usd + gghed_pc_usd, ghed_lm_df_shuffled)
+fit_region_exp = lm(as.numeric(income_group) ~ ext_pc_usd + pvtd_pc_usd + gghed_pc_usd + region_who, ghed_lm_df_shuffled)
+
+summary(fit_exp_dstbn)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = as.numeric(income_group) ~ ext_pc_usd + pvtd_pc_usd + 
+##     gghed_pc_usd, data = ghed_lm_df_shuffled)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.06118 -0.48440  0.04227  0.47417  2.31487 
+## 
+## Coefficients: (1 not defined because of singularities)
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   4.14131    0.03250  127.44   &lt;2e-16 ***
+## ext_pc_usd   -4.59240    0.08648  -53.10   &lt;2e-16 ***
+## pvtd_pc_usd  -2.41383    0.06394  -37.75   &lt;2e-16 ***
+## gghed_pc_usd       NA         NA      NA       NA    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7228 on 3337 degrees of freedom
+## Multiple R-squared:  0.5112, Adjusted R-squared:  0.5109 
+## F-statistic:  1745 on 2 and 3337 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>fit_region_exp %&gt;% 
+  broom::glance()</code></pre>
+<pre><code>## # A tibble: 1 × 12
+##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.585         0.585 0.666      672.       0     7 -3378. 6775. 6830.
+## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+
 <div id="other-peoples-sections" class="section level3">
 <h3>Other people’s sections</h3>
 </div>
 </div>
+
 </div>
+
 
 
 

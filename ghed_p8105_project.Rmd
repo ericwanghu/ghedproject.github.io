@@ -6,6 +6,8 @@ output: github_document
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(readxl)
+library(mgcv)
+library(modelr)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -465,8 +467,240 @@ cp_che_df %>%
   ) 
 ```
 
+<<<<<<< HEAD
 ### Eric's section
 
+=======
+### Trisha's section
+
+```{r}
+ghed_df = 
+  ghed_df %>%
+  janitor::clean_names()
+```
+
+## Distribution of income levels of countries in each WHO region
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group) %>%
+  distinct() %>%
+  mutate(
+    income_group = as.factor(income_group),
+    income_group = factor(income_group, levels = c("Low","Low-Mid","Up-Mid","Hi"))
+  ) %>%
+  group_by(region_who) %>%
+  mutate(
+    num_countries = n()
+  ) %>%
+  group_by(region_who, income_group, num_countries) %>%
+  summarize(n = n()) %>%
+  mutate(
+    perc_income_group = 100*(n/num_countries)
+  ) %>%
+  ggplot(aes(x=income_group,y=perc_income_group)) +
+  geom_bar(aes(fill=income_group),stat="identity") +
+  facet_grid(~region_who) +
+  theme(axis.text.x = element_text(angle = 80, hjust = 1)) +
+  ggtitle("Distribution of income levels of countries in each WHO region") +
+  ylab("% of countries in region") +
+  xlab("country income group (2019)")
+```
+
+The figure above shows the distribution of income levels of countries (categorized in 2019) in each WHO region: AFR (African Region), AMR (Region of the Americas), EMR (Eastern Mediterranean Region), EUR (European Region), SEAR (South-East Asian Region), and WPR (Western Pacific Region). \
+
+Highest proportion of income group type by region: \
+Low income: AFR \
+Low-Mid income: SEAR \
+Up-Mid income: AMR \
+Hi income: EUR 
+
+
+## Income group and total healthcare expenditure
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+  filter(year == 2019) %>%
+  mutate(
+    income_group= as.factor(income_group),
+    income_group = factor(income_group, levels = c("Low","Low-Mid","Up-Mid","Hi"))
+  ) %>%
+  group_by(income_group) %>%
+  summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %>%
+  knitr::kable(digits = 2)
+```
+
+The above table describes the following variables for all income groups:\
+che_gdp: Current Health Expenditure (CHE) as % Gross Domestic Product (GDP)	[Percentage]\
+che_pc_usd: Current Health Expenditure (CHE) per Capita in US$ [Ones]\
+
+As we can see, the mean CHE per capita in US$ increases as we go from low income groups to high income groups. The highest CHE as % of GDP belongs to countries in the highest income group at 7.67%; however, we see that this percentage for all income groups ranges from roughly 5-8%, so the amount per capita a country is able to dedicate for health expenditure depends and varies based on country GDP and income level.
+
+
+## WHO region and total healthcare expenditure
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+  filter(year == 2019) %>%
+  group_by(region_who) %>%
+  summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %>%
+  arrange(mean_che_pc_usd) %>%
+  knitr::kable(digits = 2)
+```
+The above table describes the following variables for all WHO regions:\
+che_gdp: Current Health Expenditure (CHE) as % Gross Domestic Product (GDP)	[Percentage]\
+che_pc_usd: Current Health Expenditure (CHE) per Capita in US$ [Ones]\
+
+
+## Developed countries - total spending over time 
+
+major developed economies (UN): Canada, Japan, France, Germany, Italy, UK, US
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+  filter(country == "United States of America" |
+         country == "United Kingdom" |
+         country == "Italy" |
+         country == "Germany" |
+         country == "France" |
+         country == "Japan" |
+         country == "Canada") %>%
+  mutate(
+    year = as.numeric(year)
+  ) %>%
+  group_by(country) %>%
+  ggplot(aes(x=year,y=che_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle("Total spending over time in developed countries") +
+  scale_colour_viridis_d()
+  
+```
+
+## Developed countries - government spending over time 
+
+gghed_pc_usd Domestic General Government Health Expenditure (GGHE-D) per Capita in US$
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group, year, gghed_pc_usd) %>%
+  filter(country == "United States of America" |
+         country == "United Kingdom" |
+         country == "Italy" |
+         country == "Germany" |
+         country == "France" |
+         country == "Japan" |
+         country == "Canada") %>%
+  mutate(
+    year = as.numeric(year)
+  ) %>%
+  group_by(country) %>%
+  ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle("Government spending over time in developed countries") +
+  scale_colour_viridis_d()
+```
+
+
+## Developing countries - total spending over time
+
+developing economies: 
+Morocco, Uganda, South Africa, Senegal
+Nepal, Iraq, Haiti, Mexico, Argentina
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+  filter(country == "Morocco" |
+         country == "Uganda" |
+         country == "South Africa" |
+         country == "Senegal" |
+         country == "Nepal" |
+         country == "Iraq" |
+         country == "Haiti" |
+         country == "Mexico" |
+         country == "Argentina") %>%
+  mutate(
+    year = as.numeric(year)
+  ) %>%
+  group_by(country) %>%
+  ggplot(aes(x=year,y=che_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle("Total spending over time in developing countries") +
+  scale_colour_viridis_d()
+```
+
+## Developing countries - government spending over time
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group, year, gghed_pc_usd) %>%
+  filter(country == "Morocco" |
+         country == "Uganda" |
+         country == "South Africa" |
+         country == "Senegal" |
+         country == "Nepal" |
+         country == "Iraq" |
+         country == "Haiti" |
+         country == "Mexico" |
+         country == "Argentina") %>%
+  mutate(
+    year = as.numeric(year)
+  ) %>%
+  group_by(country) %>%
+  ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle("Government spending over time in developing countries") +
+  scale_colour_viridis_d()
+```
+
+
+## LM - correlation between WHO region, external funding, private spending, and government expenditure and income group
+
+```{r}
+
+ghed_lm_df = 
+  ghed_df %>%
+  select(country, country_code, region_who, income_group, ext_pc_usd, pvtd_pc_usd, gghed_pc_usd) %>%
+  drop_na() %>%
+  mutate(
+    income_group = as.factor(income_group),
+    income_group = factor(income_group, levels = c("Low","Low-Mid","Up-Mid","Hi")),
+    income_group = fct_recode(income_group, '1'="Low",'2'="Low-Mid", '3'="Up-Mid", '4'="Hi")
+  )
+
+```
+
+```{r}
+ghed_lm_df_shuffled = ghed_lm_df[sample(nrow(ghed_lm_df)),]
+
+ghed_lm_df_shuffled = 
+  ghed_lm_df_shuffled %>%
+  mutate(
+    sum_pc = ext_pc_usd + pvtd_pc_usd + gghed_pc_usd,
+    ext_pc_usd = ext_pc_usd/sum_pc,
+    pvtd_pc_usd = pvtd_pc_usd/sum_pc,
+    gghed_pc_usd = gghed_pc_usd/sum_pc
+  )
+  
+```
+
+```{r}
+fit_exp_dstbn = lm(as.numeric(income_group) ~ ext_pc_usd + pvtd_pc_usd + gghed_pc_usd, ghed_lm_df_shuffled)
+fit_region_exp = lm(as.numeric(income_group) ~ ext_pc_usd + pvtd_pc_usd + gghed_pc_usd + region_who, ghed_lm_df_shuffled)
+
+summary(fit_exp_dstbn)
+
+fit_region_exp %>% 
+  broom::glance()
+```
+>>>>>>> 7a7ca34677c8024894c0a10843998f691382f943
 
 
 
