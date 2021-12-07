@@ -19,7 +19,7 @@ Explore Our Project
 
 [Exploratory Analysis](analysis.html)
 
-[Zoomin In: USA](usa.html)
+[Zoom In: USA](usa.html)
 
 [Dashboard](dashboard.html)
 

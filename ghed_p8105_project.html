@@ -1,297 +1,35 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
-<meta charset="utf-8" />
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
-
-<title>P8105 Final Project</title>
-
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
-
-
-
-
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-pre code {
-  padding: 0;
+<link rel="stylesheet" href="data:text/css,%0A%40font%2Dface%20%7B%0Afont%2Dfamily%3A%20octicons%2Dlink%3B%0Asrc%3A%20url%28data%3Afont%2Fwoff%3Bcharset%3Dutf%2D8%3Bbase64%2Cd09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM%2B8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB%2FaFGpk3jaTY6xa8JAGMW%2FO62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v%2Bk%2F0an2i%2BitHDw3v2%2B9%2BDBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3%2FI7AtxEJLtzzuZfI%2BVVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy%2FLt7Kc%2B0vWY%2FgAgIIEqAN9we0pwKXreiMasxvabDQMM4riO%2BqxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw%2Bymhce7vwM9jSqO8JyVd5RH9gyTt2%2BJ%2FyUmYlIR0s04n6%2B7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv%2FocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi%2BW2%2BMjCzMIDApSwvXzC97Z4Ig8N%2FBxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh%2F8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT%2BAEjAwuDFpBmA9KMDEwMCh9i%2Fv8H8sH0%2F4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9%2FlqYwOGZxeUelN2U2R6%2BcArgtCJpauW7UQBqnFkUsjAY%2FkOU1cP%2BDAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl%2BvvmM%2FbyA48e6tWrKArm4ZJlCbdsrxksL1AwWn%2FyBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO%2F%2FsdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd%2F89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF%2B9JOS0nbaaYDCQfwCJ7Au3AHj%2BLO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm%2BEBXuAbHmIMSRMs%2B4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL%2BhD7C1xoaHeLJSEao0FEW14ckxC%2BTU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13%2F%2Blm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl%2B9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O%2FAdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB%2F%2F%2FAA8AAQAAAAAAAAAAAAAAAAABAAAAAA%3D%3D%29%20format%28%27woff%27%29%3B%0A%7D%0Abody%20%7B%0A%2Dwebkit%2Dtext%2Dsize%2Dadjust%3A%20100%25%3B%0Atext%2Dsize%2Dadjust%3A%20100%25%3B%0Acolor%3A%20%23333%3B%0Afont%2Dfamily%3A%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20%22Segoe%20UI%22%2C%20Arial%2C%20freesans%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0Afont%2Dsize%3A%2016px%3B%0Aline%2Dheight%3A%201%2E6%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0A%7D%0Aa%20%7B%0Abackground%2Dcolor%3A%20transparent%3B%0A%7D%0Aa%3Aactive%2C%0Aa%3Ahover%20%7B%0Aoutline%3A%200%3B%0A%7D%0Astrong%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%202em%3B%0Amargin%3A%200%2E67em%200%3B%0A%7D%0Aimg%20%7B%0Aborder%3A%200%3B%0A%7D%0Ahr%20%7B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Aheight%3A%200%3B%0A%7D%0Apre%20%7B%0Aoverflow%3A%20auto%3B%0A%7D%0Acode%2C%0Akbd%2C%0Apre%20%7B%0Afont%2Dfamily%3A%20monospace%2C%20monospace%3B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ainput%20%7B%0Acolor%3A%20inherit%3B%0Afont%3A%20inherit%3B%0Amargin%3A%200%3B%0A%7D%0Ahtml%20input%5Bdisabled%5D%20%7B%0Acursor%3A%20default%3B%0A%7D%0Ainput%20%7B%0Aline%2Dheight%3A%20normal%3B%0A%7D%0Ainput%5Btype%3D%22checkbox%22%5D%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0Apadding%3A%200%3B%0A%7D%0Atable%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%2Dspacing%3A%200%3B%0A%7D%0Atd%2C%0Ath%20%7B%0Apadding%3A%200%3B%0A%7D%0A%2A%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0A%7D%0Ainput%20%7B%0Afont%3A%2013px%20%2F%201%2E4%20Helvetica%2C%20arial%2C%20nimbussansl%2C%20liberationsans%2C%20freesans%2C%20clean%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%234078c0%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%2C%0Aa%3Aactive%20%7B%0Atext%2Ddecoration%3A%20underline%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%200%3B%0Amargin%3A%2015px%200%3B%0Aoverflow%3A%20hidden%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23ddd%3B%0A%7D%0Ahr%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ahr%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%2015px%3B%0Amargin%2Dbottom%3A%2015px%3B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%2030px%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%2021px%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%2016px%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%2014px%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%2011px%3B%0A%7D%0Ablockquote%20%7B%0Amargin%3A%200%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Aol%20ol%2C%0Aul%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Droman%3B%0A%7D%0Aul%20ul%20ol%2C%0Aul%20ol%20ol%2C%0Aol%20ul%20ol%2C%0Aol%20ol%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Dalpha%3B%0A%7D%0Add%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0Afont%3A%2012px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0A%7D%0A%2Eselect%3A%3A%2Dms%2Dexpand%20%7B%0Aopacity%3A%200%3B%0A%7D%0A%2Eocticon%20%7B%0Afont%3A%20normal%20normal%20normal%2016px%2F1%20octicons%2Dlink%3B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Ddecoration%3A%20none%3B%0Atext%2Drendering%3A%20auto%3B%0A%2Dwebkit%2Dfont%2Dsmoothing%3A%20antialiased%3B%0A%2Dmoz%2Dosx%2Dfont%2Dsmoothing%3A%20grayscale%3B%0A%2Dwebkit%2Duser%2Dselect%3A%20none%3B%0A%2Dmoz%2Duser%2Dselect%3A%20none%3B%0A%2Dms%2Duser%2Dselect%3A%20none%3B%0Auser%2Dselect%3A%20none%3B%0A%7D%0A%2Eocticon%2Dlink%3Abefore%20%7B%0Acontent%3A%20%27%5Cf05c%27%3B%0A%7D%0A%2Emarkdown%2Dbody%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%20%21important%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%20%21important%3B%0A%7D%0Aa%3Anot%28%5Bhref%5D%29%20%7B%0Acolor%3A%20inherit%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Eanchor%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%2Dright%3A%202px%3B%0Amargin%2Dleft%3A%20%2D18px%3B%0A%7D%0A%2Eanchor%3Afocus%20%7B%0Aoutline%3A%20none%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%201em%3B%0Amargin%2Dbottom%3A%2016px%3B%0Afont%2Dweight%3A%20bold%3B%0Aline%2Dheight%3A%201%2E4%3B%0A%7D%0Ah1%20%2Eocticon%2Dlink%2C%0Ah2%20%2Eocticon%2Dlink%2C%0Ah3%20%2Eocticon%2Dlink%2C%0Ah4%20%2Eocticon%2Dlink%2C%0Ah5%20%2Eocticon%2Dlink%2C%0Ah6%20%2Eocticon%2Dlink%20%7B%0Acolor%3A%20%23000%3B%0Avertical%2Dalign%3A%20middle%3B%0Avisibility%3A%20hidden%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%2C%0Ah2%3Ahover%20%2Eanchor%2C%0Ah3%3Ahover%20%2Eanchor%2C%0Ah4%3Ahover%20%2Eanchor%2C%0Ah5%3Ahover%20%2Eanchor%2C%0Ah6%3Ahover%20%2Eanchor%20%7B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%20%7B%0Avisibility%3A%20visible%3B%0A%7D%0Ah1%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%202%2E25em%3B%0Aline%2Dheight%3A%201%2E2%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah1%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah2%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%201%2E75em%3B%0Aline%2Dheight%3A%201%2E225%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah2%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%201%2E5em%3B%0Aline%2Dheight%3A%201%2E43%3B%0A%7D%0Ah3%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%201%2E25em%3B%0A%7D%0Ah4%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ah5%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%201em%3B%0Acolor%3A%20%23777%3B%0A%7D%0Ah6%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ap%2C%0Ablockquote%2C%0Aul%2C%0Aol%2C%0Adl%2C%0Atable%2C%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%204px%3B%0Apadding%3A%200%3B%0Amargin%3A%2016px%200%3B%0Abackground%2Dcolor%3A%20%23e7e7e7%3B%0Aborder%3A%200%20none%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%2Dleft%3A%202em%3B%0A%7D%0Aul%20ul%2C%0Aul%20ol%2C%0Aol%20ol%2C%0Aol%20ul%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Ali%3Ep%20%7B%0Amargin%2Dtop%3A%2016px%3B%0A%7D%0Adl%20%7B%0Apadding%3A%200%3B%0A%7D%0Adl%20dt%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%2016px%3B%0Afont%2Dsize%3A%201em%3B%0Afont%2Dstyle%3A%20italic%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Adl%20dd%20%7B%0Apadding%3A%200%2016px%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ablockquote%20%7B%0Apadding%3A%200%2015px%3B%0Acolor%3A%20%23777%3B%0Aborder%2Dleft%3A%204px%20solid%20%23ddd%3B%0A%7D%0Ablockquote%3E%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Ablockquote%3E%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Atable%20%7B%0Adisplay%3A%20block%3B%0Awidth%3A%20100%25%3B%0Aoverflow%3A%20auto%3B%0Aword%2Dbreak%3A%20normal%3B%0Aword%2Dbreak%3A%20keep%2Dall%3B%0A%7D%0Atable%20th%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Atable%20th%2C%0Atable%20td%20%7B%0Apadding%3A%206px%2013px%3B%0Aborder%3A%201px%20solid%20%23ddd%3B%0A%7D%0Atable%20tr%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Aborder%2Dtop%3A%201px%20solid%20%23ccc%3B%0A%7D%0Atable%20tr%3Anth%2Dchild%282n%29%20%7B%0Abackground%2Dcolor%3A%20%23f8f8f8%3B%0A%7D%0Aimg%20%7B%0Amax%2Dwidth%3A%20100%25%3B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Abackground%2Dcolor%3A%20%23fff%3B%0A%7D%0Acode%20%7B%0Apadding%3A%200%3B%0Apadding%2Dtop%3A%200%2E2em%3B%0Apadding%2Dbottom%3A%200%2E2em%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%2085%25%3B%0Abackground%2Dcolor%3A%20rgba%280%2C0%2C0%2C0%2E04%29%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Acode%3Abefore%2C%0Acode%3Aafter%20%7B%0Aletter%2Dspacing%3A%20%2D0%2E2em%3B%0Acontent%3A%20%22%5C00a0%22%3B%0A%7D%0Apre%3Ecode%20%7B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%20100%25%3B%0Aword%2Dbreak%3A%20normal%3B%0Awhite%2Dspace%3A%20pre%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0A%2Ehighlight%20%7B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0A%2Ehighlight%20pre%2C%0Apre%20%7B%0Apadding%3A%2016px%3B%0Aoverflow%3A%20auto%3B%0Afont%2Dsize%3A%2085%25%3B%0Aline%2Dheight%3A%201%2E45%3B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0A%2Ehighlight%20pre%20%7B%0Amargin%2Dbottom%3A%200%3B%0Aword%2Dbreak%3A%20normal%3B%0A%7D%0Apre%20%7B%0Aword%2Dwrap%3A%20normal%3B%0A%7D%0Apre%20code%20%7B%0Adisplay%3A%20inline%3B%0Amax%2Dwidth%3A%20initial%3B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Aoverflow%3A%20initial%3B%0Aline%2Dheight%3A%20inherit%3B%0Aword%2Dwrap%3A%20normal%3B%0Abackground%2Dcolor%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0Apre%20code%3Abefore%2C%0Apre%20code%3Aafter%20%7B%0Acontent%3A%20normal%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%2Dsize%3A%2011px%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Epl%2Dc%20%7B%0Acolor%3A%20%23969896%3B%0A%7D%0A%2Epl%2Dc1%2C%0A%2Epl%2Ds%20%2Epl%2Dv%20%7B%0Acolor%3A%20%230086b3%3B%0A%7D%0A%2Epl%2De%2C%0A%2Epl%2Den%20%7B%0Acolor%3A%20%23795da3%3B%0A%7D%0A%2Epl%2Ds%20%2Epl%2Ds1%2C%0A%2Epl%2Dsmi%20%7B%0Acolor%3A%20%23333%3B%0A%7D%0A%2Epl%2Dent%20%7B%0Acolor%3A%20%2363a35c%3B%0A%7D%0A%2Epl%2Dk%20%7B%0Acolor%3A%20%23a71d5d%3B%0A%7D%0A%2Epl%2Dpds%2C%0A%2Epl%2Ds%2C%0A%2Epl%2Ds%20%2Epl%2Dpse%20%2Epl%2Ds1%2C%0A%2Epl%2Dsr%2C%0A%2Epl%2Dsr%20%2Epl%2Dcce%2C%0A%2Epl%2Dsr%20%2Epl%2Dsra%2C%0A%2Epl%2Dsr%20%2Epl%2Dsre%20%7B%0Acolor%3A%20%23183691%3B%0A%7D%0A%2Epl%2Dv%20%7B%0Acolor%3A%20%23ed6a43%3B%0A%7D%0A%2Epl%2Did%20%7B%0Acolor%3A%20%23b52a1d%3B%0A%7D%0A%2Epl%2Dii%20%7B%0Abackground%2Dcolor%3A%20%23b52a1d%3B%0Acolor%3A%20%23f8f8f8%3B%0A%7D%0A%2Epl%2Dsr%20%2Epl%2Dcce%20%7B%0Acolor%3A%20%2363a35c%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dml%20%7B%0Acolor%3A%20%23693a17%3B%0A%7D%0A%2Epl%2Dmh%2C%0A%2Epl%2Dmh%20%2Epl%2Den%2C%0A%2Epl%2Dms%20%7B%0Acolor%3A%20%231d3e81%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmq%20%7B%0Acolor%3A%20%23008080%3B%0A%7D%0A%2Epl%2Dmi%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%2Epl%2Dmb%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmd%20%7B%0Abackground%2Dcolor%3A%20%23ffecec%3B%0Acolor%3A%20%23bd2c00%3B%0A%7D%0A%2Epl%2Dmi1%20%7B%0Abackground%2Dcolor%3A%20%23eaffea%3B%0Acolor%3A%20%2355a532%3B%0A%7D%0A%2Epl%2Dmdr%20%7B%0Acolor%3A%20%23795da3%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmo%20%7B%0Acolor%3A%20%231d3e81%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%3A%2011px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20%7B%0Alist%2Dstyle%2Dtype%3A%20none%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%2B%2Etask%2Dlist%2Ditem%20%7B%0Amargin%2Dtop%3A%203px%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20input%20%7B%0Amargin%3A%200%200%2E35em%200%2E25em%20%2D1%2E6em%3B%0Avertical%2Dalign%3A%20middle%3B%0A%7D%0A%3Achecked%2B%2Eradio%2Dlabel%20%7B%0Az%2Dindex%3A%201%3B%0Aposition%3A%20relative%3B%0Aborder%2Dcolor%3A%20%234078c0%3B%0A%7D%0A%2EsourceLine%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0Acode%20%2Ekw%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Edt%20%7B%20color%3A%20%23ed6a43%3B%20%7D%0Acode%20%2Edv%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ebn%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Efl%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ech%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Est%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eco%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Eot%20%7B%20color%3A%20%230086b3%3B%20%7D%0Acode%20%2Eal%20%7B%20color%3A%20%23a61717%3B%20%7D%0Acode%20%2Efu%20%7B%20color%3A%20%2363a35c%3B%20%7D%0Acode%20%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%0Acode%20%2Ewa%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ecn%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Esc%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Evs%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Ess%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eim%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eva%20%7Bcolor%3A%20%23008080%3B%20%7D%0Acode%20%2Ecf%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eop%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ebu%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eex%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Epp%20%7B%20color%3A%20%23999999%3B%20%7D%0Acode%20%2Eat%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Edo%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Ean%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ecv%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ein%20%7B%20color%3A%20%23008080%3B%20%7D%0A">
+<style>
+body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+  padding-top: 0px;
 }
 </style>
-
-
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
-
-
-
 
 </head>
 
 <body>
 
-
-<div class="container-fluid main-container">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">GHED Project</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="analysis.html">Exploratory Analysis</a>
-</li>
-<li>
-  <a href="usa.html">Zoom In: USA</a>
-</li>
-<li>
-  <a href="dashboard.html">Dashboard</a>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="report.html">Report</a>
-</li>
-<li>
-  <a href="about.html">About Us</a>
-</li>
-<li>
-  <a href="mailto:&lt;wang.eric@columbia.edu&gt;">
-    <span class="fa fa-envelope fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="http://github.com/ericwanghu/">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
-
-
-
-<h1 class="title toc-ignore">P8105 Final Project</h1>
-
-</div>
-
-
-<div id="data-import" class="section level2">
-<h2>Data Import</h2>
-<pre class="r"><code>ghed_df &lt;- 
-  read_excel(&quot;data/GHED_data.XLSX&quot;)</code></pre>
-<div id="safiyas-section" class="section level3">
-<h3>Safiya’s section</h3>
+<h1 id="p8105-final-project">P8105 Final Project</h1>
+<h2 id="data-import">Data Import</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ghed_df <span class="ot">&lt;-</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_excel</span>(<span class="st">&quot;data/GHED_data.XLSX&quot;</span>)</span></code></pre></div>
+<h3 id="safiyas-section">Safiya’s section</h3>
 <p><strong>Indicators</strong> Primary health care - phc_usd_pc<br />
 Infectious disease - dis1_usd2019<br />
 Noncommunicable disease - dis4_usd2019<br />
@@ -301,193 +39,197 @@ GDP - gdp_pc_usd<br />
 CHE - che_pc_usd</p>
 <p><strong>Primary Health Care Spending</strong></p>
 <p>Primary health care spending by income level (USD per capita)</p>
-<pre class="r"><code>PHC_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(phc_usd_pc) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      avg_phc = mean(phc_usd_pc))
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>PHC_df <span class="ot">&lt;-</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(phc_usd_pc) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">avg_phc =</span> <span class="fu">mean</span>(phc_usd_pc))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>PHC_df <span class="sc">%&gt;%</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_relevel</span>(<span class="fu">as.factor</span>(income_group), <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Low-Mid&quot;</span>, <span class="st">&quot;Up-Mid&quot;</span>, <span class="st">&quot;Hi&quot;</span>)), <span class="at">y =</span> avg_phc,  <span class="at">fill =</span> income_group)) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Primary Health Care Spending&quot;</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Income level&quot;</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average PHC spending (per capita USD)&quot;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
 
-PHC_df %&gt;% 
-  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_phc,  fill = income_group)) +
-  geom_col() +
-  labs(
-    title = &quot;Primary Health Care Spending&quot;,
-    x = &quot;Income level&quot;,
-    y = &quot;Average PHC spending (per capita USD)&quot;
-  ) + 
-  theme(axis.text.x = element_text(angle = 90)) +
-  theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as as proportion of per capita GDP)</p>
-<pre class="r"><code>PHC_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      avg_phc = mean(phc_usd_pc / gdp_pc_usd))
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>PHC_df <span class="ot">&lt;-</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(phc_usd_pc, gdp_pc_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">avg_phc =</span> <span class="fu">mean</span>(phc_usd_pc <span class="sc">/</span> gdp_pc_usd))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>PHC_df <span class="sc">%&gt;%</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_relevel</span>(<span class="fu">as.factor</span>(income_group), <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Low-Mid&quot;</span>, <span class="st">&quot;Up-Mid&quot;</span>, <span class="st">&quot;Hi&quot;</span>)), <span class="at">y =</span> avg_phc,  <span class="at">fill =</span> income_group)) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Primary Health Care Spending&quot;</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Income level&quot;</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average PHC spending (as proportion of </span><span class="sc">\n</span><span class="st"> per capita GDP)&quot;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
 
-PHC_df %&gt;% 
-  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_phc,  fill = income_group)) +
-  geom_col() +
-  labs(
-    title = &quot;Primary Health Care Spending&quot;,
-    x = &quot;Income level&quot;,
-    y = &quot;Average PHC spending (as proportion of \n per capita GDP)&quot;
-  ) + 
-  theme(axis.text.x = element_text(angle = 90)) +
-  theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as a proportion of per capita health expenditure)</p>
-<pre class="r"><code>PHC_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      avg_phc = mean(phc_usd_pc / che_pc_usd))
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>PHC_df <span class="ot">&lt;-</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(phc_usd_pc, gdp_pc_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">avg_phc =</span> <span class="fu">mean</span>(phc_usd_pc <span class="sc">/</span> che_pc_usd))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>PHC_df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_relevel</span>(<span class="fu">as.factor</span>(income_group), <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Low-Mid&quot;</span>, <span class="st">&quot;Up-Mid&quot;</span>, <span class="st">&quot;Hi&quot;</span>)), <span class="at">y =</span> avg_phc,  <span class="at">fill =</span> income_group)) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Primary Health Care Spending&quot;</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Income level&quot;</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average PHC spending (as proportion of </span><span class="sc">\n</span><span class="st"> per capita health expenditure)&quot;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
 
-PHC_df %&gt;% 
-  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_phc,  fill = income_group)) +
-  geom_col() +
-  labs(
-    title = &quot;Primary Health Care Spending&quot;,
-    x = &quot;Income level&quot;,
-    y = &quot;Average PHC spending (as proportion of \n per capita health expenditure)&quot;
-  ) + 
-  theme(axis.text.x = element_text(angle = 90)) +
-  theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
 <p><strong>Preventive vs. Curative Spending</strong></p>
 <p>Primary health care spending by income level (USD per capita)</p>
-<pre class="r"><code>prev_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(hc6_usd) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      `Preventive` = mean(hc6_usd2019))
-
-cur_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(hc1_usd) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      `Curative` = mean(hc1_usd2019))
-
-prev_cur_df &lt;-
-  left_join(prev_df, cur_df) %&gt;% 
-  pivot_longer(
-    `Preventive`:`Curative`,
-    names_to = &quot;Type of Spending&quot;,
-    values_to = &quot;avg_spend&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>prev_df <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(hc6_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Preventive</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc6_usd2019))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>cur_df <span class="ot">&lt;-</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(hc1_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Curative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc1_usd2019))</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>prev_cur_df <span class="ot">&lt;-</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(prev_df, cur_df) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Preventive</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">Curative</span><span class="st">`</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;Type of Spending&quot;</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;avg_spend&quot;</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## Joining, by = c(&quot;income_group&quot;, &quot;n_countries&quot;)</code></pre>
-<pre class="r"><code>prev_cur_df %&gt;% 
-  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_spend, fill = `Type of Spending`)) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
-  labs(
-    title = &quot;Preventive vs. Curative Spending&quot;,
-    x = &quot;Income level&quot;,
-    y = &quot;Average spending \n (million USD)&quot;
-  ) + 
-  theme(axis.text.x = element_text(angle = 90))</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>prev_cur_df <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_relevel</span>(<span class="fu">as.factor</span>(income_group), <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Low-Mid&quot;</span>, <span class="st">&quot;Up-Mid&quot;</span>, <span class="st">&quot;Hi&quot;</span>)), <span class="at">y =</span> avg_spend, <span class="at">fill =</span> <span class="st">`</span><span class="at">Type of Spending</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Preventive vs. Curative Spending&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Income level&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average spending </span><span class="sc">\n</span><span class="st"> (million USD)&quot;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkAAAAFZCAMAAABHdWDKAAABQVBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZpAAZrYzMzM6AAA6ADo6AGY6OgA6OmY6OpA6ZmY6ZpA6ZrY6kJA6kLY6kNtEAVRNTU1NTW5NTY5NbqtNjshmAABmADpmAGZmOgBmOjpmOmZmZmZmkJBmkLZmkNtmtpBmtttmtv9uTU1uTW5uTY5ubqtuq+SOTU2OTW6OTY6OyP+QOgCQOjqQZgCQZjqQZmaQkGaQkLaQtpCQtraQttuQ27aQ2/+rbk2rbm6rbo6ryKur5P+2ZgC2Zjq2Zma2kDq2kGa2tpC2ttu225C229u22/+2/9u2///Ijk3I/8jI///bkDrbkGbbtmbbtpDb25Db27bb29vb2//b/7bb/9vb///kq27k///r6+v95yX/tmb/trb/yI7/25D/27b/5Kv//7b//8j//9v//+T///9KyyozAAAACXBIWXMAAA7DAAAOwwHHb6hkAAATnUlEQVR4nO2dj5/cRBmHc/3huRQL1eUAF6qCcqit3AJiraCyigjlzoYiP3oF1i7d2+b//wOcmWSSSTaZTfImk3c23+ej3G0uyXe78+zMJJt9E0QAEAiGfgLAbyAQIAGBAAkIBEhAIEACAgESEAiQgECARJ8ChYHiyt2mG65+eRpt5lfPW+Zu/vVsEFx+g5oR7+b1ms9iMz+kPGdvcSBQEBw33fASRaDVJE69QcvYzOPd1HwaEKh7ZBsJHtRtg+KG7VjPghtfR9F/b9q93ZmxDK7ei6If5jX1lwKNEQcCRYtLp+LlDYNL96IfbgbBT+7pP61n4kXXi8Tb9+Nng4Nfx2/9qXw3l6xl7Fgu37wbBAf5wSoMpurnanL1PO4S4s4hfgIPxLBUKyMKD96Pkr+sZ9PlJLiiHm89XcED8cdPkx6osPzg9T0Xy5lAlyeiI4pHF9Eyq4l8Xy/FuztdpIeM46xxS9ZSpMuTbcw+YjPXXctXUWQKpJ5AWDtDLJrqfa5nz02SP20/3WSovnJTC5RfHgQQqC3pECZfWtkcm7nsLb6Y6NmCMitbFByeixf9MJuflKylSJevJjfORZuaTaT6Eo0pUPwERCcUb7ArI4r+ERw89+ev432Kp7b5SP07tp/uenZwVw51qUBby/cZF5No9X6VMq0m6k0t204OELKts0XxKqr90wnu9lrJntPll1/7NB9aKVCy7Vcf/3ES1MmIoi/fncQD5HqmZnHK2O2nGy9bTbRAenncheX13j8cCJTMGM7lqJAaJV91OW5ki7LGzhp3e614z3p5tJBLn79nhFYKpBxIjtDqZMQ7+OIXQoNkn0K1sqernkgaki2PJ1H7Prl2MQeKSgSSC8Q7eodA22tlu1uovX8h5rSBeUCVzYE+f/5eUSAxFj33p39/M6uTYTxzCFSNU4HiCWvyx4O/yGbJFpUJtL1WfmvFl+/kZtH6KGw9E3tZ6PHEfAK5OVBVRjJsqYEr/l2qWfZ04yFMh5hiYQijsSWQmILeladW4vnQr2S7Z4tMgZIuqmStZH/J8mXwM9GFfJTrNLLzQFM5xKlD9kwgMcEVB+LJ1MeasVBD4+bBRPZAIkdPoreerpgsv5GF5JZjEk1iSyA9TEzVknjkSReZAiWH2CVrpftTy5NjZrHmMuuF9JnoQ72dPsLOnV3emSGs0UPaenZ5koyUZU83F5L/Z+AwnsK2QNHqZvopVZi8snqR8cqvbwaHD+Mtimul+46XqxOJN84jU6DoB3n0lKz8+SR4/mE2iZanAa/clQPb7gz1WdiB7IbE8LScJHP1kqcrJ2JXPtuaA8UnEn8zg0CjZ02QYD2b7l7JYyBQDdoJtJr8SEzQFo0/SvYLCFSDdgJlE7R9BgLVoOUQlk7Q9hkIBEhAIEACAgESEAiQgECABAQCJHoU6Mdgn3EgUAf7+K6DfSCxj8RWAj353f0ourh99PK39h/5CAp+vrhjSGwj0OOjl+5HTz84iR793PqjEEHBzxd3DIktBDp78e+iB7p4677siWw/ChEU/Hxxx5DYegh78vtvo4s/fGj7ESUT6O/A/tJaoMcvK0lsPwqOUvDz3TmGxJ57IDOCgp8v7hgSWwuEORCzxBeaM6hATz+4FR9wVf8oRFDwrjndJ/omEM4DMUv0SaB2ERS8a073iRDIhnfN6T4RAtnwrjndJ0IgG941p/tECGTDu+Z0nwiBbHjXnO4TIZAN75rTfSIEsuFdc7pPhEA2vGtO94kQyIZ3zek+EQLZ8K453SdCIBveNaf7RAhkw7vmdJ8IgWx415zuEyGQDe+a033iHgs09HXf46CNQB2AHmhfEve4B+pgH941p/tECGTDu+Z0nwiBbHjXnO4TIZAN75rTfSIEsuFdc7pPhEA2vGtO94kQyIZ3zek+kZFA+gZHHd2hCAI5SWQkUHx/pvVs2s1tGiGQk0RGAq1n6sYyy0unS/MupNQICt41p/tECGTDu+Z0n8hIoHQIi8Iu7lEEgZwkchIovvvncXLD6q4iKHjXnO4TWQnUKRDISSIEsuFdc7pP5CRQcsPsLmbQEQRylMhIoFqnfx4dSU7Uz5fuo0LZ4ImMBEoO43cjy/mencjfUKl+8ERGAm3m9QSSlXyf/lVV80WV1sETGQkUFc8fhvEnY9PCtrKTEYOVHMhQqX5w2gjUAbYPU2ONxKOp9ih3Xkgp8uS3qhdCpfrBEzn1QCbrV08rHjxO58lnJ6hUP3giV4GqObuV/naCOdDgiVwEEodg+SGsinj6LLuhp3+7j0r1gydyEagE9clYUDwyS8aoR0dHL36ISvXDJ7IVaDNXPdF61vaTeQjkJJGLQNn1rMkQpi/p2MyLh/ENIyh415zuE7kIJEmuB1KDVnZWse3FQRDISSIjgbIrEiPzc422lydCICeJEMiGd83pPpGRQNklrREE8iaRk0D6klYJBPIkkZVABltHZa0jKHjXnO4TuQrUXQQF75rTfSIngXBJq4eJjAQqXNIqv9wjB7KW5xEhkJtERgLlL2ldCn+kUslRWfsICt41p/tERgLlLmlVn2CsJsc4E808kZFAuQN21R3JXgiH8bwTGQmUux5ICaQ6HwjEOpGRQDnkeBbPqhdth7Aurt0Gu2gjUAfsPg8keh81BVpuXVJWV6B2m+Xwrj9wn8iqBwqD4DidMy/kEfxm3rpSBwRykshJoMXVb2bH3dS3iyCQo0RGAqnr6o9bT5qrIih415zuE7kKlH6Y2lonCOQkkZFAYt78jXQof+Z52XYSBIGcJHISKL4eqPjJxaLlnAgCOUlkJVApOJHIOhEC2fCuOd0nshIoLPsqKgRinchJIPOi+gzMgVgnMhIo97WeFByF8U7kKlB6HggfZfBOZCRQ3Nm0vgKxKoKCd83pPpGRQPRv8pRGUPCuOd0nMhKoYyCQk0QIZMO75nSfyEmguMzdjuHLVqIeFcrcJ3ISaHEoTwWF9vM+lhL1qFQ/QCIjgdbx1WTZeaCyb6raStSjSusAibwEksfwqUCl1ybaStSjUv0AtBGoA8q/WDiVZ4LSjy5Kb75iK1GPSvUDJDLqgeSQdWh8i6f65isVJepRqX6ARE4CFan8HL6iRD3mQAMkMhaotHK9rUQ9KtUPkMhYoHJsJepxHsh9oncCNY6g4F1zuk9kLVBYdpF90wgK3jWn+0TOApVfodg0goJ3zek+kZVAue/GV1yh2DiCgnfN6T6Rk0CF78ZDIB8SGQm09d14DGEeJHIWCJNoDxIZCVT+3XhyBAXvmtN9IieByr8bT42g4F1zuk9kJZBB7Zvw7oyg4F1zuk/kKlB3ERS8a073iYwEyr7W00mROwjkJJGRQOlhe3yHA9zuyYtERgJlJw47KZMIgZwkQiAb3jWn+0RGAmVnnsOr5x0MYV1cuw120UagDrDeMzVsXZEjJ1AH+/CuP3CfyKkH6hYI5CSRq0A4kehJIieBcM9UDxMZCbSZTzfz49KvE1IiKHjXnO4TGQkk1VlMo2V6SSKtR4JAThKZCRQe7vhufPMICt41p/tERgLJb8ULe9KLoomDGQRykshJIHmn5kVWlrX6u/GNIiigORkmKmjfjW8UQQECMUxU7LxvvAST6MaMWqDinEeOaB1EUIBADBMVFRfV527wjUl0c0YtUPGjC0yimzNqgbZYXcMkuiEQyAAfpjZn5ALliyt0FEEBAjFMVNQprlDOkzdlmV9rwfp8BAUIxDBRsfu+8a8aA5fxQFZhlaV+LQXrCxEUIBDDRMXu4gpiBpQchIXmTeceS0HOTmwF6wsRFCAQw0RFreIKi3gSvXU6UfRCtoL10Ygr1bdpTt8SFZTiCrKar61gfcFRCuiBGCYqCBfVX9y+lfxWUbC+EEEBAjFMVLQX6MmbJ/rXioL1hQgKEIhhoqJ8El3jw9PEH1vB+kIEBQjEMFFRPolWXyu0I8//yOmzrWB9PoICBGKYqKgawhaEG8VXRFCAQAwTFZY50ALfC2vP6AVadPa9Qgg0PoE6HL8iCDQ+gTr7Tmo+ggIEYpiosJ0H+ifmQK2BQOsZiisQGLtAdc4ENY2gAIEYJioqL6rvpMJvLoICBGKYqNgWKFSHYAsIRGK8AiWHYBCItvl4BVLXAh1DIO+ak41A8ouEmANBoJpUHIUtcRRG23zsAqluCOeB2gOBBP/rSKAurt32jTbN6VuiAoXG+0ls05y+JSogUD+JEKg7IBAE6iSCAgRimKiAQP0kQqDugEAQqJMIChCIYaICAvWTCIG6AwJBoE4iKEAghokKCNRPIgTqDggEgTqJoACB+kj8vjlbsRCon0QI1B0MBPKiOSFQBRDISXO6T1RAoAog0JACcatQ1uLFhUADCsSuUn2LFxcCDSgQuyqtLV5cCDSgQKhUPx56EQiV6seT2HMPZEZQ8PPFHUPiOOZASOwtsaejsNFXqh9N4jjOAyGxt8RxnIlGYm+JEAiJJCAQEkm4EAjsM/0L1AVd9GJI7DMRAiGRBHOBAHcgECABgQAJCARIQKAiF7ePYl66v3tlAIFKOLsl/pN9KgwsQKBt5FUp+r9gBxBoG3lViuiBsusKesbrQRMClfD0A9GaTkcwfwdNCMQBjwdNCMQB14Nmh0CgIhdv/ee28xmJ+0GzKyAQIAGBAAkINDyDDJpdwV+gi9tu5wZqOuJrc7qHv0BR9Pjo6MUPd6/WFY+Ojm65S/MdHwSKZLfgtD8QDkGievgg0DDNeeZMWa8HTf4CuZ4DSc5Ea564i/N50OQvkJoDuXyBHzmVJwv1UyIfBJI8GsGA4m7Q7PDEgQ8CPXnT03dnAxwPmt3BX6CL2z5+xtiIQQbNjuAv0DA8ctjluR80O7yEzQOB1OvruhdyKdAwPO7mJeUv0DDXykCgmvAXyP3VekOceXKv7GgEGqIHcvzpmwIC9cUgcyDXn75BoL3C2/PCNRnXUZhiz+dAuCa6b9x+5cXxp296nuejQRCoCnefvuF7YQ5w++I6//RNdT7ogXrE7RzI9TGfx9+O5y6Qxy/tOOAu0CAMc+bJTyDQNkOVd/FxCgSBShjomCj21jcg0DZD1cqQN3z0DghUwkBzIJwHAiTQA+0VmAPVAgJV4U4gHIXtJV7OSNwDgaqAQLWAQFVAoFpAoCL49K0REAiQgECABAQCJCAQIAGBAAkIBEhAoB2snnm/w23a7I03EGgHEMgOBNoBBLIDgXYgmnz1zJ1JEBxH0WYeBIdR+jNePl1lf7x0qrdJHm7mU/E4lL+ov0Kg0SEFmlw9jyU4jNaz40j+lP+PlwfZH6NQ/B5vox/KJcIi/RACjQ4l0HHSE8Wtv5QdjfhPvDz5o1oo9YpyD+U2hYf7BQTagRZHWyBYyn7GWK7+EwaKabKNfijHMNkRJQ8h0OioLVA8eult0ofLqw9jh/RfnP8L+gUC7cAQJR3CDt6PhzBTILUw2yZ9uH7lzrXTSD+EQKPDEEhPntNJtCnQZi46mcST3MOFPGDTDyHQ6DCHqq3DeEMgtdDoZ9KHS3mMrx9CIAByQCBAAgIBEhAIkIBAgAQEAiQgECABgQAJCARIQCBAAgIBEhAIkIBAgAQEAiQgECABgQAJCARIQCBAAgIBEhAIkIBAgAQEAiQgECABgQAJCARIQKDGvFAGaY/fl9HRs+0bCNQYCGQCgRoDgUwgUGMgkAkEagwEMoFAjYFAJr4KJOvtKA7rrB3qyj2yVuHBrhI9uvhYBRDIxFeBJLWrNSXFU1XBZl3xyYKuhVjBDoGWwlGjXqLxdK+div+V7dEukKxDnVTvtFC9934ZhUB6xc1cqbMobd8MkkDK0dKE6vbdIZDcbv3Kjn/rIPZE+yDQQg5i4eHqmffid75RMT6pRSffwofxw2m6aX7ttBj9ehYcvKeGsNyiO0bzWAWKG1qYKhtU9go/uSkLSosdid1c+uTaJ9fPo83b78sH2R5rCCT3KHelNlyZO1ldf8e+937xXyDZX8iXdxJXizcrxueqYUqWeigorq2L0a9nUyFMLFBhURprFWip+x4t0ORYSRWPMKtrn70tfr9+vpgK59M91hBI1ztXG27MnawmU5lavfd+8V8gOcFJWqpYMT4tKZ+NdWE87y6unXscJgLlF6WxdoF0w2mBkq5r/Wos0GkoGncqlRJL9EZ15kDqHxklG5o7yYIq9t4v/gsk32xh0ssIFcyK8bmK4CnrWXLPCmPtXLlw2RZZbVa9KN3eKpAcXeJfTIEWcpxMWvn6QzXGmEeDNXqg5GeyobmTnEBle++XPRBI9NxicpwqYcxfywVKlxhrdybQ1hxItfpx1sSbt+9cPy/0Dw0Eijc0d5ITqGzv/bIHAm3mr8nXUI04107NivG5kvLZBun4lK2du5vB8pIpkF6U7rXeUZg0KbykBxiVGesUyt5xMc1mS00E0hsaO8kJVLb3ftkDgcSLdmhOi7OK8VuT6IVcHt+pKb+2tmU9O0wn0emiJpPo7DyQGB1/Gs9Q5K9Xbh5v5uI46VR3leYY00CgZENjJ4lA1Xvvl30QKJnuvpeVkdcvn1lSXhEm86Pi2mm9efMwPr8ojd0hUAvsAvHGZ4E0+ji3ySYNbzlgjggQyGQfBArlIVdvAsnhUJ0u0kAgE/8FUif8+uyBwsJHthDIxH+BnAOBTCAQIAGBAAkIBEhAIEACAgESEAiQgECABAQCJCAQIAGBAAkIBEhAIEACAgESEAiQgECABAQCJP4P+26vmL/gkVYAAAAASUVORK5CYII=" width="90%" />
+
 <p>Primary health care spending by income level (as as proportion of GDP)</p>
-<pre class="r"><code>prev_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(hc6_usd, gdp_pc_usd) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      `Preventive` = mean(hc6_usd2019 / gdp_usd2019))
-
-cur_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(hc1_usd, gdp_pc_usd) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      `Curative` = mean(hc1_usd2019 / gdp_usd2019))
-
-prev_cur_df &lt;-
-  left_join(prev_df, cur_df) %&gt;% 
-  pivot_longer(
-    `Preventive`:`Curative`,
-    names_to = &quot;Type of Spending&quot;,
-    values_to = &quot;avg_spend&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>prev_df <span class="ot">&lt;-</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(hc6_usd, gdp_pc_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Preventive</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc6_usd2019 <span class="sc">/</span> gdp_usd2019))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>cur_df <span class="ot">&lt;-</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(hc1_usd, gdp_pc_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Curative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc1_usd2019 <span class="sc">/</span> gdp_usd2019))</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>prev_cur_df <span class="ot">&lt;-</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(prev_df, cur_df) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Preventive</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">Curative</span><span class="st">`</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;Type of Spending&quot;</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;avg_spend&quot;</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## Joining, by = c(&quot;income_group&quot;, &quot;n_countries&quot;)</code></pre>
-<pre class="r"><code>prev_cur_df %&gt;%
-  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_spend, fill = `Type of Spending`)) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
-  labs(
-    title = &quot;Preventive vs. Curative Spending&quot;,
-    x = &quot;Income level&quot;,
-    y = &quot;Average spending (as proportion \n of GDP)&quot;
-  ) + 
-  theme(axis.text.x = element_text(angle = 90))</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-6-1.png" width="90%" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prev_cur_df <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_relevel</span>(<span class="fu">as.factor</span>(income_group), <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Low-Mid&quot;</span>, <span class="st">&quot;Up-Mid&quot;</span>, <span class="st">&quot;Hi&quot;</span>)), <span class="at">y =</span> avg_spend, <span class="at">fill =</span> <span class="st">`</span><span class="at">Type of Spending</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Preventive vs. Curative Spending&quot;</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Income level&quot;</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average spending (as proportion </span><span class="sc">\n</span><span class="st"> of GDP)&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
+
 <p>Primary health care spending by income level (as proportion of health expenditure)</p>
-<pre class="r"><code>prev_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(hc6_usd, gdp_pc_usd) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      `Preventive` = mean(hc6_usd2019 / che_usd2019))
-
-cur_df &lt;-
-  ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(hc1_usd, gdp_pc_usd) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      `Curative` = mean(hc1_usd2019 / che_usd2019))
-
-prev_cur_df &lt;-
-  left_join(prev_df, cur_df) %&gt;% 
-  pivot_longer(
-    `Preventive`:`Curative`,
-    names_to = &quot;Type of Spending&quot;,
-    values_to = &quot;avg_spend&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prev_df <span class="ot">&lt;-</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(hc6_usd, gdp_pc_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Preventive</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc6_usd2019 <span class="sc">/</span> che_usd2019))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>cur_df <span class="ot">&lt;-</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(hc1_usd, gdp_pc_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(income_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Curative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc1_usd2019 <span class="sc">/</span> che_usd2019))</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>prev_cur_df <span class="ot">&lt;-</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(prev_df, cur_df) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Preventive</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">Curative</span><span class="st">`</span>,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;Type of Spending&quot;</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;avg_spend&quot;</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## Joining, by = c(&quot;income_group&quot;, &quot;n_countries&quot;)</code></pre>
-<pre class="r"><code>prev_cur_df %&gt;%
-  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_spend, fill = `Type of Spending`)) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
-  labs(
-    title = &quot;Preventive vs. Curative Spending&quot;,
-    x = &quot;Income level&quot;,
-    y = &quot;Average spending (as proportion \n of total health expenditure)&quot;
-  ) + 
-  theme(axis.text.x = element_text(angle = 90))</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-7-1.png" width="90%" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>prev_cur_df <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_relevel</span>(<span class="fu">as.factor</span>(income_group), <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Low-Mid&quot;</span>, <span class="st">&quot;Up-Mid&quot;</span>, <span class="st">&quot;Hi&quot;</span>)), <span class="at">y =</span> avg_spend, <span class="at">fill =</span> <span class="st">`</span><span class="at">Type of Spending</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Preventive vs. Curative Spending&quot;</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Income level&quot;</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average spending (as proportion </span><span class="sc">\n</span><span class="st"> of total health expenditure)&quot;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
+
 <p><strong>Infectious vs. Non-communicable Diseases</strong></p>
-</div>
-<div id="ragyies-section" class="section level3">
-<h3>Ragyie’s section</h3>
+<h3 id="ragyies-section">Ragyie’s section</h3>
 <p><strong>Indicators for analysis</strong></p>
 <ul>
 <li>Curative care, in million constant (2019) US$ —&gt; hc1_usd2019</li>
@@ -495,8 +237,7 @@ prev_cur_df &lt;-
 <li>Infectious and Parasitic Diseases, in million constant (2019) US$ —&gt; dis1_usd2019</li>
 <li>Noncommunicable Diseases (NCDs), in million constant (2019) US$ —&gt; dis4_usd2019</li>
 <li>Primary Health Care (PHC) Expenditure per Capita in US$ —&gt; phc_usd_pc</li>
-<li>GDP - gdp_pc_usd<br />
-</li>
+<li>GDP - gdp_pc_usd</li>
 <li>CHE - che_pc_usd</li>
 <li>che_usd2019</li>
 <li>gdp_usd2019</li>
@@ -505,206 +246,163 @@ prev_cur_df &lt;-
 <p>Will compare and plot the average in 2019 of spending in categories of interest for each WHO region</p>
 <p><strong>Primary health care</strong>:</p>
 <p>Average primary health care expenditure for each WHO region in million constant USD$</p>
-<pre class="r"><code>phc_ghed = 
-  ghed_df %&gt;% 
-  janitor::clean_names() %&gt;% 
-  filter(year == 2019) %&gt;% 
-  drop_na(phc_usd_pc) %&gt;% 
-  group_by(region_who) %&gt;% 
-  summarize(
-    n_countries = n(),
-    avg_primary = mean(phc_usd_pc)
-  )</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>phc_ghed <span class="ot">=</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(phc_usd_pc) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region_who) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_primary =</span> <span class="fu">mean</span>(phc_usd_pc)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Barplot: Primary health care expenditure in million constant USD$</p>
-<pre class="r"><code>phc_ghed %&gt;%   
-  ggplot(aes(x = reorder(region_who, avg_primary), y = avg_primary, fill = region_who)) + 
-  geom_bar(stat = &quot;Identity&quot;) + 
-  labs(
-    title = &quot;Primary health care spending by WHO region&quot;, 
-    x = &quot;WHO region&quot;, 
-    y = &quot;Average PHC spending in million constant USD$&quot;
-  ) + 
-  theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/avg_phc_plot-1.png" width="90%" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>phc_ghed <span class="sc">%&gt;%</span>   </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region_who, avg_primary), <span class="at">y =</span> avg_primary, <span class="at">fill =</span> region_who)) <span class="sc">+</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;Identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Primary health care spending by WHO region&quot;</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;WHO region&quot;</span>, </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average PHC spending in million constant USD$&quot;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
+
 <p>Average primary health care expenditure for each WHO region with spending as a percent of GDP</p>
 <p>To see how much different WHO regions are spending with regards to what resources they actually have</p>
-<pre class="r"><code>phc_gdp_ghed =
-  ghed_df %&gt;% 
-  janitor::clean_names() %&gt;% 
-  filter(year == 2019) %&gt;% 
-  drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
-  group_by(region_who) %&gt;% 
-  summarize(
-    n_countries = n(),
-    avg_primary_gdp = mean(phc_usd_pc / gdp_pc_usd)
-  )</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>phc_gdp_ghed <span class="ot">=</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(phc_usd_pc, gdp_pc_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region_who) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_primary_gdp =</span> <span class="fu">mean</span>(phc_usd_pc <span class="sc">/</span> gdp_pc_usd)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Barplot: Primary health care expenditure with spending as a percent of GDP</p>
-<pre class="r"><code>phc_gdp_ghed %&gt;%   
-  ggplot(aes(x = reorder(region_who, avg_primary_gdp), y = avg_primary_gdp, fill = region_who)) + 
-  geom_bar(stat = &quot;Identity&quot;) + 
-  labs(
-    title = &quot;Primary health care spending by WHO region&quot;, 
-    x = &quot;WHO region&quot;, 
-    y = &quot;Average PHC spending per capita GDP&quot;
-  ) + 
-  theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/phc_gdp_plot-1.png" width="90%" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>phc_gdp_ghed <span class="sc">%&gt;%</span>   </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region_who, avg_primary_gdp), <span class="at">y =</span> avg_primary_gdp, <span class="at">fill =</span> region_who)) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;Identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Primary health care spending by WHO region&quot;</span>, </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;WHO region&quot;</span>, </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average PHC spending per capita GDP&quot;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
+
 <p>Average primary health care expenditure for each WHO region with spending as a percentage of current health expenditure</p>
 <p>To investigate how much of health spending goes toward each category for each WHO region</p>
-<pre class="r"><code>phc_che_ghed =
-  ghed_df %&gt;% 
-  janitor::clean_names() %&gt;% 
-  filter(year == 2019) %&gt;% 
-  drop_na(phc_usd_pc, che_pc_usd) %&gt;% 
-  group_by(region_who) %&gt;% 
-  summarize(
-    n_countries = n(),
-    avg_primary_che = mean(phc_usd_pc / che_pc_usd)
-  )</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>phc_che_ghed <span class="ot">=</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(phc_usd_pc, che_pc_usd) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region_who) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_primary_che =</span> <span class="fu">mean</span>(phc_usd_pc <span class="sc">/</span> che_pc_usd)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Barplot: Primary health care expenditure with spending as a percent of current health expenditure</p>
-<pre class="r"><code>phc_che_ghed %&gt;%   
-  ggplot(aes(x = reorder(region_who, avg_primary_che), y = avg_primary_che, fill = region_who)) + 
-  geom_bar(stat = &quot;Identity&quot;) + 
-  labs(
-    title = &quot;Primary health care spending by WHO region&quot;, 
-    x = &quot;WHO region&quot;, 
-    y = &quot;Average PHC spending per capita health expenditure&quot;
-  ) + 
-  theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/phc_che_plot-1.png" width="90%" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>phc_che_ghed <span class="sc">%&gt;%</span>   </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region_who, avg_primary_che), <span class="at">y =</span> avg_primary_che, <span class="at">fill =</span> region_who)) <span class="sc">+</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;Identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Primary health care spending by WHO region&quot;</span>, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;WHO region&quot;</span>, </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average PHC spending per capita health expenditure&quot;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
+
 <p><strong>Curative care vs. preventative care</strong></p>
 <p>Comparing average curative expenditure and average preventative expenditure for each WHO region</p>
 <p>Average curative and preventative health care expenditure for each WHO region in million constant USD$</p>
-<pre class="r"><code>cp_df = 
-  ghed_df %&gt;% 
-  janitor::clean_names() %&gt;% 
-  filter(year == 2019) %&gt;% 
-  drop_na(hc1_usd2019, hc6_usd2019) %&gt;% 
-  group_by(region_who) %&gt;% 
-  summarize(
-    n_countries = n(),
-    `Curative` = mean(hc1_usd2019),
-    `Preventative` = mean(hc6_usd2019)
-  ) %&gt;% 
-  pivot_longer(
-    `Curative`:`Preventative`,
-    names_to = &quot;spending_type&quot;, 
-    values_to = &quot;average_spending&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cp_df <span class="ot">=</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(hc1_usd2019, hc6_usd2019) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region_who) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Curative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc1_usd2019),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Preventative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc6_usd2019)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Curative</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">Preventative</span><span class="st">`</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;spending_type&quot;</span>, </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;average_spending&quot;</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Barplot: Average curative vs. preventative health care expenditure for each WHO region in million constant USD$</p>
-<pre class="r"><code>cp_df %&gt;% 
-  ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = spending_type)) + 
-  geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
-  labs(
-    title = &quot;Average curative vs. preventative spending by WHO region&quot;, 
-    x = &quot;WHO region&quot;, 
-    y = &quot;Average spending in million constant USD$&quot;
-  ) </code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/avg_cp_plot-1.png" width="90%" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cp_df <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region_who, average_spending), <span class="at">y =</span> average_spending, <span class="at">fill =</span> spending_type)) <span class="sc">+</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;Identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;Dodge&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Average curative vs. preventative spending by WHO region&quot;</span>, </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;WHO region&quot;</span>, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average spending in million constant USD$&quot;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
+
 <p>Average curative vs. preventative expenditure for each WHO region with spending as a percent of GDP</p>
-<pre class="r"><code>cp_gdp_df = 
-  ghed_df %&gt;% 
-  janitor::clean_names() %&gt;% 
-  filter(year == 2019) %&gt;% 
-  drop_na(hc1_usd2019, hc6_usd2019, gdp_usd2019) %&gt;% 
-  group_by(region_who) %&gt;% 
-  summarize(
-    n_countries = n(),
-    `Curative` = mean(hc1_usd2019 / gdp_usd2019),
-    `Preventative` = mean(hc6_usd2019 / gdp_usd2019)
-  ) %&gt;% 
-  pivot_longer(
-    `Curative`:`Preventative`,
-    names_to = &quot;spending_type&quot;, 
-    values_to = &quot;average_spending&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cp_gdp_df <span class="ot">=</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(hc1_usd2019, hc6_usd2019, gdp_usd2019) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region_who) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Curative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc1_usd2019 <span class="sc">/</span> gdp_usd2019),</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Preventative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc6_usd2019 <span class="sc">/</span> gdp_usd2019)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Curative</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">Preventative</span><span class="st">`</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;spending_type&quot;</span>, </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;average_spending&quot;</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Barplot: Curative vs. preventative expenditure with spending as a percent of GDP</p>
-<pre class="r"><code>cp_gdp_df %&gt;% 
-  ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = spending_type)) + 
-  geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
-  labs(
-    title = &quot;Average curative vs. preventative spending by WHO region&quot;, 
-    x = &quot;WHO region&quot;, 
-    y = &quot;Average spending per capita GDP&quot;
-  ) </code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/cp_gdp_plot-1.png" width="90%" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cp_gdp_df <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region_who, average_spending), <span class="at">y =</span> average_spending, <span class="at">fill =</span> spending_type)) <span class="sc">+</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;Identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;Dodge&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Average curative vs. preventative spending by WHO region&quot;</span>, </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;WHO region&quot;</span>, </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average spending per capita GDP&quot;</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
+
 <p>Average curative vs. preventative expenditure for each WHO region with spending as a percentage of current health expenditure</p>
-<pre class="r"><code>cp_che_df = 
-  ghed_df %&gt;% 
-  janitor::clean_names() %&gt;% 
-  filter(year == 2019) %&gt;% 
-  drop_na(hc1_usd2019, hc6_usd2019, che_usd2019) %&gt;% 
-  group_by(region_who) %&gt;% 
-  summarize(
-    n_countries = n(),
-    `Curative` = mean(hc1_usd2019 / che_usd2019),
-    `Preventative` = mean(hc6_usd2019 / che_usd2019)
-  ) %&gt;% 
-  pivot_longer(
-    `Curative`:`Preventative`,
-    names_to = &quot;spending_type&quot;, 
-    values_to = &quot;average_spending&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>cp_che_df <span class="ot">=</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  ghed_df <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(hc1_usd2019, hc6_usd2019, che_usd2019) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region_who) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_countries =</span> <span class="fu">n</span>(),</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Curative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc1_usd2019 <span class="sc">/</span> che_usd2019),</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Preventative</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(hc6_usd2019 <span class="sc">/</span> che_usd2019)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Curative</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">Preventative</span><span class="st">`</span>,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;spending_type&quot;</span>, </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;average_spending&quot;</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Barplot: Curative vs. preventative expenditure with spending as a percent of current health expenditure</p>
-<pre class="r"><code>cp_che_df %&gt;% 
-  ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = spending_type)) + 
-  geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
-  labs(
-    title = &quot;Average curative vs. preventative spending by WHO region&quot;, 
-    x = &quot;WHO region&quot;, 
-    y = &quot;Average spending per capita health expenditure&quot;
-  ) </code></pre>
-<p><img src="ghed_p8105_project_files/figure-html/cp_che_plot-1.png" width="90%" /></p>
-</div>
-<div id="other-peoples-sections" class="section level3">
-<h3>Other people’s sections</h3>
-</div>
-</div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cp_che_df <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region_who, average_spending), <span class="at">y =</span> average_spending, <span class="at">fill =</span> spending_type)) <span class="sc">+</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;Identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;Dodge&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Average curative vs. preventative spending by WHO region&quot;</span>, </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;WHO region&quot;</span>, </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average spending per capita health expenditure&quot;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
+<img src="data:image/png;base64,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" width="90%" />
 
-
-
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
-  });
-});
-</script>
-
-<!-- code folding -->
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
+<h3 id="other-peoples-sections">Other people’s sections</h3>
 
 </body>
 </html>
