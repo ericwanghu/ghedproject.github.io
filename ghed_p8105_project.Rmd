@@ -697,8 +697,6 @@ summary(fit_exp_dstbn)
 fit_region_exp %>% 
   broom::glance()
 ```
-<<<<<<< HEAD
-=======
 
 
 
