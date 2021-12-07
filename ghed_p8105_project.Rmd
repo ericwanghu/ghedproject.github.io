@@ -290,11 +290,41 @@ phc_ghed %>%
   ggplot(aes(x = reorder(region_who, avg_primary), y = avg_primary, fill = region_who)) + 
   geom_bar(stat = "Identity") + 
   labs(
-    title = "Primary health care spending", 
+    title = "Primary health care spending by WHO region", 
     x = "WHO region", 
     y = "Average PHC spending in million constant USD$"
   ) + 
   theme(legend.position = "none")
 ```
 
+Average primary health care expenditure for each WHO region with spending as a percent of GDP
+
+To see how much different WHO regions are spending with regards to what resources they actually have
+
+```{r average_phc_gdp}
+phc_gdp_ghed =
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc, gdp_pc_usd) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    avg_primary_gdp = mean(phc_usd_pc / gdp_pc_usd)
+  )
+```
+
+Barplot: Primary health care expenditure with spending as a percent of GDP
+
+```{r phc_gdp_plot}
+phc_gdp_ghed %>%   
+  ggplot(aes(x = reorder(region_who, avg_primary_gdp), y = avg_primary_gdp, fill = region_who)) + 
+  geom_bar(stat = "Identity") + 
+  labs(
+    title = "Primary health care spending by WHO region", 
+    x = "WHO region", 
+    y = "Average PHC spending per capita GDP"
+  ) + 
+  theme(legend.position = "none")
+```
 
