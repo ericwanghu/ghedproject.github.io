@@ -3,8 +3,7 @@ title: "P8105 Final Project"
 output: github_document
 ---
 
-```{r}
-
+```{r setup, include = FALSE}
 library(tidyverse)
 library(readxl)
 
@@ -21,16 +20,13 @@ options(
 
 scale_coulour_discrete = scale_color_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
-
 ```
 
 ## Data Import
 
 ```{r}
-
 ghed_df <- 
   read_excel("data/GHED_data.XLSX")
-
 ```
 
 ### Safiya's section
@@ -252,7 +248,53 @@ prev_cur_df %>%
 __Infectious vs. Non-communicable Diseases__
 
 
+### Ragyie's section
 
-### Other sections
+**Indicators for analysis**
+
+* Curative care, in million constant (2019) US$ —> hc1_usd2019
+* Preventive care, in million constant (2018) US$ —> hc6_usd2019
+* Infectious and Parasitic Diseases, in million constant (2018) US$ —> dis1_usd2019
+* Noncommunicable Diseases (NCDs), in million constant (2018) US$ —> dis4_usd2019
+* Primary Health Care (PHC) Expenditure per Capita in US$ —> phc_usd_pc
+* GDP - gdp_pc_usd  
+* CHE - che_pc_usd 
+* che_usd_2019 
+* gdp_usd_2019
+
+**Expenditure category analysis: WHO regions**
+
+Will compare and plot the average in 2019 of spending in categories of interest for each WHO region 
+
+**Primary health care**: 
+
+Average primary health care expenditure for each WHO region in million constant USD$
+
+```{r average_phc}
+phc_ghed = 
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    avg_primary = mean(phc_usd_pc)
+  )
+```
+
+Barplot: Primary health care expenditure in million constant USD$ 
+
+```{r avg_phc_plot}
+phc_ghed %>%   
+  ggplot(aes(x = reorder(region_who, avg_primary), y = avg_primary, fill = region_who)) + 
+  geom_bar(stat = "Identity") + 
+  labs(
+    title = "Primary health care spending", 
+    x = "WHO region", 
+    y = "Average PHC spending in million constant USD$"
+  ) + 
+  theme(legend.position = "none")
+```
 
 
