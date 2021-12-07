@@ -468,13 +468,6 @@ cp_che_df %>%
   ) 
 ```
 
-<<<<<<< HEAD
-### Eric's section
-
-website...
-
-=======
->>>>>>> 07ee5d3596f89460ace02831c2122255de21501d
 ### Trisha's section
 
 ```{r}
@@ -831,4 +824,3 @@ ghed_df<- left_join(ghed_df, un_country_class, by = c("country" = "country_or_ar
     ggplot(aes(y = avg_ext_exp, x = developed, colours=region_who))+
   geom_bar(stat="identity", aes(fill = region_who))+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))+scale_fill_viridis_d()
 ```
->>>>>>> 07ee5d3596f89460ace02831c2122255de21501d
