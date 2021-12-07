@@ -468,9 +468,6 @@ cp_che_df %>%
   ) 
 ```
 
-<<<<<<< HEAD
-### Eric's section
-
 =======
 ### Trisha's section
 
@@ -701,7 +698,7 @@ summary(fit_exp_dstbn)
 fit_region_exp %>% 
   broom::glance()
 ```
->>>>>>> 7a7ca34677c8024894c0a10843998f691382f943
+
 
 
 
