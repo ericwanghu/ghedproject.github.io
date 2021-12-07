@@ -396,3 +396,37 @@ cp_df %>%
     y = "Average spending in million constant USD$"
   ) 
 ```
+
+Average curative vs. preventative expenditure for each WHO region with spending as a percent of GDP
+
+```{r avg_cp_gdp}
+cp_gdp_df = 
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(hc1_usd2019, hc6_usd2019, gdp_usd2019) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019 / gdp_usd2019),
+    `Preventative` = mean(hc6_usd2019 / gdp_usd2019)
+  ) %>% 
+  pivot_longer(
+    `Curative`:`Preventative`,
+    names_to = "spending_type", 
+    values_to = "average_spending"
+  )
+```
+
+Barplot: Curative vs. preventative expenditure with spending as a percent of GDP
+
+```{r cp_gdp_plot}
+cp_gdp_df %>% 
+  ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = spending_type)) + 
+  geom_bar(stat = "Identity", position = "Dodge") + 
+  labs(
+    title = "Average curative vs. preventative spending by WHO region", 
+    x = "WHO region", 
+    y = "Average spending per capita GDP"
+  ) 
+```
