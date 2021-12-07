@@ -259,8 +259,8 @@ __Infectious vs. Non-communicable Diseases__
 * Primary Health Care (PHC) Expenditure per Capita in US$ —> phc_usd_pc
 * GDP - gdp_pc_usd  
 * CHE - che_pc_usd 
-* che_usd_2019 
-* gdp_usd_2019
+* che_usd2019 
+* gdp_usd2019
 
 **Expenditure category analysis: WHO regions**
 
@@ -428,5 +428,39 @@ cp_gdp_df %>%
     title = "Average curative vs. preventative spending by WHO region", 
     x = "WHO region", 
     y = "Average spending per capita GDP"
+  ) 
+```
+
+Average curative vs. preventative expenditure for each WHO region with spending as a percentage of current health expenditure
+
+```{r avg_cp_che}
+cp_che_df = 
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(hc1_usd2019, hc6_usd2019, che_usd2019) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019 / che_usd2019),
+    `Preventative` = mean(hc6_usd2019 / che_usd2019)
+  ) %>% 
+  pivot_longer(
+    `Curative`:`Preventative`,
+    names_to = "spending_type", 
+    values_to = "average_spending"
+  )
+```
+
+Barplot: Curative vs. preventative expenditure with spending as a percent of current health expenditure 
+
+```{r cp_che_plot}
+cp_che_df %>% 
+  ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = spending_type)) + 
+  geom_bar(stat = "Identity", position = "Dodge") + 
+  labs(
+    title = "Average curative vs. preventative spending by WHO region", 
+    x = "WHO region", 
+    y = "Average spending per capita health expenditure"
   ) 
 ```
