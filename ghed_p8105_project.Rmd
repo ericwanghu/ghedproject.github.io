@@ -468,7 +468,6 @@ cp_che_df %>%
   ) 
 ```
 
-=======
 ### Trisha's section
 
 ```{r}
