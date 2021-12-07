@@ -328,3 +328,33 @@ phc_gdp_ghed %>%
   theme(legend.position = "none")
 ```
 
+Average primary health care expenditure for each WHO region with spending as a percentage of current health expenditure 
+
+To investigate how much of health spending goes toward each category for each WHO region
+
+```{r average_phc_che}
+phc_che_ghed =
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc, che_pc_usd) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    avg_primary_che = mean(phc_usd_pc / che_pc_usd)
+  )
+```
+
+Barplot: Primary health care expenditure with spending as a percent of current health expenditure 
+
+```{r phc_che_plot}
+phc_che_ghed %>%   
+  ggplot(aes(x = reorder(region_who, avg_primary_che), y = avg_primary_che, fill = region_who)) + 
+  geom_bar(stat = "Identity") + 
+  labs(
+    title = "Primary health care spending by WHO region", 
+    x = "WHO region", 
+    y = "Average PHC spending per capita health expenditure"
+  ) + 
+  theme(legend.position = "none")
+```

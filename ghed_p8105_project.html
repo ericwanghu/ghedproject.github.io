@@ -549,6 +549,29 @@ prev_cur_df &lt;-
   ) + 
   theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="ghed_p8105_project_files/figure-html/phc_gdp_plot-1.png" width="90%" /></p>
+<p>Average primary health care expenditure for each WHO region with spending as a percentage of current health expenditure</p>
+<p>To investigate how much of health spending goes toward each category for each WHO region</p>
+<pre class="r"><code>phc_che_ghed =
+  ghed_df %&gt;% 
+  janitor::clean_names() %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc, che_pc_usd) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_primary_che = mean(phc_usd_pc / che_pc_usd)
+  )</code></pre>
+<p>Barplot: Primary health care expenditure with spending as a percent of current health expenditure</p>
+<pre class="r"><code>phc_che_ghed %&gt;%   
+  ggplot(aes(x = reorder(region_who, avg_primary_che), y = avg_primary_che, fill = region_who)) + 
+  geom_bar(stat = &quot;Identity&quot;) + 
+  labs(
+    title = &quot;Primary health care spending by WHO region&quot;, 
+    x = &quot;WHO region&quot;, 
+    y = &quot;Average PHC spending per capita health expenditure&quot;
+  ) + 
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/phc_che_plot-1.png" width="90%" /></p>
 </div>
 </div>
 
