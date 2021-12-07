@@ -8,6 +8,7 @@ library(tidyverse)
 library(readxl)
 library(mgcv)
 library(modelr)
+library(stringr)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -704,4 +705,124 @@ fit_region_exp %>%
 
 
 
-### Other people's sections
+### Pooja's Part 
+
+```{r}
+#Developed - Canada, Japan, France, Germany, Italy, UK, US
+
+ghed_df%>%
+  filter(country=="Canada"| country=="Japan"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom
+"| country=="United States of America")%>%
+  filter(year == 2019)%>%
+  select(country, year, gghed_che, pvtd_che)%>%
+  mutate(sum_per = gghed_che + pvtd_che)%>%
+  pivot_longer(cols = contains("che"),
+               names_to = "exp_type",
+               values_to = "exp_per")%>%
+  ggplot(aes(fill = exp_type, y = exp_per, x = country))+
+  geom_bar(position="stack", stat="identity")
+```
+
+```{r}
+ghed_df%>%
+  filter(year == 2019)%>%
+  select(region_who, income_group, year, gghed_che, pvtd_che)%>%
+  group_by(region_who, income_group)%>%
+  mutate(sum_gghed = sum(gghed_che),
+         sum_pvtd = sum(pvtd_che), 
+         sum_che = sum_gghed + sum_pvtd,
+         income_group = factor(income_group, levels = c("Low", "Low-Mid", "Up-Mid", "Hi")))%>%
+  select(region_who, income_group, year, sum_gghed, sum_pvtd, sum_che)%>%
+  distinct()%>%
+  mutate(gghed_per = sum_gghed/sum_che, 
+         pvtd_per = sum_pvtd/sum_che)%>%
+  pivot_longer(cols = contains("per"),
+               names_to = "exp_type",
+               values_to = "exp_per")%>%
+  select(region_who, income_group, exp_type, exp_per)%>%
+  ggplot(aes(fill = exp_type, y = exp_per, x = income_group))+
+  geom_bar(stat="identity")+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))+
+scale_fill_discrete(name="Expenditure Type",
+                         breaks=c("gghed_per", "pvtd_per"),
+                         labels=c("Government", "Private"))
+
+```
+
+Government vs. Private expenditure over time in the US 
+```{r}
+ghed_df%>%
+  filter(country == "United States of America")%>%
+  select(country, year, gghed_pc_usd, pvtd_pc_usd)%>%
+  pivot_longer(cols = contains("pc_usd"),
+               names_to = "exp_type", 
+               values_to = "exp_per_cap")%>%
+  ggplot() + geom_point(aes(x = year, y = exp_per_cap, col = exp_type))+geom_line(aes(x = year, y = exp_per_cap, group = exp_type, colour = exp_type))
+  
+
+
+```
+
+```{r}
+ghed_df%>%
+  filter(country=="United States of America")%>%
+  select(country, year, gghed_che, pvtd_che)%>%
+  mutate(sum_per = gghed_che + pvtd_che)%>%
+  pivot_longer(cols = contains("che"),
+               names_to = "exp_type",
+               values_to = "exp_per")%>%
+  ggplot() + geom_point(aes(x = year, y = exp_per, col = exp_type))+geom_line(aes(x = year, y = exp_per, group = exp_type, colour = exp_type))
+```
+
+```{r}
+ghed_df%>%
+  filter(year ==2019)%>%
+  select(country,region_who, year,income_group, gghed_pc_usd, pvtd_pc_usd, ext_pc_usd)%>%
+  group_by(region_who, income_group)%>%
+  mutate(avg_ext_exp = mean(ext_pc_usd))%>%
+  select(region_who, income_group, avg_ext_exp)%>%
+  distinct()%>%
+    ggplot(aes(y = avg_ext_exp, x = income_group))+
+  geom_bar(stat="identity")+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
+```
+
+```{r}
+ghed_df%>%
+  filter(year ==2019)%>%
+  select(country,region_who, year,income_group, gghed_pc_usd, pvtd_pc_usd, ext_che)%>%
+  group_by(region_who, income_group)%>%
+  mutate(avg_ext_exp = mean(ext_che), 
+         income_group = factor(income_group, levels = c("Low", "Low-Mid", "Up-Mid", "Hi")))%>%
+  select(region_who, income_group, avg_ext_exp)%>%
+  distinct()%>%
+    ggplot(aes(y = avg_ext_exp, x = income_group))+
+  geom_bar(stat="identity")+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
+```
+
+```{r}
+un_country_class<- read_csv("data/un_country_classification.csv")
+
+head(un_country_class)
+
+un_country_class<- un_country_class%>%
+  janitor::clean_names()%>%
+  select(country_or_area, developed_developing_countries)%>%
+  mutate(developed = str_replace(developed_developing_countries, ".*Developing.*", "Developing"))%>%
+  select(country_or_area, developed)
+
+
+
+ghed_df<- left_join(ghed_df, un_country_class, by = c("country" = "country_or_area"))
+
+```
+
+```{r}
+ ghed_df%>%
+  select(country,region_who, year,developed, gghed_pc_usd, pvtd_pc_usd, ext_che)%>%
+  group_by(region_who, developed)%>%
+  mutate(avg_ext_exp = mean(ext_che,na.rm=TRUE), 
+         developed = factor(developed, levels = c(NA, "Developing", "Developed")))%>%
+  select(region_who, developed, avg_ext_exp)%>%
+  distinct()%>%
+    ggplot(aes(y = avg_ext_exp, x = developed, colours=region_who))+
+  geom_bar(stat="identity", aes(fill = region_who))+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))+scale_fill_viridis_d()
+```
