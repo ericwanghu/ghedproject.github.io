@@ -1,17 +1,45 @@
 ---
 title: "Global Health Expenditure Database"
-subtitle: "Creative Title"
 output: 
   html_document:
     code_folding: hide
 ---
 
-<h6 style="text-align: left;" markdown="1">Trisha Dwiveldi, Pooja Mukund,  Ragyie Rawal,  Safiya Sirota, Eric Wang</h6>
-
 <br>
 <center>
 
+### Creative Title
+
+<h6 style="text-align: middle;" markdown="1">Trisha Dwiveldi, Pooja Mukund,  Ragyie Rawal,  Safiya Sirota, Eric Wang</h6>
+
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+
 <img src="images/columbiabiostats.png" style="width:60%">
+
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
 
 Explore Our Project
 

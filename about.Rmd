@@ -5,58 +5,68 @@ title: "About Us"
 <br>
 <center>
 
-#### Trisha Dwiveldi
+### Trisha Dwiveldi
 
 <img src="images/trisha.jpg" style="width:60%">
 
-[LinkedIn](https://www.linkedin.com/in/trishadwivedi/)
+**[LinkedIn](https://www.linkedin.com/in/trishadwivedi/)**
 
 <h6 style="text-align: middle;" markdown="1">MS Biostatistics</h6>
 <h6 style="text-align: middle;" markdown="1">Pharmaceutical Statistics Track</h6>
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
 
-#### Pooja Mukund
+### Pooja Mukund
 
 <img src="images/pooja.jpg" style="width:60%">
 
-[LinkedIn](https://www.linkedin.com/in/pooja-mukund-903b58130/)
+**[LinkedIn](https://www.linkedin.com/in/pooja-mukund-903b58130/)**
 
 <h6 style="text-align: middle;" markdown="1">MS Biostatistics</h6>
 <h6 style="text-align: middle;" markdown="1">Public Health Data Science Track</h6>
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
 
-#### Ragyie Rawal
+### Ragyie Rawal
 
 <img src="images/ragyie.jpg" style="width:60%">
 
-[LinkedIn](https://www.linkedin.com/in/ragyie-rawal-a75b52139/)
+**[LinkedIn](https://www.linkedin.com/in/ragyie-rawal-a75b52139/)**
 
 <h6 style="text-align: middle;" markdown="1">MS Biostatistics</h6>
 <h6 style="text-align: middle;" markdown="1">Statistical Genetics Track</h6>
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
 
-#### Safiya Sirota
+### Safiya Sirota
 
 <img src="images/safiya.jpg" style="width:60%">
 
-[LinkedIn](https://www.linkedin.com/in/safiya-sirota/)
+**[LinkedIn](https://www.linkedin.com/in/safiya-sirota/)**
 
 <h6 style="text-align: middle;" markdown="1">PhD Biostatistics</h6>
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
 
-#### Eric Wang
+### Eric Wang
 
 <img src="images/eric.jpg" style="width:60%">
 
-[LinkedIn](https://www.linkedin.com/in/ericwanggg)
+**[LinkedIn](https://www.linkedin.com/in/ericwanggg)**
 
 <h6 style="text-align: middle;" markdown="1">MS Biostatistics</h6>
 <h6 style="text-align: middle;" markdown="1">Pharmaceutical Statistics Track</h6>
 
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>
 
 Click here to return to the [main](index.html) page.
