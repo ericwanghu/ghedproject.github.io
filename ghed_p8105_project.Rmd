@@ -253,9 +253,9 @@ __Infectious vs. Non-communicable Diseases__
 **Indicators for analysis**
 
 * Curative care, in million constant (2019) US$ —> hc1_usd2019
-* Preventive care, in million constant (2018) US$ —> hc6_usd2019
-* Infectious and Parasitic Diseases, in million constant (2018) US$ —> dis1_usd2019
-* Noncommunicable Diseases (NCDs), in million constant (2018) US$ —> dis4_usd2019
+* Preventive care, in million constant (2019) US$ —> hc6_usd2019
+* Infectious and Parasitic Diseases, in million constant (2019) US$ —> dis1_usd2019
+* Noncommunicable Diseases (NCDs), in million constant (2019) US$ —> dis4_usd2019
 * Primary Health Care (PHC) Expenditure per Capita in US$ —> phc_usd_pc
 * GDP - gdp_pc_usd  
 * CHE - che_pc_usd 
@@ -464,3 +464,6 @@ cp_che_df %>%
     y = "Average spending per capita health expenditure"
   ) 
 ```
+
+
+### Other people's sections
