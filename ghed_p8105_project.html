@@ -572,6 +572,35 @@ prev_cur_df &lt;-
   ) + 
   theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="ghed_p8105_project_files/figure-html/phc_che_plot-1.png" width="90%" /></p>
+<p><strong>Curative care vs. preventative care</strong></p>
+<p>Comparing average curative expenditure and average preventative expenditure for each WHO region</p>
+<p>Average curative and preventative health care expenditure for each WHO region in million constant USD$</p>
+<pre class="r"><code>cp_df = 
+  ghed_df %&gt;% 
+  janitor::clean_names() %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(hc1_usd2019, hc6_usd2019) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019),
+    `Preventative` = mean(hc6_usd2019)
+  ) %&gt;% 
+  pivot_longer(
+    `Curative`:`Preventative`,
+    names_to = &quot;spending_type&quot;, 
+    values_to = &quot;average_spending&quot;
+  )</code></pre>
+<p>Barplot: Average curative vs. preventative health care expenditure for each WHO region in million constant USD$</p>
+<pre class="r"><code>cp_df %&gt;% 
+  ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = spending_type)) + 
+  geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
+  labs(
+    title = &quot;Average curative vs. preventative spending by WHO region&quot;, 
+    x = &quot;WHO region&quot;, 
+    y = &quot;Average spending in million constant USD$&quot;
+  ) </code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/avg_cp_plot-1.png" width="90%" /></p>
 </div>
 </div>
 

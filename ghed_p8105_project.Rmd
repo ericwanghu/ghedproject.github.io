@@ -358,3 +358,41 @@ phc_che_ghed %>%
   ) + 
   theme(legend.position = "none")
 ```
+
+**Curative care vs. preventative care** 
+
+Comparing average curative expenditure and average preventative expenditure for each WHO region
+
+Average curative and preventative health care expenditure for each WHO region in million constant USD$
+
+```{r avg_cp}
+cp_df = 
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(hc1_usd2019, hc6_usd2019) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019),
+    `Preventative` = mean(hc6_usd2019)
+  ) %>% 
+  pivot_longer(
+    `Curative`:`Preventative`,
+    names_to = "spending_type", 
+    values_to = "average_spending"
+  )
+```
+
+Barplot: Average curative vs. preventative health care expenditure for each WHO region in million constant USD$
+
+```{r avg_cp_plot}
+cp_df %>% 
+  ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = spending_type)) + 
+  geom_bar(stat = "Identity", position = "Dodge") + 
+  labs(
+    title = "Average curative vs. preventative spending by WHO region", 
+    x = "WHO region", 
+    y = "Average spending in million constant USD$"
+  ) 
+```
