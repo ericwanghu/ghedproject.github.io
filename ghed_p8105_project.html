@@ -11,9 +11,7 @@
 
 
 
-
 <title>P8105 Final Project</title>
-
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -35,7 +33,7 @@
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -130,7 +128,6 @@ pre code {
   border-radius: 6px 0 6px 6px;
 }
 </style>
-
 
 <script type="text/javascript">
 // manage active state of menu based on current page
@@ -286,12 +283,9 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">P8105 Final Project</h1>
 
-
 </div>
 
 
-<div id="p8105-final-project" class="section level1">
-<h1>P8105 Final Project</h1>
 <div id="data-import" class="section level2">
 <h2>Data Import</h2>
 <pre class="r"><code>ghed_df &lt;- 
@@ -327,8 +321,7 @@ PHC_df %&gt;%
   ) + 
   theme(axis.text.x = element_text(angle = 90)) +
   theme(legend.position = &quot;none&quot;)</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-2-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as as proportion of per capita GDP)</p>
 <pre class="r"><code>PHC_df &lt;-
   ghed_df %&gt;% 
@@ -350,8 +343,7 @@ PHC_df %&gt;%
   ) + 
   theme(axis.text.x = element_text(angle = 90)) +
   theme(legend.position = &quot;none&quot;)</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-3-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as a proportion of per capita health expenditure)</p>
 <pre class="r"><code>PHC_df &lt;-
   ghed_df %&gt;% 
@@ -373,8 +365,7 @@ PHC_df %&gt;%
   ) + 
   theme(axis.text.x = element_text(angle = 90)) +
   theme(legend.position = &quot;none&quot;)</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-4-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
 <p><strong>Preventive vs. Curative Spending</strong></p>
 <p>Primary health care spending by income level (USD per capita)</p>
 <pre class="r"><code>prev_df &lt;-
@@ -414,8 +405,7 @@ prev_cur_df &lt;-
     y = &quot;Average spending \n (million USD)&quot;
   ) + 
   theme(axis.text.x = element_text(angle = 90))</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-5-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as as proportion of GDP)</p>
 <pre class="r"><code>prev_df &lt;-
   ghed_df %&gt;% 
@@ -454,8 +444,7 @@ prev_cur_df &lt;-
     y = &quot;Average spending (as proportion \n of GDP)&quot;
   ) + 
   theme(axis.text.x = element_text(angle = 90))</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-6-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-6-1.png" width="90%" /></p>
 <p>Primary health care spending by income level (as proportion of health expenditure)</p>
 <pre class="r"><code>prev_df &lt;-
   ghed_df %&gt;% 
@@ -494,9 +483,7 @@ prev_cur_df &lt;-
     y = &quot;Average spending (as proportion \n of total health expenditure)&quot;
   ) + 
   theme(axis.text.x = element_text(angle = 90))</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-7-1.png" width="90%" /></p>
-
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-7-1.png" width="90%" /></p>
 <p><strong>Infectious vs. Non-communicable Diseases</strong></p>
 </div>
 <div id="ragyies-section" class="section level3">
@@ -538,9 +525,7 @@ prev_cur_df &lt;-
     y = &quot;Average PHC spending in million constant USD$&quot;
   ) + 
   theme(legend.position = &quot;none&quot;)</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/avg_phc_plot-1.png" width="90%" /></p>
-
+<p><img src="ghed_p8105_project_files/figure-html/avg_phc_plot-1.png" width="90%" /></p>
 <p>Average primary health care expenditure for each WHO region with spending as a percent of GDP</p>
 <p>To see how much different WHO regions are spending with regards to what resources they actually have</p>
 <pre class="r"><code>phc_gdp_ghed =
@@ -563,8 +548,7 @@ prev_cur_df &lt;-
     y = &quot;Average PHC spending per capita GDP&quot;
   ) + 
   theme(legend.position = &quot;none&quot;)</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/phc_gdp_plot-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/phc_gdp_plot-1.png" width="90%" /></p>
 <p>Average primary health care expenditure for each WHO region with spending as a percentage of current health expenditure</p>
 <p>To investigate how much of health spending goes toward each category for each WHO region</p>
 <pre class="r"><code>phc_che_ghed =
@@ -587,8 +571,7 @@ prev_cur_df &lt;-
     y = &quot;Average PHC spending per capita health expenditure&quot;
   ) + 
   theme(legend.position = &quot;none&quot;)</code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/phc_che_plot-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/phc_che_plot-1.png" width="90%" /></p>
 <p><strong>Curative care vs. preventative care</strong></p>
 <p>Comparing average curative expenditure and average preventative expenditure for each WHO region</p>
 <p>Average curative and preventative health care expenditure for each WHO region in million constant USD$</p>
@@ -617,8 +600,7 @@ prev_cur_df &lt;-
     x = &quot;WHO region&quot;, 
     y = &quot;Average spending in million constant USD$&quot;
   ) </code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/avg_cp_plot-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/avg_cp_plot-1.png" width="90%" /></p>
 <p>Average curative vs. preventative expenditure for each WHO region with spending as a percent of GDP</p>
 <pre class="r"><code>cp_gdp_df = 
   ghed_df %&gt;% 
@@ -645,8 +627,7 @@ prev_cur_df &lt;-
     x = &quot;WHO region&quot;, 
     y = &quot;Average spending per capita GDP&quot;
   ) </code></pre>
-
-<p><img src="ghed_p8105_project_files/figure-gfm/cp_gdp_plot-1.png" width="90%" /></p>
+<p><img src="ghed_p8105_project_files/figure-html/cp_gdp_plot-1.png" width="90%" /></p>
 <p>Average curative vs. preventative expenditure for each WHO region with spending as a percentage of current health expenditure</p>
 <pre class="r"><code>cp_che_df = 
   ghed_df %&gt;% 
@@ -673,11 +654,8 @@ prev_cur_df &lt;-
     x = &quot;WHO region&quot;, 
     y = &quot;Average spending per capita health expenditure&quot;
   ) </code></pre>
-
 <p><img src="ghed_p8105_project_files/figure-html/cp_che_plot-1.png" width="90%" /></p>
-</div>
-<div id="trishas-section" class="section level3">
-<h3>Trisha’s section</h3>
+<p>======= ### Trisha’s section</p>
 <pre class="r"><code>ghed_df = 
   ghed_df %&gt;%
   janitor::clean_names()</code></pre>
@@ -974,14 +952,133 @@ summary(fit_exp_dstbn)</code></pre>
 ##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     0.585         0.585 0.666      672.       0     7 -3378. 6775. 6830.
 ## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+<div id="poojas-part" class="section level3">
+<h3>Pooja’s Part</h3>
+<pre class="r"><code>#Developed - Canada, Japan, France, Germany, Italy, UK, US
 
-<div id="other-peoples-sections" class="section level3">
-<h3>Other people’s sections</h3>
+ghed_df%&gt;%
+  filter(country==&quot;Canada&quot;| country==&quot;Japan&quot;| country==&quot;France&quot;| country==&quot;Germany&quot;| country==&quot;Italy&quot;| country==&quot;United Kingdom
+&quot;| country==&quot;United States of America&quot;)%&gt;%
+  filter(year == 2019)%&gt;%
+  select(country, year, gghed_che, pvtd_che)%&gt;%
+  mutate(sum_per = gghed_che + pvtd_che)%&gt;%
+  pivot_longer(cols = contains(&quot;che&quot;),
+               names_to = &quot;exp_type&quot;,
+               values_to = &quot;exp_per&quot;)%&gt;%
+  ggplot(aes(fill = exp_type, y = exp_per, x = country))+
+  geom_bar(position=&quot;stack&quot;, stat=&quot;identity&quot;)</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-19-1.png" width="90%" /></p>
+<pre class="r"><code>ghed_df%&gt;%
+  filter(year == 2019)%&gt;%
+  select(region_who, income_group, year, gghed_che, pvtd_che)%&gt;%
+  group_by(region_who, income_group)%&gt;%
+  mutate(sum_gghed = sum(gghed_che),
+         sum_pvtd = sum(pvtd_che), 
+         sum_che = sum_gghed + sum_pvtd,
+         income_group = factor(income_group, levels = c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)))%&gt;%
+  select(region_who, income_group, year, sum_gghed, sum_pvtd, sum_che)%&gt;%
+  distinct()%&gt;%
+  mutate(gghed_per = sum_gghed/sum_che, 
+         pvtd_per = sum_pvtd/sum_che)%&gt;%
+  pivot_longer(cols = contains(&quot;per&quot;),
+               names_to = &quot;exp_type&quot;,
+               values_to = &quot;exp_per&quot;)%&gt;%
+  select(region_who, income_group, exp_type, exp_per)%&gt;%
+  ggplot(aes(fill = exp_type, y = exp_per, x = income_group))+
+  geom_bar(stat=&quot;identity&quot;)+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))+
+scale_fill_discrete(name=&quot;Expenditure Type&quot;,
+                         breaks=c(&quot;gghed_per&quot;, &quot;pvtd_per&quot;),
+                         labels=c(&quot;Government&quot;, &quot;Private&quot;))</code></pre>
+<pre><code>## Warning: Removed 6 rows containing missing values (position_stack).</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-20-1.png" width="90%" /></p>
+<p>Government vs. Private expenditure over time in the US</p>
+<pre class="r"><code>ghed_df%&gt;%
+  filter(country == &quot;United States of America&quot;)%&gt;%
+  select(country, year, gghed_pc_usd, pvtd_pc_usd)%&gt;%
+  pivot_longer(cols = contains(&quot;pc_usd&quot;),
+               names_to = &quot;exp_type&quot;, 
+               values_to = &quot;exp_per_cap&quot;)%&gt;%
+  ggplot() + geom_point(aes(x = year, y = exp_per_cap, col = exp_type))+geom_line(aes(x = year, y = exp_per_cap, group = exp_type, colour = exp_type))</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-21-1.png" width="90%" /></p>
+<pre class="r"><code>ghed_df%&gt;%
+  filter(country==&quot;United States of America&quot;)%&gt;%
+  select(country, year, gghed_che, pvtd_che)%&gt;%
+  mutate(sum_per = gghed_che + pvtd_che)%&gt;%
+  pivot_longer(cols = contains(&quot;che&quot;),
+               names_to = &quot;exp_type&quot;,
+               values_to = &quot;exp_per&quot;)%&gt;%
+  ggplot() + geom_point(aes(x = year, y = exp_per, col = exp_type))+geom_line(aes(x = year, y = exp_per, group = exp_type, colour = exp_type))</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-22-1.png" width="90%" /></p>
+<pre class="r"><code>ghed_df%&gt;%
+  filter(year ==2019)%&gt;%
+  select(country,region_who, year,income_group, gghed_pc_usd, pvtd_pc_usd, ext_pc_usd)%&gt;%
+  group_by(region_who, income_group)%&gt;%
+  mutate(avg_ext_exp = mean(ext_pc_usd))%&gt;%
+  select(region_who, income_group, avg_ext_exp)%&gt;%
+  distinct()%&gt;%
+    ggplot(aes(y = avg_ext_exp, x = income_group))+
+  geom_bar(stat=&quot;identity&quot;)+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))</code></pre>
+<pre><code>## Warning: Removed 6 rows containing missing values (position_stack).</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-23-1.png" width="90%" /></p>
+<pre class="r"><code>ghed_df%&gt;%
+  filter(year ==2019)%&gt;%
+  select(country,region_who, year,income_group, gghed_pc_usd, pvtd_pc_usd, ext_che)%&gt;%
+  group_by(region_who, income_group)%&gt;%
+  mutate(avg_ext_exp = mean(ext_che), 
+         income_group = factor(income_group, levels = c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)))%&gt;%
+  select(region_who, income_group, avg_ext_exp)%&gt;%
+  distinct()%&gt;%
+    ggplot(aes(y = avg_ext_exp, x = income_group))+
+  geom_bar(stat=&quot;identity&quot;)+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))</code></pre>
+<pre><code>## Warning: Removed 6 rows containing missing values (position_stack).</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-24-1.png" width="90%" /></p>
+<pre class="r"><code>un_country_class&lt;- read_csv(&quot;data/un_country_classification.csv&quot;)</code></pre>
+<pre><code>## Rows: 249 Columns: 16</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (16): Global Code, Global Name, Region Code, Region Name, Sub-region Cod...</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>head(un_country_class)</code></pre>
+<pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
+<pre><code>## # A tibble: 6 × 16
+##   `Global Code` `Global Name` `Region Code` `Region Name` `Sub-region Code`
+##   &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;            
+## 1 001           World         002           Africa        015              
+## 2 001           World         002           Africa        015              
+## 3 001           World         002           Africa        015              
+## 4 001           World         002           Africa        015              
+## 5 001           World         002           Africa        015              
+## 6 001           World         002           Africa        015              
+## # … with 11 more variables: Sub-region Name &lt;chr&gt;,
+## #   Intermediate Region Code &lt;chr&gt;, Intermediate Region Name &lt;chr&gt;,
+## #   Country or Area &lt;chr&gt;, M49 Code &lt;chr&gt;, ISO-alpha2 Code &lt;chr&gt;,
+## #   ISO-alpha3 Code &lt;chr&gt;, Least Developed Countries (LDC) &lt;chr&gt;,
+## #   Land Locked Developing Countries (LLDC) &lt;chr&gt;,
+## #   Small Island Developing States (SIDS) &lt;chr&gt;,
+## #   Developed / Developing Countries &lt;chr&gt;</code></pre>
+<pre class="r"><code>un_country_class&lt;- un_country_class%&gt;%
+  janitor::clean_names()%&gt;%
+  select(country_or_area, developed_developing_countries)%&gt;%
+  mutate(developed = str_replace(developed_developing_countries, &quot;.*Developing.*&quot;, &quot;Developing&quot;))%&gt;%
+  select(country_or_area, developed)
+
+
+
+ghed_df&lt;- left_join(ghed_df, un_country_class, by = c(&quot;country&quot; = &quot;country_or_area&quot;))</code></pre>
+<pre class="r"><code> ghed_df%&gt;%
+  select(country,region_who, year,developed, gghed_pc_usd, pvtd_pc_usd, ext_che)%&gt;%
+  group_by(region_who, developed)%&gt;%
+  mutate(avg_ext_exp = mean(ext_che,na.rm=TRUE), 
+         developed = factor(developed, levels = c(NA, &quot;Developing&quot;, &quot;Developed&quot;)))%&gt;%
+  select(region_who, developed, avg_ext_exp)%&gt;%
+  distinct()%&gt;%
+    ggplot(aes(y = avg_ext_exp, x = developed, colours=region_who))+
+  geom_bar(stat=&quot;identity&quot;, aes(fill = region_who))+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))+scale_fill_viridis_d()</code></pre>
+<p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-26-1.png" width="90%" /></p>
 </div>
 </div>
-
-</div>
-
 
 
 
