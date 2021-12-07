@@ -1,5 +1,8 @@
 ---
 title: "Final Project Report"
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 

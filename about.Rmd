@@ -7,7 +7,7 @@ title: "About Us"
 
 ### Trisha Dwiveldi
 
-<img src="images/trisha.jpg" style="width:60%">
+<img src="images/trisha.jpg" style="width:40%">
 
 **[LinkedIn](https://www.linkedin.com/in/trishadwivedi/)**
 
@@ -20,7 +20,7 @@ title: "About Us"
 
 ### Pooja Mukund
 
-<img src="images/pooja.jpg" style="width:60%">
+<img src="images/pooja.jpg" style="width:40%">
 
 **[LinkedIn](https://www.linkedin.com/in/pooja-mukund-903b58130/)**
 
@@ -33,7 +33,7 @@ title: "About Us"
 
 ### Ragyie Rawal
 
-<img src="images/ragyie.jpg" style="width:60%">
+<img src="images/ragyie.jpg" style="width:40%">
 
 **[LinkedIn](https://www.linkedin.com/in/ragyie-rawal-a75b52139/)**
 
@@ -46,7 +46,7 @@ title: "About Us"
 
 ### Safiya Sirota
 
-<img src="images/safiya.jpg" style="width:60%">
+<img src="images/safiya.jpg" style="width:40%">
 
 **[LinkedIn](https://www.linkedin.com/in/safiya-sirota/)**
 
@@ -58,7 +58,7 @@ title: "About Us"
 
 ### Eric Wang
 
-<img src="images/eric.jpg" style="width:60%">
+<img src="images/eric.jpg" style="width:40%">
 
 **[LinkedIn](https://www.linkedin.com/in/ericwanggg)**
 
