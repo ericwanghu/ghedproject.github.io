@@ -307,25 +307,20 @@ $(document).ready(function () {
 </div>
 
 
-<p><br></p>
-<p><br></p>
 <pre class="r"><code>ghed_df &lt;- 
   read_excel(&quot;data/GHED_data.XLSX&quot;)</code></pre>
-<p><br></p>
 <div id="expenditure-categories-by-income-level-and-who-regions" class="section level3">
 <h3>Expenditure categories by income level and WHO regions</h3>
-<p><br></p>
 <p>The plots below show the average primary health care (PHC) spending in million current USD$ in 2019 for income levels and WHO regions.</p>
-<p><br></p>
-<pre class="r"><code>PHC_df &lt;-
+<pre class="r"><code>PHC_df = 
   ghed_df %&gt;% 
-    janitor::clean_names() %&gt;% 
-    filter(year == 2019) %&gt;% 
-    drop_na(phc_usd_pc) %&gt;% 
-    group_by(income_group) %&gt;% 
-    summarize(
-      n_countries = n(),
-      avg_phc = mean(phc_usd_pc))
+  janitor::clean_names() %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc) %&gt;% 
+  group_by(income_group) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_phc = mean(phc_usd_pc))
 
 income_constant = 
   PHC_df %&gt;% 
@@ -367,9 +362,59 @@ combined_constant +
     title = &quot;Primary health care spending in million constant USD$&quot;
   )</code></pre>
 <p><img src="analysis_files/figure-html/combined_phc_constant-1.png" width="90%" /></p>
-<p><br></p>
-<p>High income countries spend the most on average on PHC, while low income countries spend the least on average on PHC. The European region spends the most on average on PHC, while the South-East Asian region spends the least on average on PHC.</p>
-<p><br></p>
+<p>High income countries spent the most on average on PHC, while low income countries spent the least. The European region spent the most on average on PHC, while the South-East Asian region spent the least on average on PHC.</p>
+<p>The plots below show the average primary health care (PHC) spending as a percent of GDP in 2019 for income levels and WHO regions.</p>
+<pre class="r"><code>PHC_df =
+  ghed_df %&gt;% 
+  janitor::clean_names() %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
+  group_by(income_group) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_phc = mean(phc_usd_pc / gdp_pc_usd))
+
+income_gdp = 
+  PHC_df %&gt;% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = &quot;Income level&quot;,
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+  
+phc_gdp_ghed =
+  ghed_df %&gt;% 
+  janitor::clean_names() %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_primary_gdp = mean(phc_usd_pc / gdp_pc_usd)
+  )
+
+region_gdp = 
+  phc_gdp_ghed %&gt;%   
+  ggplot(aes(x = reorder(region_who, avg_primary_gdp), y = avg_primary_gdp, fill = region_who)) + 
+  geom_bar(stat = &quot;Identity&quot;) + 
+  labs(
+    x = &quot;WHO region&quot;, 
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+combined_gdp = income_gdp + region_gdp
+
+combined_gdp + 
+  plot_annotation(
+    title = &quot;Primary health care spending per capita GDP&quot; 
+  )</code></pre>
+<p><img src="analysis_files/figure-html/combined_phc_gdp-1.png" width="90%" /></p>
+<p>Low income countries spent the most on average on PHC as a proportion of GDP, while up-mid income countries spent the least. The European region spent the most on average on PHC as a proportion of GDP, while the Western Pacific region spent the least.</p>
 <p>Click here to return to the <a href="index.html">main</a> page.</p>
 </div>
 
