@@ -2,7 +2,6 @@
 title: "Exploratory Analysis"
 ---
 
-
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(readxl)
@@ -26,9 +25,10 @@ scale_coulour_discrete = scale_color_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
-```{r import}
+```{r import_tidy}
 ghed_df <- 
-  read_excel("data/GHED_data.XLSX")
+  read_excel("data/GHED_data.XLSX") %>% 
+  janitor::clean_names()
 ```
 
 ### Expenditure categories by income level and WHO regions
@@ -38,7 +38,6 @@ The plots below show the average primary health care (PHC) spending in million c
 ```{r combined_phc_constant}
 PHC_df = 
   ghed_df %>% 
-  janitor::clean_names() %>% 
   filter(year == 2019) %>% 
   drop_na(phc_usd_pc) %>% 
   group_by(income_group) %>% 
@@ -59,7 +58,6 @@ income_constant =
 
 phc_ghed = 
   ghed_df %>% 
-  janitor::clean_names() %>% 
   filter(year == 2019) %>% 
   drop_na(phc_usd_pc) %>% 
   group_by(region_who) %>% 
@@ -94,7 +92,6 @@ The plots below show the average primary health care (PHC) spending as a percent
 ```{r combined_phc_gdp}
 PHC_df =
   ghed_df %>% 
-  janitor::clean_names() %>% 
   filter(year == 2019) %>% 
   drop_na(phc_usd_pc, gdp_pc_usd) %>% 
   group_by(income_group) %>% 
@@ -115,7 +112,6 @@ income_gdp =
   
 phc_gdp_ghed =
   ghed_df %>% 
-  janitor::clean_names() %>% 
   filter(year == 2019) %>% 
   drop_na(phc_usd_pc, gdp_pc_usd) %>% 
   group_by(region_who) %>% 
@@ -145,5 +141,58 @@ combined_gdp +
 
 Low income countries spent the most on average on PHC as a proportion of GDP, while up-mid income countries spent the least. The European region spent the most on average on PHC as a proportion of GDP, while the Western Pacific region spent the least.  
 
+The plots below show the average primary health care (PHC) spending as a percent of current health expenditure in 2019 for income levels and WHO regions.
+
+```{r combined_phc_che}
+PHC_df = 
+  ghed_df %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc, che_pc_usd) %>% 
+  group_by(income_group) %>% 
+  summarize(
+    n_countries = n(),
+    avg_phc = mean(phc_usd_pc / che_pc_usd))
+
+income_che = 
+  PHC_df %>% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c("Low", "Low-Mid", "Up-Mid", "Hi")), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = "Income level",
+    y = "Average spending"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = "none")
+
+phc_che_ghed =
+  ghed_df %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc, che_pc_usd) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    avg_primary_che = mean(phc_usd_pc / che_pc_usd)
+  )
+
+region_che = 
+  phc_che_ghed %>%   
+  ggplot(aes(x = reorder(region_who, avg_primary_che), y = avg_primary_che, fill = region_who)) + 
+  geom_bar(stat = "Identity") + 
+  labs(
+    x = "WHO region", 
+    y = "Average spending"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  theme(legend.position = "none")
+
+combined_che = income_che + region_che
+
+combined_che + 
+  plot_annotation(
+    title = "Primary health care spending per capita current health expenditure"
+  )
+```
+
+Low income countries spent the most on average on PHC as a proportion of current health expenditure, while up-mid income countries spent the least. Interestingly, African region countries spent the most on average on PHC as a proportion of current health expenditure, while region of the Americas and Western Pacific region spent the least. 
 
 Click here to return to the [main](index.html) page.
