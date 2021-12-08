@@ -295,9 +295,71 @@ $(document).ready(function () {
 </div>
 
 
-<br>
-<center>
+<p><br></p>
+<p><br></p>
+<pre class="r"><code>ghed_df &lt;- 
+  read_excel(&quot;data/GHED_data.XLSX&quot;)</code></pre>
+<p><br></p>
+<div id="expenditure-categories-by-income-level-and-who-regions" class="section level3">
+<h3>Expenditure categories by income level and WHO regions</h3>
+<p><br></p>
+<p>The plots below show the average primary health care (PHC) spending in million current USD$ in 2019 for income levels and WHO regions.</p>
+<p><br></p>
+<pre class="r"><code>PHC_df &lt;-
+  ghed_df %&gt;% 
+    janitor::clean_names() %&gt;% 
+    filter(year == 2019) %&gt;% 
+    drop_na(phc_usd_pc) %&gt;% 
+    group_by(income_group) %&gt;% 
+    summarize(
+      n_countries = n(),
+      avg_phc = mean(phc_usd_pc))
+
+income_constant = 
+  PHC_df %&gt;% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = &quot;Income level&quot;,
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+phc_ghed = 
+  ghed_df %&gt;% 
+  janitor::clean_names() %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_primary = mean(phc_usd_pc)
+  )
+
+region_constant =
+  phc_ghed %&gt;%   
+  ggplot(aes(x = reorder(region_who, avg_primary), y = avg_primary, fill = region_who)) + 
+  geom_bar(stat = &quot;Identity&quot;) + 
+  labs(
+    x = &quot;WHO region&quot;, 
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+combined_constant = income_constant + region_constant
+
+combined_constant + 
+  plot_annotation(
+    title = &quot;Primary health care spending in million constant USD$&quot;
+  )</code></pre>
+<p><img src="analysis_files/figure-html/combined_phc_constant-1.png" width="90%" /></p>
+<p><br></p>
+<p>High income countries spend the most on average on PHC, while low income countries spend the least on average on PHC. The European region spends the most on average on PHC, while the South-East Asian region spends the least on average on PHC.</p>
+<p><br></p>
 <p>Click here to return to the <a href="index.html">main</a> page.</p>
+</div>
 
 
 
