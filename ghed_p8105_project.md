@@ -499,6 +499,66 @@ cp_che_df %>%
 
 <img src="ghed_p8105_project_files/figure-gfm/cp_che_plot-1.png" width="90%" />
 
+Combining our plots using patchwork to display on website
+
+**Primary health care expenditure **
+
+per million constant USD$
+
+``` r
+PHC_df <-
+  ghed_df %>% 
+    janitor::clean_names() %>% 
+    filter(year == 2019) %>% 
+    drop_na(phc_usd_pc) %>% 
+    group_by(income_group) %>% 
+    summarize(
+      n_countries = n(),
+      avg_phc = mean(phc_usd_pc))
+
+income_constant = 
+  PHC_df %>% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c("Low", "Low-Mid", "Up-Mid", "Hi")), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = "Income level",
+    y = "Average spending"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = "none")
+
+phc_ghed = 
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    avg_primary = mean(phc_usd_pc)
+  )
+
+region_constant =
+  phc_ghed %>%   
+  ggplot(aes(x = reorder(region_who, avg_primary), y = avg_primary, fill = region_who)) + 
+  geom_bar(stat = "Identity") + 
+  labs(
+    x = "WHO region", 
+    y = "Average spending"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = "none")
+
+combined_constant = income_constant + region_constant
+
+combined_constant + 
+  plot_annotation(
+    title = "Primary health care spending in million constant USD$"
+  )
+```
+
+<img src="ghed_p8105_project_files/figure-gfm/combined_phc_constant-1.png" width="90%" />
+
 ### Trisha’s section
 
 ``` r

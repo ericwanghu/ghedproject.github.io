@@ -26,4 +26,5 @@ navbar:
       href: https://github.com/ericwanghu/ghedproject.github.io
 output:
   html_document:
+    code_folding: hide
     theme: simplex
