@@ -3,7 +3,7 @@ output_dir: "."
 navbar:
   title: "GHED Project"
   left:
-    - text: "Motivation"
+    - text: "Introduction"
       href: intro.html
     - text: "Global Analysis"
       href: analysis.html
@@ -23,7 +23,7 @@ navbar:
     - icon: fa-envelope fa-lg
       href: mailto:<wang.eric@columbia.edu>
     - icon: fa-github fa-lg
-      href: http://github.com/ericwanghu/
+      href: https://github.com/ericwanghu/ghedproject.github.io
 output:
   html_document:
     theme: simplex
