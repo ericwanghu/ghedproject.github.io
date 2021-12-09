@@ -11,4 +11,64 @@ library(flexdashboard)
 library(tidyverse)
 library(p8105.datasets)
 library(plotly)
+library(readxl)
 ```
+
+```{r, include=FALSE}
+ghed_df <- 
+  read_excel("data/GHED_data.XLSX")
+
+ghed_df<-ghed_df %>% 
+    janitor::clean_names() 
+```
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+### United States: Government vs.Private Expenditure per Capita (USD)
+```{r}
+ghed_df%>%
+  filter(country == "United States of America")%>%
+  select(country, year, gghed_pc_usd, pvtd_pc_usd)%>%
+  pivot_longer(cols = contains("pc_usd"),
+               names_to = "exp_type", 
+               values_to = "exp_per_cap")%>%
+  mutate(exp_type = replace(exp_type, exp_type == "gghed_pc_usd", "Government Expenditure per Capita (USD)"),
+           exp_type = replace(exp_type, exp_type == "pvtd_pc_usd", "Private Expenditure per Capita (USD)"))%>%
+  plot_ly(x =~year, y=~exp_per_cap, name=~exp_type, color = ~exp_type, colors="viridis", type='scatter', mode='lines+markers')%>%
+    layout( yaxis = list(title = 'Expenditure per Capita (USD)'), xaxis = list(title = "Year"))
+```
+### United States: Government vs.Private Expenditure Percentage over Time 
+```{r}
+ghed_df%>%
+  filter(country=="United States of America")%>%
+  select(country, year, gghed_che, pvtd_che)%>%
+  mutate(sum_per = gghed_che + pvtd_che)%>%
+  pivot_longer(cols = contains("che"),
+               names_to = "exp_type",
+               values_to = "exp_per")%>%
+  mutate(exp_type = replace(exp_type, exp_type == "gghed_che", "Government Expenditure"),
+           exp_type = replace(exp_type, exp_type == "pvtd_che", "Private Expenditure"))%>%
+  plot_ly(x =~year, y=~exp_per, name=~exp_type, color = ~exp_type, colors="viridis", type='scatter', mode='lines+markers')%>%
+    layout(yaxis = list(title = 'Percent of Total Expenditure'), xaxis = list(title = "Year"))
+```
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+```{r}
+ghed_df%>%
+  filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")%>%
+  filter(year == 2019)%>%
+  select(country, year, gghed_che, pvtd_che)%>%
+  mutate(sum_per = gghed_che + pvtd_che)%>%
+  pivot_longer(cols = contains("che"),
+               names_to = "exp_type",
+               values_to = "exp_per")%>%
+  mutate(exp_type = replace(exp_type, exp_type == "gghed_che", "Government Expenditure"),
+         exp_type = replace(exp_type, exp_type == "pvtd_che", "Private Expenditure"))%>%
+  plot_ly(x=~country, y=~exp_per, name=~exp_type, color =~exp_type, type = 'bar', colors = "viridis")%>%
+  layout(yaxis = list(title = 'Percent of Total Expenditure'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")
+
+```
+
