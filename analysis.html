@@ -11,7 +11,7 @@
 
 
 
-<title>Exploratory Analysis</title>
+<title>Global Analysis</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,6 +30,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -217,6 +218,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -244,13 +248,22 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="analysis.html">Exploratory Analysis</a>
+  <a href="intro.html">Introduction</a>
+</li>
+<li>
+  <a href="analysis.html">Global Analysis</a>
 </li>
 <li>
   <a href="usa.html">Zoom In: USA</a>
 </li>
 <li>
+  <a href="africa.html">Zoom In: Africa</a>
+</li>
+<li>
   <a href="dashboard.html">Dashboard</a>
+</li>
+<li>
+  <a href="stats.html">Statistical Analysis</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -261,13 +274,7 @@ $(document).ready(function () {
   <a href="about.html">About Us</a>
 </li>
 <li>
-  <a href="mailto:&lt;wang.eric@columbia.edu&gt;">
-    <span class="fa fa-envelope fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="http://github.com/ericwanghu/">
+  <a href="https://github.com/ericwanghu/ghedproject.github.io">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -279,16 +286,367 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Exploratory Analysis</h1>
+
+<h1 class="title toc-ignore">Global Analysis</h1>
 
 </div>
 
 
-<br>
-<center>
+<pre class="r"><code>ghed_df &lt;- 
+  read_excel(&quot;data/GHED_data.XLSX&quot;) %&gt;% 
+  janitor::clean_names()</code></pre>
+<div id="expenditure-categories-by-income-level-and-who-regions" class="section level3">
+<h3>Expenditure categories by income level and WHO regions</h3>
+<p>The plots below show the average primary health care (PHC) spending in million current USD$ in 2019 for income levels and WHO regions.</p>
+<pre class="r"><code>PHC_df = 
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc) %&gt;% 
+  group_by(income_group) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_phc = mean(phc_usd_pc))
+
+income_constant = 
+  PHC_df %&gt;% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = &quot;Income level&quot;,
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+phc_ghed = 
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_primary = mean(phc_usd_pc)
+  )
+
+region_constant =
+  phc_ghed %&gt;%   
+  ggplot(aes(x = reorder(region_who, avg_primary), y = avg_primary, fill = region_who)) + 
+  geom_bar(stat = &quot;Identity&quot;) + 
+  labs(
+    x = &quot;WHO region&quot;, 
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+combined_constant = income_constant + region_constant
+
+combined_constant + 
+  plot_annotation(
+    title = &quot;Primary health care spending in million constant USD$&quot;
+  )</code></pre>
+<p><img src="analysis_files/figure-html/combined_phc_constant-1.png" width="90%" /></p>
+<p>High income countries spent the most on average on PHC, while low income countries spent the least. The European region spent the most on average on PHC, while the South-East Asian region spent the least on average on PHC.</p>
+<p>The plots below show the average primary health care (PHC) spending as a percent of GDP in 2019 for income levels and WHO regions.</p>
+<pre class="r"><code>PHC_df =
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
+  group_by(income_group) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_phc = mean(phc_usd_pc / gdp_pc_usd))
+
+income_gdp = 
+  PHC_df %&gt;% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = &quot;Income level&quot;,
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+  
+phc_gdp_ghed =
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc, gdp_pc_usd) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_primary_gdp = mean(phc_usd_pc / gdp_pc_usd)
+  )
+
+region_gdp = 
+  phc_gdp_ghed %&gt;%   
+  ggplot(aes(x = reorder(region_who, avg_primary_gdp), y = avg_primary_gdp, fill = region_who)) + 
+  geom_bar(stat = &quot;Identity&quot;) + 
+  labs(
+    x = &quot;WHO region&quot;, 
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+combined_gdp = income_gdp + region_gdp
+
+combined_gdp + 
+  plot_annotation(
+    title = &quot;Primary health care spending per capita GDP&quot; 
+  )</code></pre>
+<p><img src="analysis_files/figure-html/combined_phc_gdp-1.png" width="90%" /></p>
+<p>Low income countries spent the most on average on PHC as a proportion of GDP, while up-mid income countries spent the least. It is interesting that low income countries actually spent more as compared to high income countries. The European region spent the most on average on PHC as a proportion of GDP, while the Western Pacific region spent the least.</p>
+<p>The plots below show the average primary health care (PHC) spending as a percent of current health expenditure in 2019 for income levels and WHO regions.</p>
+<pre class="r"><code>PHC_df = 
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc, che_pc_usd) %&gt;% 
+  group_by(income_group) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_phc = mean(phc_usd_pc / che_pc_usd))
+
+income_che = 
+  PHC_df %&gt;% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c(&quot;Low&quot;, &quot;Low-Mid&quot;, &quot;Up-Mid&quot;, &quot;Hi&quot;)), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = &quot;Income level&quot;,
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+phc_che_ghed =
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(phc_usd_pc, che_pc_usd) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    avg_primary_che = mean(phc_usd_pc / che_pc_usd)
+  )
+
+region_che = 
+  phc_che_ghed %&gt;%   
+  ggplot(aes(x = reorder(region_who, avg_primary_che), y = avg_primary_che, fill = region_who)) + 
+  geom_bar(stat = &quot;Identity&quot;) + 
+  labs(
+    x = &quot;WHO region&quot;, 
+    y = &quot;Average spending&quot;
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  theme(legend.position = &quot;none&quot;)
+
+combined_che = income_che + region_che
+
+combined_che + 
+  plot_annotation(
+    title = &quot;Primary health care spending per capita current health expenditure&quot;
+  )</code></pre>
+<p><img src="analysis_files/figure-html/combined_phc_che-1.png" width="90%" /></p>
+<p>Low income countries spent the most on average on PHC as a proportion of current health expenditure, while up-mid income countries spent the least. Low income countries actually spent significantly more in comparison to high income countries. Interestingly, African region countries spent the most on average on PHC as a proportion of current health expenditure, while region of the Americas and Western Pacific region spent the least.</p>
+<p>The plots below show the average preventive vs. curative spending in million current USD$ in 2019 for income levels and WHO regions.</p>
+<pre class="r"><code>cp_df =
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(hc1_usd2019, hc6_usd2019) %&gt;% 
+  group_by(income_group) %&gt;% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019),
+    `Preventive` = mean(hc6_usd2019)
+  ) %&gt;% 
+  pivot_longer(
+    `Curative`:`Preventive`,
+    names_to = &quot;Spend Type&quot;, 
+    values_to = &quot;average_spending&quot;
+  )
+
+income_cp = 
+  cp_df %&gt;% 
+    ggplot(aes(x = reorder(income_group, average_spending), y = average_spending, fill = `Spend Type`)) + 
+    geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
+    labs(
+      x = &quot;Income level&quot;, 
+      y = &quot;Average spending&quot;
+    ) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+cp_df_2 =  
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(hc1_usd2019, hc6_usd2019) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019),
+    `Preventive` = mean(hc6_usd2019)
+  ) %&gt;% 
+  pivot_longer(
+    `Curative`:`Preventive`,
+    names_to = &quot;Spend Type&quot;, 
+    values_to = &quot;average_spending&quot;
+  ) 
+
+group_cp &lt;-
+    cp_df_2 %&gt;% 
+    ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = `Spend Type`)) + 
+    geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
+    labs(
+      x = &quot;WHO region&quot;, 
+      y = &quot;Average spending&quot;
+    ) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  theme(legend.position = &quot;right&quot;)
+
+combined_cp &lt;- income_cp + group_cp
+
+combined_cp + 
+  plot_annotation(
+    title = &quot;Preventive vs. curative spending in million constant USD&quot;
+  )</code></pre>
+<p><img src="analysis_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
+<p>Across all income levels and WHO regions, countries on average spent much more on curative care than on preventative care. This reflects that global health care practices seem to prioritize curative care, and focus less on preventative care for patients. On average, high income countries spent the most on both curative and preventative care, while low income countries spent the least.The region of the Americas spent the most on both curative and preventative care, while the African region spent the least.</p>
+<p>The plots below show the average preventive vs. curative spending as a percent of GDP in 2019 for income levels and WHO regions.</p>
+<pre class="r"><code>cp_df_gdp = 
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(hc1_usd2019, hc6_usd2019, gdp_usd2019) %&gt;% 
+  group_by(income_group) %&gt;% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019 / gdp_usd2019),
+    `Preventive` = mean(hc6_usd2019 / gdp_usd2019)
+  ) %&gt;% 
+  pivot_longer(
+    `Curative`:`Preventive`,
+    names_to = &quot;Spend Type&quot;, 
+    values_to = &quot;average_spending&quot;
+  )
+
+income_cp_gdp = 
+  cp_df_gdp %&gt;% 
+    ggplot(aes(x = reorder(income_group, average_spending), y = average_spending, fill = `Spend Type`)) + 
+    geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
+    labs(
+      x = &quot;Income level&quot;, 
+      y = &quot;Average spending&quot;
+    ) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+cp_df_gdp_2 =  
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(hc1_usd2019, hc6_usd2019, gdp_usd2019) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019 / gdp_usd2019),
+    `Preventive` = mean(hc6_usd2019 / gdp_usd2019)
+  ) %&gt;% 
+  pivot_longer(
+    `Curative`:`Preventive`,
+    names_to = &quot;Spend Type&quot;, 
+    values_to = &quot;average_spending&quot;
+  ) 
+
+group_cp_gdp = 
+    cp_df_gdp_2 %&gt;% 
+    ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = `Spend Type`)) + 
+    geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
+    labs(
+      x = &quot;WHO region&quot;, 
+      y = &quot;Average spending&quot;
+    ) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  theme(legend.position = &quot;right&quot;)
+
+combined_cp_gdp &lt;- income_cp_gdp + group_cp_gdp
+
+combined_cp_gdp + 
+  plot_annotation(
+    title = &quot;Preventive vs. curative spending per capita GDP&quot;
+  )</code></pre>
+<p><img src="analysis_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
+<p>On average, countries across all income groups and WHO regions spent much more on curative care than on preventative care as a percent of GDP. High income countries spent the most on average on curative care. However, low income countries actually spent the most on preventative care as a percent of GDP. The region of the Americas spent the most on average on curative care. It is interesting that the African region actually spent the most on preventative care as a percent of GDP.</p>
+<p>The plots below show the average show the average preventive vs. curative spending as a percent of current health expenditure in 2019 for income levels and WHO regions.</p>
+<pre class="r"><code>cp_df_che = 
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(hc1_usd2019, hc6_usd2019, che_usd2019) %&gt;% 
+  group_by(income_group) %&gt;% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019 / che_usd2019),
+    `Preventive` = mean(hc6_usd2019 / che_usd2019)
+  ) %&gt;% 
+  pivot_longer(
+    `Curative`:`Preventive`,
+    names_to = &quot;Spend Type&quot;, 
+    values_to = &quot;average_spending&quot;
+  )
+
+income_cp_che = 
+  cp_df_che %&gt;% 
+    ggplot(aes(x = reorder(income_group, average_spending), y = average_spending, fill = `Spend Type`)) + 
+    geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
+    labs(
+      x = &quot;Income level&quot;, 
+      y = &quot;Average spending&quot;
+    ) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = &quot;none&quot;)
+
+cp_df_che_2 =  
+  ghed_df %&gt;% 
+  filter(year == 2019) %&gt;% 
+  drop_na(hc1_usd2019, hc6_usd2019, che_usd2019) %&gt;% 
+  group_by(region_who) %&gt;% 
+  summarize(
+    n_countries = n(),
+    `Curative` = mean(hc1_usd2019 / che_usd2019),
+    `Preventive` = mean(hc6_usd2019 / che_usd2019)
+  ) %&gt;% 
+  pivot_longer(
+    `Curative`:`Preventive`,
+    names_to = &quot;Spend Type&quot;, 
+    values_to = &quot;average_spending&quot;
+  ) 
+
+group_cp_che = 
+    cp_df_che_2 %&gt;% 
+    ggplot(aes(x = reorder(region_who, average_spending), y = average_spending, fill = `Spend Type`)) + 
+    geom_bar(stat = &quot;Identity&quot;, position = &quot;Dodge&quot;) + 
+    labs(
+      x = &quot;WHO region&quot;, 
+      y = &quot;Average spending&quot;
+    ) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  theme(legend.position = &quot;right&quot;)
+
+combined_cp_che &lt;- income_cp_che + group_cp_che
+
+combined_cp_che + 
+  plot_annotation(
+    title = &quot;Preventive vs. curative spending per capita current health expenditure&quot;
+  )</code></pre>
+<p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+<p>On average, countries in all income levels and WHO regions spent significantly more on curative care than preventative care as a percent of current health expenditure. Up-mid income countries actually spent the most on curative care, while low income countries spent the least. High income and low-mid income countries spent relatively similar amounts on curative care as a percent of current health expenditure. Again, low income countries spent the most on average on preventative care as a percent of current health expenditure. The Western Pacific region actually spent the most on curative care, while the European region only spent the second highest on curative care. The African region spent the least on curative care, though countries in this region actually spent the most on average on preventative care as a percent of current health expenditure.</p>
 <p>Click here to return to the <a href="index.html">main</a> page.</p>
+</div>
 
 
 
@@ -323,6 +681,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

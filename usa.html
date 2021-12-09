@@ -30,6 +30,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -217,6 +218,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -244,13 +248,22 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="analysis.html">Exploratory Analysis</a>
+  <a href="intro.html">Introduction</a>
+</li>
+<li>
+  <a href="analysis.html">Global Analysis</a>
 </li>
 <li>
   <a href="usa.html">Zoom In: USA</a>
 </li>
 <li>
+  <a href="africa.html">Zoom In: Africa</a>
+</li>
+<li>
   <a href="dashboard.html">Dashboard</a>
+</li>
+<li>
+  <a href="stats.html">Statistical Analysis</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -261,13 +274,7 @@ $(document).ready(function () {
   <a href="about.html">About Us</a>
 </li>
 <li>
-  <a href="mailto:&lt;wang.eric@columbia.edu&gt;">
-    <span class="fa fa-envelope fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="http://github.com/ericwanghu/">
+  <a href="https://github.com/ericwanghu/ghedproject.github.io">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -279,6 +286,14 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Zoom In: USA</h1>
@@ -286,9 +301,91 @@ $(document).ready(function () {
 </div>
 
 
-<br>
-<center>
+<pre class="r"><code>ghed_df &lt;- 
+  read_excel(&quot;data/GHED_data.XLSX&quot;) %&gt;% 
+  janitor::clean_names()
+
+us_df &lt;- read_csv(&quot;data/us_health.csv&quot;, skip = 2, n_max = 52) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  mutate(
+      r01_total_revenue = as.numeric(r01_total_revenue),
+      state = tolower(state),
+      `% of total expenditure` = 
+        (e055_health_direct_expend / e001_total_expenditure) * 100
+    )
+
+us_states &lt;- map_data(&quot;state&quot;)</code></pre>
+<div id="united-states-health-spending" class="section level3">
+<h3>United States Health Spending</h3>
+<p>The plots below show patterns in health care spending in the USA over time and in specific states.</p>
+<pre class="r"><code>per_cap&lt;- 
+  ghed_df %&gt;%
+    filter(country == &quot;United States of America&quot;) %&gt;%
+    select(country, year, Government = gghed_pc_usd, Private = pvtd_pc_usd) %&gt;%
+    pivot_longer(
+      cols = c(&quot;Government&quot;, &quot;Private&quot;),
+      names_to = &quot;Spend Type&quot;, 
+      values_to = &quot;exp_per_cap&quot;
+      ) %&gt;%
+    ggplot(aes(x = year, y = exp_per_cap, 
+               group = `Spend Type`, color = `Spend Type`)
+           ) + 
+    geom_point() +
+    geom_line() +
+    labs(
+      x = &quot;Year&quot;,
+      y = &quot;Expenditure (USD per capita)&quot;
+    ) +
+    theme(legend.position = &quot;none&quot;)
+
+pct &lt;- 
+  ghed_df %&gt;%
+    filter(country == &quot;United States of America&quot;) %&gt;%
+    select(country, year, Government = gghed_che, Private = pvtd_che) %&gt;%
+    mutate(sum_per = Government + Private) %&gt;%
+    pivot_longer(
+      cols = c(&quot;Government&quot;, &quot;Private&quot;),
+      names_to = &quot;Spend Type&quot;, 
+      values_to = &quot;exp_per&quot;) %&gt;%
+    ggplot(aes(x = year, y = exp_per, 
+                group = `Spend Type`, color = `Spend Type`)) + 
+    geom_point() +
+    geom_line() +
+    labs(
+      x = &quot;Year&quot;,
+      y = &quot;Expenditure (% of total)&quot;
+    )+
+    theme(legend.position = &quot;right&quot;)
+
+total &lt;- per_cap + pct
+
+total + 
+  plot_annotation(
+    title = &quot;Health expenditure in the USA over time&quot;
+  )</code></pre>
+<p><img src="usa_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
+<p>These plots visualize health spending the U.S. from 2000-2019 in two different ways: in per capita USD and in % of total spending. The graph on the top highlights how the cost of health per person has increased each year for the last two decades. The graph below shows how government spending on health gradually overtook private spending around 2013.</p>
+<pre class="r"><code>us_states %&gt;% 
+  left_join(us_df, by = c(&quot;region&quot; = &quot;state&quot;)) %&gt;% 
+  ggplot(aes(x = long, y = lat, group = group, fill = `% of total expenditure`)) +
+  geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
+  coord_map(projection = &quot;albers&quot;, lat0 = 45, lat1 = 55) +
+  theme(legend.position=&quot;bottom&quot;,
+        axis.line=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid=element_blank()
+        ) +
+  labs(
+    title = &quot;% of Total Expenditure Put Towards Health in 2019&quot;
+  )</code></pre>
+<p><img src="usa_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
+<p>We can see here that the states that put the most of their state and local spending towards health are Vermont, California, and Washington state. The states that contribute the least of their expenditure towards health are Arkansas, Iowa, and New Hampshire. It’s interesting to see how spending varies so widely with regions. Take the drastic difference between New Hampshire and Vermont as an example. They are neighbors, but their health expenditure is very different.</p>
 <p>Click here to return to the <a href="index.html">main</a> page.</p>
+</div>
 
 
 
@@ -323,6 +420,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
