@@ -9,6 +9,7 @@ library(mgcv)
 library(modelr)
 library(stringr)
 library(patchwork)
+library(plotly)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -30,6 +31,223 @@ ghed_df <-
   read_excel("data/GHED_data.XLSX") %>% 
   janitor::clean_names()
 ```
+
+Let's start with an overview of the Global Health Expenditure Dataset and take a look at global trends. \
+
+
+### Distribution of income levels of countries in each WHO region
+
+
+```{r message=FALSE}
+ghed_df %>%
+  select(country, country_code, region_who, income_group) %>%
+  distinct() %>%
+  mutate(
+    income_group = as.factor(income_group),
+    income_group = factor(income_group, levels = c("Low","Low-Mid","Up-Mid","Hi"))
+  ) %>%
+  group_by(region_who) %>%
+  mutate(
+    num_countries = n()
+  ) %>%
+  group_by(region_who, income_group, num_countries) %>%
+  summarize(n = n()) %>%
+  mutate(
+    perc_income_group = 100*(n/num_countries)
+  ) %>%
+  ggplot(aes(x=income_group,y=perc_income_group)) +
+  geom_bar(aes(fill=income_group),stat="identity") +
+  facet_grid(~region_who) +
+  theme(axis.text.x = element_text(angle = 80, hjust = 1)) +
+  ggtitle("Distribution of income levels of countries in each WHO region") +
+  ylab("% of countries in region") +
+  xlab("country income group (2019)")
+```
+
+The figure above shows the distribution of income levels of countries (categorized in 2019) in each WHO region: AFR (African Region), AMR (Region of the Americas), EMR (Eastern Mediterranean Region), EUR (European Region), SEAR (South-East Asian Region), and WPR (Western Pacific Region). \
+
+Highest proportion of income group type by region: \
+Low income: AFR \
+Low-Mid income: SEAR \
+Up-Mid income: AMR \
+Hi income: EUR \
+
+
+### Income group and total healthcare expenditure
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+  filter(year == 2019) %>%
+  mutate(
+    income_group= as.factor(income_group),
+    income_group = factor(income_group, levels = c("Low","Low-Mid","Up-Mid","Hi"))
+  ) %>%
+  group_by(income_group) %>%
+  summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %>%
+  rename("Mean Current Health Expenditure as % of GDP"="mean_che_gdp") %>%
+  rename("Mean Current Health Expenditure per Capita (US$)"="mean_che_pc_usd") %>%
+  knitr::kable(digits = 2)
+```
+
+
+As we can see from the above table, the mean CHE per capita in US$ increases as we go from low income groups to high income groups. The highest CHE as % of GDP belongs to countries in the highest income group at 7.67%; however, we see that this percentage for all income groups ranges from roughly 5-8%, so the amount per capita a country is able to dedicate for health expenditure depends and varies based on country GDP and income level. \
+
+### WHO region and total healthcare expenditure
+
+```{r}
+ghed_df %>%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+  filter(year == 2019) %>%
+  group_by(region_who) %>%
+  summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %>%
+  arrange(mean_che_pc_usd) %>%
+  rename("Mean Current Health Expenditure as % of GDP"="mean_che_gdp") %>%
+  rename("Mean Current Health Expenditure per Capita (US$)"="mean_che_pc_usd") %>%
+  knitr::kable(digits = 2)
+```
+
+As shown by the table above, the AFR region has the lowest Mean Current Health Expenditure per Capita (US$) while EUR has the highest. While the expenditure as % of GDP ranges from 4-8%, we note that the EUR region has countries that, on average, spend the highest percentage of their GDP on health at 7.6%. So even though the EUR region has the highest proportion of high income  countries, these countries still dedicate the highest proportion of their GDP to healthcare, followed by the WPR and AMR regions.
+
+
+### Developed countries and their spending over time 
+
+The major developed economies we take a closer look at are known as the G-7 countries and comprise of countries with the world's largest developed economies: Canada, Japan, France, Germany, Italy, United Kingdom, and the United States of America.
+
+```{r total spending developed countries, message=FALSE}
+
+total_spending_developed_plot = 
+  ghed_df %>%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+  filter(country == "United States of America" |
+         country == "United Kingdom" |
+         country == "Italy" |
+         country == "Germany" |
+         country == "France" |
+         country == "Japan" |
+         country == "Canada") %>%
+  mutate(
+    year = as.numeric(year)
+  ) %>%
+  group_by(country) %>%
+  ggplot(aes(x=year,y=che_pc_usd, color=country),show.legend = FALSE) +
+  geom_line(show.legend = FALSE) +
+  geom_point(show.legend = FALSE) +
+  ggtitle("Total spending over time in developed countries (per capita)") +
+  ylab("Total Health Expenditure (US$)") +
+  scale_colour_viridis_d()
+  
+  # plot_ly(x = ~year) %>%
+  # add_trace(y = ~che_pc_usd, name = ~country, mode = 'lines+markers') %>%
+  # layout(title = 'Total spending over time in developed countries (per capita)', yaxis = list(title = 'Total Health Expenditure (US$)'), showlegend=FALSE)
+  
+```
+
+```{r govt spending developed countries, message=FALSE}
+govt_spending_developed_plot = 
+  ghed_df %>%
+  select(country, country_code, region_who, income_group, year, gghed_pc_usd) %>%
+  filter(country == "United States of America" |
+         country == "United Kingdom" |
+         country == "Italy" |
+         country == "Germany" |
+         country == "France" |
+         country == "Japan" |
+         country == "Canada") %>%
+  mutate(
+    year = as.numeric(year)
+  ) %>%
+  group_by(country) %>%
+  ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle("Government spending over time in developed countries (per capita)") +
+  ylab("Government Health Expenditure (US$)") +
+  scale_colour_viridis_d()
+  
+  # plot_ly(x = ~year) %>%
+  # add_trace(y = ~gghed_pc_usd, name = ~country, mode = 'lines+markers') %>%
+  # layout(title = 'Government spending over time in developed countries (per capita)', yaxis = list(title = 'Government Health Expenditure (US$)'), legend = list(orientation = 'h'))
+  
+```
+
+```{r total and govt spending developed countries, message=FALSE}
+total_spending_developed_plot 
+govt_spending_developed_plot
+```
+
+
+As we can see from the above line plots, among the G-7 countries, the United States has the highest total and government spending per capita over time and grows at a steeper rate year over year than the other countries. All countries have higher health expenditure as of 2019 than 2000. It's interesting to note that Japan had a spike in government health expenditure around 2011 and 2012, exceeding the US - upon looking into this, we note that the deadly earthquake and tsunami that hit Japan in 2011 coincides with this increase. With thousands dead and injured and many resources now scarce, the government stepped in to provide relief to its citizens and help with recovery and health concerns after the natural disaster struck. This could be the reason for the spike in government health expenditure that we see in the above plot in those years. \
+Note that total spending per capita ranges from \$1500 to \$11000 and government spending per capita ranges from \$1000 to \$5500. \
+
+### Developing countries and their spending over time 
+
+The developing economies we dive into are from a list of countries with developing economies by region in the Country classification document from the UN website: Morocco, Uganda, South Africa, Senegal, Nepal, Iraq, Haiti, Mexico, and Argentina.
+
+
+```{r, message=FALSE}
+total_spending_developing_plot = 
+  ghed_df %>%
+  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+  filter(country == "Morocco" |
+         country == "Uganda" |
+         country == "South Africa" |
+         country == "Senegal" |
+         country == "Nepal" |
+         country == "Iraq" |
+         country == "Haiti" |
+         country == "Mexico" |
+         country == "Argentina") %>%
+  mutate(
+    year = as.numeric(year)
+  ) %>%
+  group_by(country) %>%
+  ggplot(aes(x=year,y=che_pc_usd, color=country),show.legend = FALSE) +
+  geom_line(show.legend = FALSE) +
+  geom_point(show.legend = FALSE) +
+  ggtitle("Total spending over time in developing countries (per capita)") +
+  ylab("Total Health Expenditure (US$)") +
+  scale_colour_viridis_d()
+  
+
+```
+
+
+```{r, message=FALSE}
+govt_spending_developing_plot = 
+  ghed_df %>%
+  select(country, country_code, region_who, income_group, year, gghed_pc_usd) %>%
+  filter(country == "Morocco" |
+         country == "Uganda" |
+         country == "South Africa" |
+         country == "Senegal" |
+         country == "Nepal" |
+         country == "Iraq" |
+         country == "Haiti" |
+         country == "Mexico" |
+         country == "Argentina") %>%
+  mutate(
+    year = as.numeric(year)
+  ) %>%
+  group_by(country) %>%
+  ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
+  geom_line() +
+  geom_point() +
+  ggtitle("Government spending over time in developing countries (per capita)") +
+  ylab("Government Health Expenditure (US$)") +
+  scale_colour_viridis_d()
+
+```
+
+```{r, message=FALSE}
+total_spending_developing_plot
+govt_spending_developing_plot
+```
+
+
+As we can see from the above line plots, among these developing economies, Argentina has the highest total and government spending per capita over time and grows at a steeper rate year over year than the other countries. According to an Economist article, Argentina's government has been devoting more resources to healthcare over the years to address healthcare inequalities. Some of the African countries, such as Senegal, South Africa, and Uganda, don't seem to have increased health spending much, if at all, over the last two decades. \
+Note that total spending per capita ranges from close to \$0 to \$1500 and government spending per capita ranges from close to \$0 to \$1000. Both these ranges are much less than that of the G-7 developed economies mentioned above: total spending per capita from \$1500 to \$11000 and government spending per capita from \$1000 to \$5500. \
+
 
 ### Expenditure categories by income level and WHO regions
 

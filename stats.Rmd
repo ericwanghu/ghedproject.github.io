@@ -1,0 +1,113 @@
+---
+title: "Statistical Analysis"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(readxl)
+library(mgcv)
+library(modelr)
+library(nnet)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+theme_set(theme_bw() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_coulour_discrete = scale_color_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+```{r, include = FALSE}
+ghed_df <- 
+  read_excel("data/GHED_data.XLSX")
+```
+
+```{r, include = FALSE}
+ghed_df = 
+  ghed_df %>%
+  janitor::clean_names()
+```
+
+### Using a statistical model to predict income group
+
+After looking at global and regional trends, we were curious about the possibility of predicting the income group given a country in a certain WHO region, and amounts of private and government expenditure and external funding. \
+
+Because income group is a categorical variable with 4 levels (1: low, 2: low-mid, 3: up-mid, 4: high), we wanted to explore a classification model to predict income group based on the different levels of expenditure and funding, as well as WHO region. Thus, we tried using a Random Forest model. Random Forest is an algorithm that generates multiple decision trees that branch into different variables to create paths for classifying an input vector as a specific output using feature values and thresholds; the classification model classifies an input based on what class is assigned by the majority of the decision trees created.
+
+
+```{r}
+
+ghed_lm_df = 
+  ghed_df %>%
+  select(country, country_code, region_who, income_group, ext_pc_usd, pvtd_pc_usd, gghed_pc_usd) %>%
+  drop_na() %>%
+  mutate(
+    income_group = as.factor(income_group),
+    income_group = factor(income_group, levels = c("Low","Low-Mid","Up-Mid","Hi")),
+    income_group = fct_recode(income_group, '1'="Low",'2'="Low-Mid", '3'="Up-Mid", '4'="Hi"),
+    region_who = as.factor(region_who)
+  )
+
+```
+
+```{r}
+set.seed(1234)
+
+ghed_lm_df_shuffled = ghed_lm_df[sample(nrow(ghed_lm_df)),]
+
+ghed_train = ghed_lm_df_shuffled[0:2340,]
+ghed_test = ghed_lm_df_shuffled[2341:3340,]
+
+```
+
+We used 2,340 as a train set, and 1,000 as a test set. We use the train set to train the Random Forest model and test the prediction accuracy using the test set. The model created, as well as the confusion matrix, is shown below. We note that class errors for each of the income groups range from 13-22%, meaning a 78-87% accuracy for each of the classes.
+
+```{r, message=FALSE}
+
+library(randomForest)
+```
+
+```{r}
+model <- randomForest(y=ghed_train$income_group,x=cbind(ghed_train$pvtd_pc_usd, ghed_train$gghed_pc_usd, ghed_train$ext_pc_usd, ghed_train$region_who),ntree=5)
+
+print(model)
+
+```
+
+Below are the predictions for our 1,000 size test set. 
+
+```{r}
+pred_1 = predict(model, cbind(ghed_test$pvtd_pc_usd, ghed_test$gghed_pc_usd, ghed_test$ext_pc_usd, ghed_test$region_who))
+```
+
+Confusion matrix:
+```{r}
+table(ghed_test$income_group, pred_1) 
+```
+
+```{r}
+accuracy_m1 = mean(ghed_test$income_group == pred_1)
+```
+
+Accuracy:
+```{r}
+accuracy_m1
+```
+
+As we can see, we get an accuracy of 84.2%. So 84.2% of the 1000 test set data rows were classified to the correct income group based on WHO region, and amounts of private and government expenditure and external funding, showing this Random Forest model performs well using these predictors.
+
+
+<br>
+<center>
+
+Click here to return to the [main](index.html) page.

@@ -735,31 +735,27 @@ ghed_df %>%
   ) %>%
   group_by(income_group) %>%
   summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %>%
+  rename("Mean Current Health Expenditure as % of GDP"="mean_che_gdp") %>%
+  rename("Mean Current Health Expenditure per Capita (US$)"="mean_che_pc_usd") %>%
   knitr::kable(digits = 2)
 ```
 
-| income\_group | mean\_che\_gdp | mean\_che\_pc\_usd |
-|:--------------|---------------:|-------------------:|
-| Low           |           6.01 |              39.25 |
-| Low-Mid       |           5.08 |             126.69 |
-| Up-Mid        |           6.90 |             482.74 |
-| Hi            |           7.69 |            2937.29 |
+| income\_group | Mean Current Health Expenditure as % of GDP | Mean Current Health Expenditure per Capita (US$) |
+|:--------------|--------------------------------------------:|-------------------------------------------------:|
+| Low           |                                        6.01 |                                            39.25 |
+| Low-Mid       |                                        5.08 |                                           126.69 |
+| Up-Mid        |                                        6.90 |                                           482.74 |
+| Hi            |                                        7.69 |                                          2937.29 |
 
-The above table describes the following variables for all income
-groups:  
-che\_gdp: Current Health Expenditure (CHE) as % Gross Domestic Product
-(GDP) \[Percentage\]  
-che\_pc\_usd: Current Health Expenditure (CHE) per Capita in US$
-\[Ones\]  
+As we can see from the above table, the mean CHE per capita in US$
+increases as we go from low income groups to high income groups. The
+highest CHE as % of GDP belongs to countries in the highest income group
+at 7.67%; however, we see that this percentage for all income groups
+ranges from roughly 5-8%, so the amount per capita a country is able to
+dedicate for health expenditure depends and varies based on country GDP
+and income level.
 
-As we can see, the mean CHE per capita in US$ increases as we go from
-low income groups to high income groups. The highest CHE as % of GDP
-belongs to countries in the highest income group at 7.67%; however, we
-see that this percentage for all income groups ranges from roughly 5-8%,
-so the amount per capita a country is able to dedicate for health
-expenditure depends and varies based on country GDP and income level.
-
-## WHO region and total healthcare expenditure
+### WHO region and total healthcare expenditure
 
 ``` r
 ghed_df %>%
@@ -768,87 +764,114 @@ ghed_df %>%
   group_by(region_who) %>%
   summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %>%
   arrange(mean_che_pc_usd) %>%
+  rename("Mean Current Health Expenditure as % of GDP"="mean_che_gdp") %>%
+  rename("Mean Current Health Expenditure per Capita (US$)"="mean_che_pc_usd") %>%
   knitr::kable(digits = 2)
 ```
 
-| region\_who | mean\_che\_gdp | mean\_che\_pc\_usd |
-|:------------|---------------:|-------------------:|
-| AFR         |           5.33 |             128.38 |
-| SEAR        |           4.42 |             186.29 |
-| EMR         |           5.52 |             634.23 |
-| AMR         |           7.20 |            1081.32 |
-| WPR         |           7.32 |            1107.48 |
-| EUR         |           7.63 |            2461.09 |
+\|region\_who \| Mean Current Health Expenditure as % of GDP\| Mean
+Current Health Expenditure per Capita
+(US)\|\| :  −  −  −  −  −  −  −  −  −  − \| −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  : \| −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  −  : \|\|*A**F**R*\|5.33\|128.38\|\|*S**E**A**R*\|4.42\|186.29\|\|*E**M**R*\|5.52\|634.23\|\|*A**M**R*\|7.20\|1081.32\|\|*W**P**R*\|7.32\|1107.48\|\|*E**U**R*\|7.63\|2461.09\|*A**s**s**h**o**w**n**b**y**t**h**e**t**a**b**l**e**a**b**o**v**e*, *t**h**e**A**F**R**r**e**g**i**o**n**h**a**s**t**h**e**l**o**w**e**s**t**M**e**a**n**C**u**r**r**e**n**t**H**e**a**l**t**h**E**x**p**e**n**d**i**t**u**r**e**p**e**r**C**a**p**i**t**a*(*U**S*)
+while EUR has the highest. While the expenditure as % of GDP ranges from
+4-8%, we note that the EUR region has countries that, on average, spend
+the highest percentage of their GDP on health at 7.6%. So even though
+the EUR region has the highest proportion of high income countries,
+these countries still dedicate the highest proportion of their GDP to
+healthcare, followed by the WPR and AMR regions.
 
-The above table describes the following variables for all WHO regions:  
-che\_gdp: Current Health Expenditure (CHE) as % Gross Domestic Product
-(GDP) \[Percentage\]  
-che\_pc\_usd: Current Health Expenditure (CHE) per Capita in US$
-\[Ones\]  
+### Developed countries and their spending over time
 
-## Developed countries - total spending over time
-
-major developed economies (UN): Canada, Japan, France, Germany, Italy,
-UK, US
+The major developed economies we take a closer look at are known as the
+G-7 countries and comprise of countries with the world’s largest
+developed economies: Canada, Japan, France, Germany, Italy, United
+Kingdom, and the United States of America.
 
 ``` r
-ghed_df %>%
-  select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
-  filter(country == "United States of America" |
-         country == "United Kingdom" |
-         country == "Italy" |
-         country == "Germany" |
-         country == "France" |
-         country == "Japan" |
-         country == "Canada") %>%
-  mutate(
-    year = as.numeric(year)
-  ) %>%
-  group_by(country) %>%
-  ggplot(aes(x=year,y=che_pc_usd, color=country)) +
-  geom_line() +
-  geom_point() +
-  ggtitle("Total spending over time in developed countries") +
-  scale_colour_viridis_d()
+# total_spending_developed_plot = 
+#   ghed_df %>%
+#   select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
+#   filter(country == "United States of America" |
+#          country == "United Kingdom" |
+#          country == "Italy" |
+#          country == "Germany" |
+#          country == "France" |
+#          country == "Japan" |
+#          country == "Canada") %>%
+#   mutate(
+#     year = as.numeric(year)
+#   ) %>%
+#   group_by(country) %>%
+#   plot_ly(x = ~year) %>%
+#   add_trace(y = ~che_pc_usd, name = ~country, mode = 'lines+markers') %>%
+#   layout(title = 'Total spending over time in developed countries (per capita)', yaxis = list(title = 'Total Health Expenditure (US$)'), showlegend=FALSE)
+  
+# 
+#   ggplot(aes(x=year,y=che_pc_usd, color=country),show.legend = FALSE) +
+#   geom_line(show.legend = FALSE) +
+#   geom_point(show.legend = FALSE) +
+#   ggtitle("Total spending over time in developed countries (per capita)") +
+#   ylab("Total Health Expenditure (US$)") +
+#   scale_colour_viridis_d()
 ```
-
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-12-1.png" width="90%" />
-
-## Developed countries - government spending over time
-
-gghed\_pc\_usd Domestic General Government Health Expenditure (GGHE-D)
-per Capita in US$
 
 ``` r
-ghed_df %>%
-  select(country, country_code, region_who, income_group, year, gghed_pc_usd) %>%
-  filter(country == "United States of America" |
-         country == "United Kingdom" |
-         country == "Italy" |
-         country == "Germany" |
-         country == "France" |
-         country == "Japan" |
-         country == "Canada") %>%
-  mutate(
-    year = as.numeric(year)
-  ) %>%
-  group_by(country) %>%
-  ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
-  geom_line() +
-  geom_point() +
-  ggtitle("Government spending over time in developed countries") +
-  scale_colour_viridis_d()
+# govt_spending_developed_plot = 
+#   ghed_df %>%
+#   select(country, country_code, region_who, income_group, year, gghed_pc_usd) %>%
+#   filter(country == "United States of America" |
+#          country == "United Kingdom" |
+#          country == "Italy" |
+#          country == "Germany" |
+#          country == "France" |
+#          country == "Japan" |
+#          country == "Canada") %>%
+#   mutate(
+#     year = as.numeric(year)
+#   ) %>%
+#   group_by(country) %>%
+#   plot_ly(x = ~year) %>%
+#   add_trace(y = ~gghed_pc_usd, name = ~country, mode = 'lines+markers') %>%
+#   layout(title = 'Government spending over time in developed countries (per capita)', yaxis = list(title = 'Government Health Expenditure (US$)'), legend = list(orientation = 'h'))
+#   
+  # ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
+  # geom_line() +
+  # geom_point() +
+  # ggtitle("Government spending over time in developed countries (per capita)") +
+  # ylab("Government Health Expenditure (US$)") +
+  # scale_colour_viridis_d()
 ```
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-13-1.png" width="90%" />
+``` r
+# total_spending_developed_plot 
+# govt_spending_developed_plot
+```
+
+As we can see from the above line plots, among the G-7 countries, the
+United States has the highest total and government spending per capita
+over time and grows at a steeper rate year over year than the other
+countries. All countries have higher health expenditure as of 2019 than
+2000. It’s interesting to note that Japan had a spike in government
+health expenditure around 2011 and 2012, exceeding the US - upon looking
+into this, we note that the deadly earthquake and tsunami that hit Japan
+in 2011 coincides with this increase. With thousands dead and injured
+and many resources now scarce, the government stepped in to provide
+relief to its citizens and help with recovery and health concerns after
+the natural disaster struck. This could be the reason for the spike in
+government health expenditure that we see in the above plot in those
+years.  
+Note that total spending per capita ranges from $1500 to $11000 and
+government spending per capita ranges from $1000 to $5500.
 
 ## Developing countries - total spending over time
 
-developing economies: Morocco, Uganda, South Africa, Senegal Nepal,
-Iraq, Haiti, Mexico, Argentina
+The developing economies we dive into are from a list of countries with
+developing economies by region in the Country classification document
+from the UN website: Morocco, Uganda, South Africa, Senegal, Nepal,
+Iraq, Haiti, Mexico, and Argentina.
 
 ``` r
-ghed_df %>%
+total_spending_developing_plot = 
+  ghed_df %>%
   select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
   filter(country == "Morocco" |
          country == "Uganda" |
@@ -863,23 +886,17 @@ ghed_df %>%
     year = as.numeric(year)
   ) %>%
   group_by(country) %>%
-  ggplot(aes(x=year,y=che_pc_usd, color=country)) +
-  geom_line() +
-  geom_point() +
-  ggtitle("Total spending over time in developing countries") +
+  ggplot(aes(x=year,y=che_pc_usd, color=country),show.legend = FALSE) +
+  geom_line(show.legend = FALSE) +
+  geom_point(show.legend = FALSE) +
+  ggtitle("Total spending over time in developing countries (per capita)") +
+  ylab("Total Health Expenditure (US$)") +
   scale_colour_viridis_d()
 ```
 
-    ## Warning: Removed 3 row(s) containing missing values (geom_path).
-
-    ## Warning: Removed 3 rows containing missing values (geom_point).
-
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-14-1.png" width="90%" />
-
-## Developing countries - government spending over time
-
 ``` r
-ghed_df %>%
+govt_spending_developing_plot = 
+  ghed_df %>%
   select(country, country_code, region_who, income_group, year, gghed_pc_usd) %>%
   filter(country == "Morocco" |
          country == "Uganda" |
@@ -897,15 +914,44 @@ ghed_df %>%
   ggplot(aes(x=year,y=gghed_pc_usd, color=country)) +
   geom_line() +
   geom_point() +
-  ggtitle("Government spending over time in developing countries") +
+  ggtitle("Government spending over time in developing countries (per capita)") +
+  ylab("Government Health Expenditure (US$)") +
   scale_colour_viridis_d()
+```
+
+``` r
+total_spending_developing_plot
 ```
 
     ## Warning: Removed 3 row(s) containing missing values (geom_path).
 
     ## Warning: Removed 3 rows containing missing values (geom_point).
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-15-1.png" width="90%" />
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-17-1.png" width="90%" />
+
+``` r
+govt_spending_developing_plot
+```
+
+    ## Warning: Removed 3 row(s) containing missing values (geom_path).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-17-2.png" width="90%" />
+
+As we can see from the above line plots, among these developing
+economies, Argentina has the highest total and government spending per
+capita over time and grows at a steeper rate year over year than the
+other countries. According to an Economist article, Argentina’s
+government has been devoting more resources to healthcare over the years
+to address healthcare inequalities. Some of the African countries, such
+as Senegal, South Africa, and Uganda, don’t seem to have increased
+health spending much, if at all, over the last two decades.  
+Note that total spending per capita ranges from close to $0 to $1500 and
+government spending per capita ranges from close to $0 to $1000. Both
+these ranges are much less than that of the G-7 developed economies
+mentioned above: total spending per capita from $1500 to $11000 and
+government spending per capita from $1000 to $5500.
 
 ## LM - correlation between WHO region, external funding, private spending, and government expenditure and income group
 
@@ -992,7 +1038,7 @@ ghed_df%>%
   geom_bar(position="stack", stat="identity")
 ```
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-19-1.png" width="90%" />
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-21-1.png" width="90%" />
 
 ``` r
 ghed_df%>%
@@ -1020,7 +1066,7 @@ scale_fill_discrete(name="Expenditure Type",
 
     ## Warning: Removed 6 rows containing missing values (position_stack).
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-20-1.png" width="90%" />
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-22-1.png" width="90%" />
 
 Government vs. Private expenditure over time in the US
 
@@ -1034,7 +1080,7 @@ ghed_df%>%
   ggplot() + geom_point(aes(x = year, y = exp_per_cap, col = exp_type))+geom_line(aes(x = year, y = exp_per_cap, group = exp_type, colour = exp_type))
 ```
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-21-1.png" width="90%" />
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-23-1.png" width="90%" />
 
 ``` r
 ghed_df%>%
@@ -1047,7 +1093,7 @@ ghed_df%>%
   ggplot() + geom_point(aes(x = year, y = exp_per, col = exp_type))+geom_line(aes(x = year, y = exp_per, group = exp_type, colour = exp_type))
 ```
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-22-1.png" width="90%" />
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-24-1.png" width="90%" />
 
 ``` r
 ghed_df%>%
@@ -1063,7 +1109,7 @@ ghed_df%>%
 
     ## Warning: Removed 6 rows containing missing values (position_stack).
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-23-1.png" width="90%" />
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-25-1.png" width="90%" />
 
 ``` r
 ghed_df%>%
@@ -1080,7 +1126,7 @@ ghed_df%>%
 
     ## Warning: Removed 6 rows containing missing values (position_stack).
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-24-1.png" width="90%" />
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-26-1.png" width="90%" />
 
 ``` r
 un_country_class<- read_csv("data/un_country_classification.csv")
@@ -1143,4 +1189,4 @@ ghed_df<- left_join(ghed_df, un_country_class, by = c("country" = "country_or_ar
   geom_bar(stat="identity", aes(fill = region_who))+facet_grid(cols = vars(region_who))+theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))+scale_fill_viridis_d()
 ```
 
-<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-26-1.png" width="90%" />
+<img src="ghed_p8105_project_files/figure-gfm/unnamed-chunk-28-1.png" width="90%" />

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Statistical Analysis</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GHED Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="intro.html">Introduction</a>
+</li>
+<li>
+  <a href="analysis.html">Global Analysis</a>
+</li>
+<li>
+  <a href="usa.html">Zoom In: USA</a>
+</li>
+<li>
+  <a href="africa.html">Zoom In: Africa</a>
+</li>
+<li>
+  <a href="dashboard.html">Dashboard</a>
+</li>
+<li>
+  <a href="stats.html">Statistical Analysis</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="report.html">Report</a>
+</li>
+<li>
+  <a href="about.html">About Us</a>
+</li>
+<li>
+  <a href="https://github.com/ericwanghu/ghedproject.github.io">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Statistical Analysis</h1>
+
+</div>
+
+
+<div id="using-a-statistical-model-to-predict-income-group" class="section level3">
+<h3>Using a statistical model to predict income group</h3>
+<p>After looking at global and regional trends, we were curious about the possibility of predicting the income group given a country in a certain WHO region, and amounts of private and government expenditure and external funding.<br />
+</p>
+<p>Because income group is a categorical variable with 4 levels (1: low, 2: low-mid, 3: up-mid, 4: high), we wanted to explore a classification model to predict income group based on the different levels of expenditure and funding, as well as WHO region. Thus, we tried using a Random Forest model. Random Forest is an algorithm that generates multiple decision trees that branch into different variables to create paths for classifying an input vector as a specific output using feature values and thresholds; the classification model classifies an input based on what class is assigned by the majority of the decision trees created.</p>
+<pre class="r"><code>ghed_lm_df = 
+  ghed_df %&gt;%
+  select(country, country_code, region_who, income_group, ext_pc_usd, pvtd_pc_usd, gghed_pc_usd) %&gt;%
+  drop_na() %&gt;%
+  mutate(
+    income_group = as.factor(income_group),
+    income_group = factor(income_group, levels = c(&quot;Low&quot;,&quot;Low-Mid&quot;,&quot;Up-Mid&quot;,&quot;Hi&quot;)),
+    income_group = fct_recode(income_group, &#39;1&#39;=&quot;Low&quot;,&#39;2&#39;=&quot;Low-Mid&quot;, &#39;3&#39;=&quot;Up-Mid&quot;, &#39;4&#39;=&quot;Hi&quot;),
+    region_who = as.factor(region_who)
+  )</code></pre>
+<pre class="r"><code>set.seed(1234)
+
+ghed_lm_df_shuffled = ghed_lm_df[sample(nrow(ghed_lm_df)),]
+
+ghed_train = ghed_lm_df_shuffled[0:2340,]
+ghed_test = ghed_lm_df_shuffled[2341:3340,]</code></pre>
+<p>We used 2,340 as a train set, and 1,000 as a test set. We use the train set to train the Random Forest model and test the prediction accuracy using the test set. The model created, as well as the confusion matrix, is shown below. We note that class errors for each of the income groups range from 13-22%, meaning a 78-87% accuracy for each of the classes.</p>
+<pre class="r"><code>library(randomForest)</code></pre>
+<pre class="r"><code>model &lt;- randomForest(y=ghed_train$income_group,x=cbind(ghed_train$pvtd_pc_usd, ghed_train$gghed_pc_usd, ghed_train$ext_pc_usd, ghed_train$region_who),ntree=5)
+
+print(model)</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(x = cbind(ghed_train$pvtd_pc_usd, ghed_train$gghed_pc_usd,      ghed_train$ext_pc_usd, ghed_train$region_who), y = ghed_train$income_group,      ntree = 5) 
+##                Type of random forest: classification
+##                      Number of trees: 5
+## No. of variables tried at each split: 2
+## 
+##         OOB estimate of  error rate: 18.64%
+## Confusion matrix:
+##     1   2   3   4 class.error
+## 1 263  55   8   0   0.1932515
+## 2  56 491  63   1   0.1963993
+## 3   6  76 464  48   0.2188552
+## 4   0   3  75 489   0.1375661</code></pre>
+<p>Below are the predictions for our 1,000 size test set.</p>
+<pre class="r"><code>pred_1 = predict(model, cbind(ghed_test$pvtd_pc_usd, ghed_test$gghed_pc_usd, ghed_test$ext_pc_usd, ghed_test$region_who))</code></pre>
+<p>Confusion matrix:</p>
+<pre class="r"><code>table(ghed_test$income_group, pred_1) </code></pre>
+<pre><code>##    pred_1
+##       1   2   3   4
+##   1 129  21   1   0
+##   2  20 225  32   0
+##   3   5  29 237  20
+##   4   0   0  30 251</code></pre>
+<pre class="r"><code>accuracy_m1 = mean(ghed_test$income_group == pred_1)</code></pre>
+<p>Accuracy:</p>
+<pre class="r"><code>accuracy_m1</code></pre>
+<pre><code>## [1] 0.842</code></pre>
+<p>As we can see, we get an accuracy of 84.2%. So 84.2% of the 1000 test set data rows were classified to the correct income group based on WHO region, and amounts of private and government expenditure and external funding, showing this Random Forest model performs well using these predictors.</p>
+<br>
+<center>
+<p>Click here to return to the <a href="index.html">main</a> page.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
