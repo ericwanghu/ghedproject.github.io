@@ -13,8 +13,8 @@
 
 <title>Zoom In: USA</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -307,9 +307,91 @@ $(document).ready(function () {
 </div>
 
 
-<br>
-<center>
+<pre class="r"><code>ghed_df &lt;- 
+  read_excel(&quot;data/GHED_data.XLSX&quot;) %&gt;% 
+  janitor::clean_names()
+
+us_df &lt;- read_csv(&quot;data/us_health.csv&quot;, skip = 2, n_max = 52) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  mutate(
+      r01_total_revenue = as.numeric(r01_total_revenue),
+      state = tolower(state),
+      `% of total expenditure` = 
+        (e055_health_direct_expend / e001_total_expenditure) * 100
+    )
+
+us_states &lt;- map_data(&quot;state&quot;)</code></pre>
+<div id="united-states-health-spending" class="section level3">
+<h3>United States Health Spending</h3>
+<p>The plots below show patterns in health care spending in the USA over time and in specific states.</p>
+<pre class="r"><code>per_cap&lt;- 
+  ghed_df %&gt;%
+    filter(country == &quot;United States of America&quot;) %&gt;%
+    select(country, year, Government = gghed_pc_usd, Private = pvtd_pc_usd) %&gt;%
+    pivot_longer(
+      cols = c(&quot;Government&quot;, &quot;Private&quot;),
+      names_to = &quot;Spend Type&quot;, 
+      values_to = &quot;exp_per_cap&quot;
+      ) %&gt;%
+    ggplot(aes(x = year, y = exp_per_cap, 
+               group = `Spend Type`, color = `Spend Type`)
+           ) + 
+    geom_point() +
+    geom_line() +
+    labs(
+      x = &quot;Year&quot;,
+      y = &quot;Expenditure (USD per capita)&quot;
+    ) +
+    theme(legend.position = &quot;none&quot;)
+
+pct &lt;- 
+  ghed_df %&gt;%
+    filter(country == &quot;United States of America&quot;) %&gt;%
+    select(country, year, Government = gghed_che, Private = pvtd_che) %&gt;%
+    mutate(sum_per = Government + Private) %&gt;%
+    pivot_longer(
+      cols = c(&quot;Government&quot;, &quot;Private&quot;),
+      names_to = &quot;Spend Type&quot;, 
+      values_to = &quot;exp_per&quot;) %&gt;%
+    ggplot(aes(x = year, y = exp_per, 
+                group = `Spend Type`, color = `Spend Type`)) + 
+    geom_point() +
+    geom_line() +
+    labs(
+      x = &quot;Year&quot;,
+      y = &quot;Expenditure (% of total)&quot;
+    )+
+    theme(legend.position = &quot;right&quot;)
+
+total &lt;- per_cap + pct
+
+total + 
+  plot_annotation(
+    title = &quot;Health expenditure in the USA over time&quot;
+  )</code></pre>
+<p><img src="usa_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
+<p>These plots visualize health spending the U.S. from 2000-2019 in two different ways: in per capita USD and in % of total spending. The graph on the top highlights how the cost of health per person has increased each year for the last two decades. The graph below shows how government spending on health gradually overtook private spending around 2013.</p>
+<pre class="r"><code>us_states %&gt;% 
+  left_join(us_df, by = c(&quot;region&quot; = &quot;state&quot;)) %&gt;% 
+  ggplot(aes(x = long, y = lat, group = group, fill = `% of total expenditure`)) +
+  geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
+  coord_map(projection = &quot;albers&quot;, lat0 = 45, lat1 = 55) +
+  theme(legend.position=&quot;bottom&quot;,
+        axis.line=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid=element_blank()
+        ) +
+  labs(
+    title = &quot;% of Total Expenditure Put Towards Health in 2019&quot;
+  )</code></pre>
+<p><img src="usa_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
+<p>We can see here that the states that put the most of their state and local spending towards health are Vermont, California, and Washington state. The states that contribute the least of their expenditure towards health are Arkansas, Iowa, and New Hampshire. It’s interesting to see how spending varies so widely with regions. Take the drastic difference between New Hampshire and Vermont as an example. They are neighbors, but their health expenditure is very different.</p>
 <p>Click here to return to the <a href="index.html">main</a> page.</p>
+</div>
 
 
 

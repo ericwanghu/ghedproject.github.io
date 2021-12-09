@@ -921,9 +921,6 @@ ghed_df%>%
                names_to = "exp_type", 
                values_to = "exp_per_cap")%>%
   ggplot() + geom_point(aes(x = year, y = exp_per_cap, col = exp_type))+geom_line(aes(x = year, y = exp_per_cap, group = exp_type, colour = exp_type))
-  
-
-
 ```
 
 ```{r}

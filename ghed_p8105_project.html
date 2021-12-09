@@ -13,8 +13,8 @@
 
 <title>P8105 Final Project</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -1125,11 +1125,11 @@ summary(fit_exp_dstbn)</code></pre>
 ## F-statistic:  1745 on 2 and 3337 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre class="r"><code>fit_region_exp %&gt;% 
   broom::glance()</code></pre>
-<pre><code>## # A tibble: 1 × 12
+<pre><code>## # A tibble: 1 x 12
 ##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
 ##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     0.585         0.585 0.666      672.       0     7 -3378. 6775. 6830.
-## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+## # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 <div id="poojas-part" class="section level3">
 <h3>Pooja’s Part</h3>
 <pre class="r"><code>#Developed - Canada, Japan, France, Germany, Italy, UK, US
@@ -1212,15 +1212,15 @@ scale_fill_discrete(name=&quot;Expenditure Type&quot;,
 <p><img src="ghed_p8105_project_files/figure-html/unnamed-chunk-24-1.png" width="90%" /></p>
 <pre class="r"><code>un_country_class&lt;- read_csv(&quot;data/un_country_classification.csv&quot;)</code></pre>
 <pre><code>## Rows: 249 Columns: 16</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## -- Column specification --------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr (16): Global Code, Global Name, Region Code, Region Name, Sub-region Cod...</code></pre>
 <pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>head(un_country_class)</code></pre>
 <pre><code>## Warning: One or more parsing issues, see `problems()` for details</code></pre>
-<pre><code>## # A tibble: 6 × 16
+<pre><code>## # A tibble: 6 x 16
 ##   `Global Code` `Global Name` `Region Code` `Region Name` `Sub-region Code`
 ##   &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;            
 ## 1 001           World         002           Africa        015              
@@ -1229,7 +1229,7 @@ scale_fill_discrete(name=&quot;Expenditure Type&quot;,
 ## 4 001           World         002           Africa        015              
 ## 5 001           World         002           Africa        015              
 ## 6 001           World         002           Africa        015              
-## # … with 11 more variables: Sub-region Name &lt;chr&gt;,
+## # ... with 11 more variables: Sub-region Name &lt;chr&gt;,
 ## #   Intermediate Region Code &lt;chr&gt;, Intermediate Region Name &lt;chr&gt;,
 ## #   Country or Area &lt;chr&gt;, M49 Code &lt;chr&gt;, ISO-alpha2 Code &lt;chr&gt;,
 ## #   ISO-alpha3 Code &lt;chr&gt;, Least Developed Countries (LDC) &lt;chr&gt;,
