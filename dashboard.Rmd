@@ -4,6 +4,7 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
+    
 ---
 
 ```{r setup, message = FALSE, echo = FALSE}
@@ -24,6 +25,8 @@ ghed_df<-ghed_df %>%
 
 Column {data-width=500}
 -----------------------------------------------------------------------
+
+### Private vs. Government Expenditure in Developed Countries
 ```{r}
 ghed_df%>%
   filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")%>%
