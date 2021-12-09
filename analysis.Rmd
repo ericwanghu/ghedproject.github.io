@@ -139,7 +139,7 @@ combined_gdp +
   )
 ```
 
-Low income countries spent the most on average on PHC as a proportion of GDP, while up-mid income countries spent the least. It is interesting that low income countries actually spent more on average on PHC as a proportion of their GDP as compared to high income countries. The European region spent the most on average on PHC as a proportion of GDP, while the Western Pacific region spent the least.  
+Low income countries spent the most on average on PHC as a proportion of GDP, while up-mid income countries spent the least. It is interesting that low income countries actually spent more as compared to high income countries. The European region spent the most on average on PHC as a proportion of GDP, while the Western Pacific region spent the least.  
 
 The plots below show the average primary health care (PHC) spending as a percent of current health expenditure in 2019 for income levels and WHO regions.
 
@@ -260,7 +260,9 @@ combined_cp +
   )
 ```
 
-The plots below showcthe average preventive vs. curative spending as a percent of GDP in 2019 for income levels and WHO regions.
+Across all income levels and WHO regions, countries on average spent much more on curative care than on preventative care. This reflects that global health care practices seem to prioritize curative care, and focus less on preventative care for patients. On average, high income countries spent the most on both curative and preventative care, while low income countries spent the least.The region of the Americas spent the most on both curative and preventative care, while the African region spent the least.    
+
+The plots below show the average preventive vs. curative spending as a percent of GDP in 2019 for income levels and WHO regions.
 
 ```{r}
 cp_df_gdp = 
@@ -324,6 +326,8 @@ combined_cp_gdp +
     title = "Preventive vs. curative spending per capita GDP"
   )
 ```
+
+On average, countries across all income groups and WHO regions spent much more on curative care than on preventative care as a percent of GDP. High income countries spent the most on average on curative care. However, low income countries actually spent the most on preventative care as a percent of GDP. The region of the Americas spent the most on average on curative care. It is interesting that the African region actually spent the most on preventative care as a percent of GDP. 
 
 The plots below show the average show the average preventive vs. curative spending as a percent of current health expenditure in 2019 for income levels and WHO regions.
 
@@ -389,5 +393,7 @@ combined_cp_che +
     title = "Preventive vs. curative spending per capita current health expenditure"
   )
 ```
+
+On average, countries in all income levels and WHO regions spent significantly more on curative care than preventative care as a percent of current health expenditure. Up-mid income countries actually spent the most on curative care, while low income countries spent the least. High income and low-mid income countries spent relatively similar amounts on curative care as a percent of current health expenditure. Again, low income countries spent the most on average on preventative care as a percent of current health expenditure. The Western Pacific region actually spent the most on curative care, while the European region only spent the second highest on curative care. The African region spent the least on curative care, though countries in this region actually spent the most on average on preventative care as a percent of current health expenditure. 
 
 Click here to return to the [main](index.html) page.
