@@ -4,6 +4,7 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
+    source_code: embed
     
 ---
 
@@ -26,7 +27,7 @@ ghed_df<-ghed_df %>%
 Column {data-width=500}
 -----------------------------------------------------------------------
 
-### Private vs. Government Expenditure in Developed Countries
+### Private vs. Government Expenditure in Developed Countries in 2019
 ```{r}
 ghed_df%>%
   filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")%>%
