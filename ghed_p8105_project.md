@@ -559,6 +559,118 @@ combined_constant +
 
 <img src="ghed_p8105_project_files/figure-gfm/combined_phc_constant-1.png" width="90%" />
 
+per capita GDP
+
+``` r
+PHC_df =
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc, gdp_pc_usd) %>% 
+  group_by(income_group) %>% 
+  summarize(
+    n_countries = n(),
+    avg_phc = mean(phc_usd_pc / gdp_pc_usd))
+
+income_gdp = 
+  PHC_df %>% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c("Low", "Low-Mid", "Up-Mid", "Hi")), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = "Income level",
+    y = "Average spending"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = "none")
+  
+phc_gdp_ghed =
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc, gdp_pc_usd) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    avg_primary_gdp = mean(phc_usd_pc / gdp_pc_usd)
+  )
+
+region_gdp = 
+  phc_gdp_ghed %>%   
+  ggplot(aes(x = reorder(region_who, avg_primary_gdp), y = avg_primary_gdp, fill = region_who)) + 
+  geom_bar(stat = "Identity") + 
+  labs(
+    x = "WHO region", 
+    y = "Average spending"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = "none")
+
+combined_gdp = income_gdp + region_gdp
+
+combined_gdp + 
+  plot_annotation(
+    title = "Primary health care spending per capita GDP" 
+  )
+```
+
+<img src="ghed_p8105_project_files/figure-gfm/combined_phc_gdp-1.png" width="90%" />
+
+per capita current health expenditure
+
+``` r
+PHC_df = 
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc, che_pc_usd) %>% 
+  group_by(income_group) %>% 
+  summarize(
+    n_countries = n(),
+    avg_phc = mean(phc_usd_pc / che_pc_usd))
+
+income_che = 
+  PHC_df %>% 
+  ggplot(aes(x = fct_relevel(as.factor(income_group), c("Low", "Low-Mid", "Up-Mid", "Hi")), y = avg_phc,  fill = income_group)) +
+  geom_col() +
+  labs(
+    x = "Income level",
+    y = "Average spending"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  theme(legend.position = "none")
+
+phc_che_ghed =
+  ghed_df %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2019) %>% 
+  drop_na(phc_usd_pc, che_pc_usd) %>% 
+  group_by(region_who) %>% 
+  summarize(
+    n_countries = n(),
+    avg_primary_che = mean(phc_usd_pc / che_pc_usd)
+  )
+
+region_che = 
+  phc_che_ghed %>%   
+  ggplot(aes(x = reorder(region_who, avg_primary_che), y = avg_primary_che, fill = region_who)) + 
+  geom_bar(stat = "Identity") + 
+  labs(
+    x = "WHO region", 
+    y = "Average spending"
+  ) + 
+  theme(axis.text.x = element_text(angle = 90)) + 
+  theme(legend.position = "none")
+
+combined_che = income_che + region_che
+
+combined_che + 
+  plot_annotation(
+    title = "Primary health care spending per capita current health expenditure"
+  )
+```
+
+<img src="ghed_p8105_project_files/figure-gfm/combined_phc_che-1.png" width="90%" />
+
 ### Trisha’s section
 
 ``` r
