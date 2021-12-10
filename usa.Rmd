@@ -118,8 +118,8 @@ exp_per<-ghed_df%>%
   plot_ly(x =~year, y=~exp_per, name=~exp_type, color = ~exp_type, colors="viridis", type='scatter', mode='lines+markers')%>%
     layout(yaxis = list(title = 'Percent of Total Expenditure'), xaxis = list(title = "Year"))
 
-fig <- subplot(exp_per_cap, exp_per) %>% 
-  layout(title = 'Health Expenditure in the USA Over Time')
+fig <- subplot(exp_per_cap, exp_per,nrows = 2, titleY = TRUE, titleX = TRUE, shareY = FALSE) %>% 
+  layout(title = 'Health Expenditure in the USA Over Time', yaxis = list(title = ""))
 fig
 ```
 
