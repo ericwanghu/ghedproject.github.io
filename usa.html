@@ -33,6 +33,13 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -257,13 +264,10 @@ $(document).ready(function () {
   <a href="usa.html">Zoom In: USA</a>
 </li>
 <li>
-  <a href="africa.html">Zoom In: Africa</a>
+  <a href="stats.html">Statistical Analysis</a>
 </li>
 <li>
   <a href="dashboard.html">Dashboard</a>
-</li>
-<li>
-  <a href="stats.html">Statistical Analysis</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -318,52 +322,35 @@ us_states &lt;- map_data(&quot;state&quot;)</code></pre>
 <div id="united-states-health-spending" class="section level3">
 <h3>United States Health Spending</h3>
 <p>The plots below show patterns in health care spending in the USA over time and in specific states.</p>
-<pre class="r"><code>per_cap&lt;- 
-  ghed_df %&gt;%
-    filter(country == &quot;United States of America&quot;) %&gt;%
-    select(country, year, Government = gghed_pc_usd, Private = pvtd_pc_usd) %&gt;%
-    pivot_longer(
-      cols = c(&quot;Government&quot;, &quot;Private&quot;),
-      names_to = &quot;Spend Type&quot;, 
-      values_to = &quot;exp_per_cap&quot;
-      ) %&gt;%
-    ggplot(aes(x = year, y = exp_per_cap, 
-               group = `Spend Type`, color = `Spend Type`)
-           ) + 
-    geom_point() +
-    geom_line() +
-    labs(
-      x = &quot;Year&quot;,
-      y = &quot;Expenditure (USD per capita)&quot;
-    ) +
-    theme(legend.position = &quot;none&quot;)
+<p>Plotly Version of above graphs</p>
+<pre class="r"><code>exp_per_cap&lt;- ghed_df%&gt;%
+  filter(country == &quot;United States of America&quot;)%&gt;%
+  select(country, year, gghed_pc_usd, pvtd_pc_usd)%&gt;%
+  pivot_longer(cols = contains(&quot;pc_usd&quot;),
+               names_to = &quot;exp_type&quot;, 
+               values_to = &quot;exp_per_cap&quot;)%&gt;%
+  mutate(exp_type = replace(exp_type, exp_type == &quot;gghed_pc_usd&quot;, &quot;Government Expenditure per Capita (USD)&quot;),
+           exp_type = replace(exp_type, exp_type == &quot;pvtd_pc_usd&quot;, &quot;Private Expenditure per Capita (USD)&quot;))%&gt;%
+  plot_ly(x =~year, y=~exp_per_cap, name=~exp_type, color = ~exp_type, colors=&quot;viridis&quot;, type=&#39;scatter&#39;, mode=&#39;lines+markers&#39;)%&gt;%
+    layout( yaxis = list(title = &#39;Expenditure per Capita (USD)&#39;), xaxis = list(title = &quot;Year&quot;))
 
-pct &lt;- 
-  ghed_df %&gt;%
-    filter(country == &quot;United States of America&quot;) %&gt;%
-    select(country, year, Government = gghed_che, Private = pvtd_che) %&gt;%
-    mutate(sum_per = Government + Private) %&gt;%
-    pivot_longer(
-      cols = c(&quot;Government&quot;, &quot;Private&quot;),
-      names_to = &quot;Spend Type&quot;, 
-      values_to = &quot;exp_per&quot;) %&gt;%
-    ggplot(aes(x = year, y = exp_per, 
-                group = `Spend Type`, color = `Spend Type`)) + 
-    geom_point() +
-    geom_line() +
-    labs(
-      x = &quot;Year&quot;,
-      y = &quot;Expenditure (% of total)&quot;
-    )+
-    theme(legend.position = &quot;right&quot;)
+exp_per&lt;-ghed_df%&gt;%
+  filter(country==&quot;United States of America&quot;)%&gt;%
+  select(country, year, gghed_che, pvtd_che)%&gt;%
+  mutate(sum_per = gghed_che + pvtd_che)%&gt;%
+  pivot_longer(cols = contains(&quot;che&quot;),
+               names_to = &quot;exp_type&quot;,
+               values_to = &quot;exp_per&quot;)%&gt;%
+  mutate(exp_type = replace(exp_type, exp_type == &quot;gghed_che&quot;, &quot;Government Expenditure&quot;),
+           exp_type = replace(exp_type, exp_type == &quot;pvtd_che&quot;, &quot;Private Expenditure&quot;))%&gt;%
+  plot_ly(x =~year, y=~exp_per, name=~exp_type, color = ~exp_type, colors=&quot;viridis&quot;, type=&#39;scatter&#39;, mode=&#39;lines+markers&#39;)%&gt;%
+    layout(yaxis = list(title = &#39;Percent of Total Expenditure&#39;), xaxis = list(title = &quot;Year&quot;))
 
-total &lt;- per_cap + pct
-
-total + 
-  plot_annotation(
-    title = &quot;Health expenditure in the USA over time&quot;
-  )</code></pre>
-<p><img src="usa_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
+fig &lt;- subplot(exp_per_cap, exp_per) %&gt;% 
+  layout(title = &#39;Health Expenditure in the USA Over Time&#39;)
+fig</code></pre>
+<div id="htmlwidget-d20a50a471c9aa15d618" style="width:90%;height:691.2px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d20a50a471c9aa15d618">{"x":{"data":[{"x":[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[2017.00345637,2219.07243004,2406.65111255,2578.606216,2761.53481905,2929.73292438,3159.01278784,3328.42807178,3515.59985961,3714.85141545,3854.49548183,3954.62862548,4074.73127937,4215.40378442,4531.41727301,4804.29225078,4965.9381477,5117.23641872,5338.81790143,5552.60023012],"mode":"lines+markers","name":"Government Expenditure per Capita (USD)","type":"scatter","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[2526.43277597,2675.20815399,2916.09103696,3153.62349544,3335.7528827,3524.67081228,3669.60318535,3853.46416983,3885.76957073,3942.70730514,4033.85605431,4125.58596682,4267.84860718,4306.72210671,4407.97918232,4587.77368905,4809.06192749,4985.85529598,5176.50535595,5368.412199],"mode":"lines+markers","name":"Private Expenditure per Capita (USD)","type":"scatter","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"line":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[44.39378738,45.34011459,45.21449661,44.9843483,45.29119873,45.39122772,46.26139069,46.34472275,47.49931717,48.51221466,48.86313248,48.94212341,48.84257889,49.46422958,50.69041824,51.15266418,50.80243301,50.6502037,50.77178955,50.84327316],"mode":"lines+markers","name":"Government Expenditure","type":"scatter","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"line":{"color":"rgba(68,1,84,1)"},"xaxis":"x2","yaxis":"y2","frame":null},{"x":[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],"y":[55.6062088,54.65988541,54.78550339,55.0156517,54.70879745,54.60877228,53.7386055,53.65527725,52.50068283,51.48778534,51.13686752,51.05787659,51.15742111,50.53577423,49.30958557,48.847332,49.19756317,49.3497963,49.22821045,49.15672684],"mode":"lines+markers","name":"Private Expenditure","type":"scatter","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"line":{"color":"rgba(253,231,37,1)"},"xaxis":"x2","yaxis":"y2","frame":null}],"layout":{"xaxis":{"domain":[0,0.48],"automargin":true,"anchor":"y"},"xaxis2":{"domain":[0.52,1],"automargin":true,"anchor":"y2"},"yaxis2":{"domain":[0,1],"automargin":true,"anchor":"x2"},"yaxis":{"domain":[0,1],"automargin":true,"anchor":"x"},"annotations":[],"shapes":[],"images":[],"margin":{"b":40,"l":60,"t":25,"r":10},"hovermode":"closest","showlegend":true,"title":"Health Expenditure in the USA Over Time"},"attrs":{"2611d86a6bf":{"x":{},"y":{},"mode":"lines+markers","name":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"261732d54bd":{"x":{},"y":{},"mode":"lines+markers","name":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"subplot":true,"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>These plots visualize health spending the U.S. from 2000-2019 in two different ways: in per capita USD and in % of total spending. The graph on the top highlights how the cost of health per person has increased each year for the last two decades. The graph below shows how government spending on health gradually overtook private spending around 2013.</p>
 <pre class="r"><code>us_states %&gt;% 
   left_join(us_df, by = c(&quot;region&quot; = &quot;state&quot;)) %&gt;% 
@@ -382,8 +369,10 @@ total +
   labs(
     title = &quot;% of Total Expenditure Put Towards Health in 2019&quot;
   )</code></pre>
-<p><img src="usa_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
+<p><img src="usa_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 <p>We can see here that the states that put the most of their state and local spending towards health are Vermont, California, and Washington state. The states that contribute the least of their expenditure towards health are Arkansas, Iowa, and New Hampshire. It’s interesting to see how spending varies so widely with regions. Take the drastic difference between New Hampshire and Vermont as an example. They are neighbors, but their health expenditure is very different.</p>
+<br>
+<center>
 <p>Click here to return to the <a href="index.html">main</a> page.</p>
 </div>
 
