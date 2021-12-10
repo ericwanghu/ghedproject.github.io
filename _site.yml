@@ -3,8 +3,6 @@ output_dir: "."
 navbar:
   title: "GHED Project"
   left:
-    - text: "Introduction"
-      href: intro.html
     - text: "Global Analysis"
       href: analysis.html
     - text: "Zoom In: USA"

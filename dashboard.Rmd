@@ -22,6 +22,9 @@ ghed_df <-
 
 ghed_df<-ghed_df %>% 
     janitor::clean_names() 
+
+developed_nations<- ghed_df%>%
+  filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")
 ```
 
 Column {data-width=500}

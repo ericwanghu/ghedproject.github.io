@@ -1,54 +1,39 @@
 ---
-title: "Global Health Expenditure Database"
-output: 
-  html_document:
-    code_folding: hide
+title: "Global Healthcare Expenditure Patterns"
 ---
 
 <br>
-<center>
 
-### Creative Title
+# Motivation
 
-<h6 style="text-align: middle;" markdown="1">Trisha Dwiveldi, Pooja Mukund,  Ragyie Rawal,  Safiya Sirota, Eric Wang</h6>
+The Global Health Expenditure Database (GHED) is an open-access data source which contains health care spending data from  2000 to 2019 for almost 190 countries. The GHED is utilized by the World Health Organization (WHO) to monitor availability and distribution of global health resources. 
 
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
+Through our analysis of this dataset, we hope to understand and present healthcare funding patterns in various countries and across different income levels and WHO regions. We want to show who is bearing the brunt of the costs and how spending distributions differ throughout the world. Several countries rely on the WHO for healthcare, treatment, and research funding, so recognizing underfunded areas is paramount to ensure care for everyone globally. This project is overall motivated by the health disparities throughout the world. We also hope to compare spending in specific countries across different areas, including: primary health care, preventative care, curative care, infectious diseases, and noncommunicable diseases. We want to analyze the availability of resources for health and the extent to which they are used efficiently and equitably. Additionally, we want to explore if health services are available and affordable when people need them. 
+
+# Website Overview 
+
+* An overview of the GHED dataset and an analysis of global trends
+* Exploration of healthcare spending in the United States over time and in specific states
+* A statistical model to predict income group 
+* Our project report 
+
 
 <img src="images/columbiabiostats.png" style="width:60%">
 
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
-<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1">Trisha Dwivedi, Pooja Mukund,  Ragyie Rawal,  Safiya Sirota, Eric Wang</h6>
 
 Explore Our Project
 
 [Data Set](dataset.html)
 
-[Exploratory Analysis](analysis.html)
+[Exploratory Global Analysis](analysis.html)
 
 [Zoom In: USA](usa.html)
 
 [Dashboard](dashboard.html)
+
+[Statistical Analysis](stats.html)
+
+[Project Report](report.html)
 
 [About Us](about.html)
