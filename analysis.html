@@ -13,8 +13,8 @@
 
 <title>Global Analysis</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -303,31 +303,29 @@ $(document).ready(function () {
 <p>We started our exploratory analysis by defining which income levels, WHO regions, and specific countries to compare and analyze.</p>
 <p>To conduct income-level analysis, we used the income levels which were pre-defined in the GHED: Low, Lower-Middle, Upper-Middle, and High incomes. To conduct WHO region analysis, we utilized the WHO regions designated in the GHED dataset. These regions are: AFR (African Region), AMR (Region of the Americas), EMR (Eastern Mediterranean Region), EUR (European Region), SEAR (South-East Asian Region), and WPR (Western Pacific Region).</p>
 <p>We considered multiple strategies when selecting which countries to compare and analyze. Ultimately, we decided to use the <strong><a href="https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf">UN Country Classification document</a></strong> as a reference source to identify developed and developing countries in order to compare government spending in developed countries with high incomes and government spending in developing countries with low incomes.</p>
-<div id="distribution-of-income-levels-of-countries-in-each-who-region" class="section level3">
-<h3>Distribution of income levels of countries in each WHO region</h3>
 <pre class="r"><code>ghed_df %&gt;%
-  select(country, country_code, region_who, income_group) %&gt;%
+  select(country, country_code, region_who, `Income Group` = income_group) %&gt;%
   distinct() %&gt;%
   mutate(
-    income_group = as.factor(income_group),
-    income_group = factor(income_group, levels = c(&quot;Low&quot;,&quot;Low-Mid&quot;,&quot;Up-Mid&quot;,&quot;Hi&quot;))
+    `Income Group` = as.factor(`Income Group`),
+    `Income Group` = factor(`Income Group`, levels = c(&quot;Low&quot;,&quot;Low-Mid&quot;,&quot;Up-Mid&quot;,&quot;Hi&quot;))
   ) %&gt;%
   group_by(region_who) %&gt;%
   mutate(
     num_countries = n()
   ) %&gt;%
-  group_by(region_who, income_group, num_countries) %&gt;%
+  group_by(region_who, `Income Group`, num_countries) %&gt;%
   summarize(n = n()) %&gt;%
   mutate(
     perc_income_group = 100*(n/num_countries)
   ) %&gt;%
-  ggplot(aes(x = income_group,y = perc_income_group)) +
-  geom_bar(aes(fill = income_group),stat = &quot;identity&quot;) +
+  ggplot(aes(x = `Income Group`,y = perc_income_group)) +
+  geom_bar(aes(fill = `Income Group`),stat = &quot;identity&quot;) +
   facet_grid(~ region_who) +
   theme(axis.text.x = element_text(angle = 80, hjust = 1)) +
   ggtitle(&quot;Distribution of income levels of countries in each WHO region&quot;) +
   ylab(&quot;% of countries in region&quot;) +
-  xlab(&quot;country income group (2019)&quot;)</code></pre>
+  xlab(&quot;Country income group (2019)&quot;)</code></pre>
 <p><img src="analysis_files/figure-html/income_distribution-1.png" width="90%" /></p>
 <p>The bar plots above show the distribution of income levels of countries (categorized in 2019) in each WHO region: AFR, AMR, EMR, EUR, SEAR, and WPR.<br />
 </p>
@@ -337,7 +335,6 @@ Low-Mid income: SEAR<br />
 Up-Mid income: AMR<br />
 Hi income: EUR<br />
 </p>
-</div>
 <div id="income-group-and-total-healthcare-expenditure" class="section level3">
 <h3>Income group and total healthcare expenditure</h3>
 <pre class="r"><code>ghed_df %&gt;%
@@ -389,7 +386,7 @@ Hi income: EUR<br />
 </tr>
 </tbody>
 </table>
-<p>The table above shows that the mean current health expenditure (CHE) per capita in US$ increases going from low income to high income groups. The highest CHE as % of gross domestic product (GDP) belongs to countries in the highest income group at 7.67%; however, we see that this percentage for all income groups ranges from roughly 5-8%, so the amount per capita a country is able to dedicate for health expenditure depends and varies based on country GDP and income level.<br />
+<p>The mean current health expenditure (CHE) per capita in US$ increases going from low income to high income groups. The highest CHE as % of gross domestic product (GDP) belongs to countries in the highest income group at 7.67%; however, we see that this percentage for all income groups ranges from roughly 5-8%, so the amount per capita a country is able to dedicate for health expenditure depends and varies based on country GDP and income level.<br />
 </p>
 </div>
 <div id="who-region-and-total-healthcare-expenditure" class="section level3">
@@ -450,7 +447,7 @@ Hi income: EUR<br />
 </tr>
 </tbody>
 </table>
-<p>As shown by the table above, the AFR region has the lowest mean CHE per capita (US$) while the EUR region has the highest. While the expenditure as % of GDP ranges from 4-8%, we note that the EUR region has countries that, on average, spend the highest percentage of their GDP on health at 7.6%. So even though the EUR region has the highest proportion of high income countries, these countries still dedicate the highest proportion of their GDP to healthcare, followed by the WPR and AMR regions.</p>
+<p>The AFR region has the lowest mean CHE per capita (US$) while the EUR region has the highest. While the expenditure as % of GDP ranges from 4-8%, we note that the EUR region has countries that, on average, spend the highest percentage of their GDP on health at 7.6%. So even though the EUR region has the highest proportion of high income countries, these countries still dedicate the highest proportion of their GDP to healthcare, followed by the WPR and AMR regions.</p>
 </div>
 <div id="developed-countries-and-their-spending-over-time" class="section level3">
 <h3>Developed countries and their spending over time</h3>
@@ -473,7 +470,8 @@ Hi income: EUR<br />
   geom_line(show.legend = FALSE) +
   geom_point(show.legend = FALSE) +
   ggtitle(&quot;Total spending over time in developed countries (per capita)&quot;) +
-  ylab(&quot;Total Health Expenditure (US$)&quot;) +
+  xlab(&quot;Year&quot;) +
+  ylab(&quot;Total health expenditure (US$)&quot;) +
   scale_colour_viridis_d()</code></pre>
 <pre class="r"><code>govt_spending_developed_plot = 
   ghed_df %&gt;%
@@ -493,13 +491,14 @@ Hi income: EUR<br />
   geom_line() +
   geom_point() +
   ggtitle(&quot;Government spending over time in developed countries (per capita)&quot;) +
-  ylab(&quot;Government Health Expenditure (US$)&quot;) +
+  xlab(&quot;Year&quot;) +
+  ylab(&quot;Government health expenditure (US$)&quot;) +
   scale_colour_viridis_d()</code></pre>
 <pre class="r"><code>total_spending_developed_plot </code></pre>
 <p><img src="analysis_files/figure-html/total%20and%20govt%20spending%20developed%20countries-1.png" width="90%" /></p>
 <pre class="r"><code>govt_spending_developed_plot</code></pre>
 <p><img src="analysis_files/figure-html/total%20and%20govt%20spending%20developed%20countries-2.png" width="90%" /></p>
-<p>As we can see from the above line plots, the United States has the highest total and government spending per capita over time and grows at a steeper rate year over year than the other countries. All countries have higher health expenditure in 2019 compared to 2000. It’s interesting to note that Japan had a spike in government health expenditure around 2011 and 2012, exceeding the US - upon looking into this, we note that the deadly earthquake and tsunami that hit Japan in 2011 coincides with this increase. With thousands dead and injured and many resources scarce, the government stepped in to provide relief to its citizens and help with recovery and health concerns after the natural disaster struck.<br />
+<p>The United States has the highest total and government spending per capita over time and grows at a steeper rate year over year than the other countries. All countries have higher health expenditure in 2019 compared to 2000. It’s interesting to note that Japan had a spike in government health expenditure around 2011 and 2012, exceeding the US - upon looking into this, we note that the deadly earthquake and tsunami that hit Japan in 2011 coincides with this increase. With thousands dead and injured and many resources scarce, the government stepped in to provide relief to its citizens and help with recovery and health concerns after the natural disaster struck.<br />
 </p>
 <p>Note that total spending per capita ranges from $1500 to $11000 and government spending per capita ranges from $1000 to $5500.<br />
 </p>
@@ -527,7 +526,8 @@ Hi income: EUR<br />
   geom_line(show.legend = FALSE) +
   geom_point(show.legend = FALSE) +
   ggtitle(&quot;Total spending over time in developing countries (per capita)&quot;) +
-  ylab(&quot;Total Health Expenditure (US$)&quot;) +
+  xlab(&quot;Year&quot;) +
+  ylab(&quot;Total health expenditure (US$)&quot;) +
   scale_colour_viridis_d()</code></pre>
 <pre class="r"><code>govt_spending_developing_plot = 
   ghed_df %&gt;%
@@ -549,13 +549,14 @@ Hi income: EUR<br />
   geom_line() +
   geom_point() +
   ggtitle(&quot;Government spending over time in developing countries (per capita)&quot;) +
-  ylab(&quot;Government Health Expenditure (US$)&quot;) +
+  xlab(&quot;Year&quot;) +
+  ylab(&quot;Government health expenditure (US$)&quot;) +
   scale_colour_viridis_d()</code></pre>
 <pre class="r"><code>total_spending_developing_plot</code></pre>
 <p><img src="analysis_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
 <pre class="r"><code>govt_spending_developing_plot</code></pre>
 <p><img src="analysis_files/figure-html/unnamed-chunk-1-2.png" width="90%" /></p>
-<p>As we can see from the above line plots, among these developing economies, Argentina has the highest total and government spending per capita over time and grows at a steeper rate year over year. According to an <strong><a href="https://solidfoundations.economist.com/reports/Amgen_Argentina_English_Final.pdf">Economist article</a></strong>, Argentina’s government has been devoting more resources to healthcare over the years to address healthcare inequalities. Some of the African countries, such as Senegal, South Africa, and Uganda, don’t seem to have increased health spending much, if at all, over the last two decades.<br />
+<p>Among these developing economies, Argentina has the highest total and government spending per capita over time and grows at a steeper rate year over year. According to an <strong><a href="https://solidfoundations.economist.com/reports/Amgen_Argentina_English_Final.pdf">Economist article</a></strong>, Argentina’s government has been devoting more resources to healthcare over the years to address healthcare inequalities. Some of the African countries, such as Senegal, South Africa, and Uganda, don’t seem to have increased health spending much, if at all, over the last two decades.<br />
 </p>
 <p>Note that total spending per capita ranges from close to $0 to $1500 and government spending per capita ranges from close to $0 to $1000. Both these ranges are much less than that of the G-7 developed economies mentioned above: total spending per capita from $1500 to $11000 and government spending per capita from $1000 to $5500.<br />
 </p>
@@ -609,10 +610,9 @@ combined_constant = income_constant + region_constant
 
 combined_constant + 
   plot_annotation(
-    title = &quot;Primary health care spending in million constant USD$&quot;
+    title = &quot;Primary health care spending in million constant US$&quot;
   )</code></pre>
 <p><img src="analysis_files/figure-html/combined_phc_constant-1.png" width="90%" /></p>
-<p>The bar plots above show the average primary health care (PHC) spending in million current US$ in 2019 across income levels and WHO regions.</p>
 <p>High income countries spent the most on average on PHC, while low income countries spent the least. The European region spent the most on average on PHC, while the South-East Asian region spent the least on average on PHC.</p>
 <pre class="r"><code>PHC_df =
   ghed_df %&gt;% 
@@ -659,10 +659,9 @@ combined_gdp = income_gdp + region_gdp
 
 combined_gdp + 
   plot_annotation(
-    title = &quot;Primary health care spending per capita GDP&quot; 
+    title = &quot;Primary health care spending as % of GDP&quot; 
   )</code></pre>
 <p><img src="analysis_files/figure-html/combined_phc_gdp-1.png" width="90%" /></p>
-<p>The bar plots above show the average primary health care (PHC) spending as a percent of GDP in 2019 across income levels and WHO regions.</p>
 <p>Low income countries spent the most on average on PHC as a proportion of GDP, while up-mid income countries spent the least. It is interesting that low income countries actually spent more as compared to high income countries. The European region spent the most on average on PHC as a proportion of GDP, while the Western Pacific region spent the least.</p>
 <pre class="r"><code>PHC_df = 
   ghed_df %&gt;% 
@@ -709,10 +708,9 @@ combined_che = income_che + region_che
 
 combined_che + 
   plot_annotation(
-    title = &quot;Primary health care spending per capita current health expenditure&quot;
+    title = &quot;Primary health care spending as % of current health expenditure&quot;
   )</code></pre>
 <p><img src="analysis_files/figure-html/combined_phc_che-1.png" width="90%" /></p>
-<p>The bar plots above show the average primary health care (PHC) spending as a percent of current health expenditure in 2019 for income levels and WHO regions.</p>
 <p>Low income countries spent the most on average on PHC as a proportion of current health expenditure, while upper-middle income countries spent the least. Low income countries actually spent significantly more in comparison to high income countries. Interestingly, African region countries spent the most on average on PHC as a proportion of current health expenditure, while Region of the Americas and Western Pacific region spent the least.</p>
 <p>We continued our analysis by comparing average preventative spending and curative spending.</p>
 <pre class="r"><code>cp_df =
@@ -773,10 +771,9 @@ combined_cp &lt;- income_cp + group_cp
 
 combined_cp + 
   plot_annotation(
-    title = &quot;Preventive vs. curative spending in million constant USD&quot;
+    title = &quot;Preventive vs. curative spending in million constant US$&quot;
   )</code></pre>
 <p><img src="analysis_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
-<p>The bar plots above show the average preventive vs. curative spending in million current US$ in 2019 for income levels and WHO regions.</p>
 <p>Across all income levels and WHO regions, countries on average spent much more on curative care than on preventative care. This reflects that global health care practices seem to prioritize curative care, and focus less on preventative care for patients. On average, high income countries spent the most on both curative and preventative care, while low income countries spent the least. The region of the Americas spent the most on both curative and preventative care, while the African region spent the least.</p>
 <pre class="r"><code>cp_df_gdp = 
   ghed_df %&gt;% 
@@ -836,10 +833,9 @@ combined_cp_gdp &lt;- income_cp_gdp + group_cp_gdp
 
 combined_cp_gdp + 
   plot_annotation(
-    title = &quot;Preventive vs. curative spending per capita GDP&quot;
+    title = &quot;Preventive vs. curative spending as % of GDP&quot;
   )</code></pre>
 <p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
-<p>The bar plots above show the average preventive vs. curative spending as a percent of GDP in 2019 for income levels and WHO regions.</p>
 <p>On average, countries across all income groups and WHO regions spent much more on curative care than on preventative care as a percent of GDP. High income countries spent the most on average on curative care. However, low income countries actually spent the most on preventative care as a percent of GDP. The region of the Americas spent the most on average on curative care. It is interesting that the African region actually spent the most on preventative care as a percent of GDP.</p>
 <p>The plots below show the average show the average preventive vs. curative spending as a percent of current health expenditure in 2019 for income levels and WHO regions.</p>
 <pre class="r"><code>cp_df_che = 
@@ -900,10 +896,9 @@ combined_cp_che &lt;- income_cp_che + group_cp_che
 
 combined_cp_che + 
   plot_annotation(
-    title = &quot;Preventive vs. curative spending per capita current health expenditure&quot;
+    title = &quot;Preventive vs. curative spending as % of current health expenditure&quot;
   )</code></pre>
 <p><img src="analysis_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
-<p>The bar plots above show the average preventive vs. curative spending as a percent of current health expenditure in 2019 for income levels and WHO regions.</p>
 <p>On average, countries in all income levels and WHO regions spent significantly more on curative care than preventative care as a percent of current health expenditure. Upper-middle income countries actually spent the most on curative care, while low income countries spent the least. High income and lower-middle income countries spent relatively similar amounts on curative care as a percent of current health expenditure. Again, low income countries spent the most on average on preventative care as a percent of current health expenditure. The Western Pacific region actually spent the most on curative care, while the European region only spent the second highest on curative care. The African region spent the least on curative care, though countries in this region actually spent the most on average on preventative care as a percent of current health expenditure.</p>
 <br>
 <center>
