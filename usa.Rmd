@@ -45,7 +45,7 @@ us_states <- map_data("state")
 The plots below show patterns in health care spending in the USA over time and in specific states.
 
 ```{r}
-per_cap<- 
+per_cap <- 
   ghed_df %>%
     filter(country == "United States of America") %>%
     select(country, year, Government = gghed_pc_usd, Private = pvtd_pc_usd) %>%
