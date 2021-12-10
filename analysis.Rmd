@@ -239,7 +239,7 @@ govt_spending_developing_plot =
 
 ```
 
-```{r, message=FALSE}
+```{r, message=FALSE, warning = FALSE}
 total_spending_developing_plot
 govt_spending_developing_plot
 ```
