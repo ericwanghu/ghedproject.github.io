@@ -93,7 +93,7 @@ total +
   )
 ```
 
-Plotly Version of above graphs 
+
 ```{r}
 exp_per_cap<- ghed_df%>%
   filter(country == "United States of America")%>%
