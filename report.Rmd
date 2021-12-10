@@ -20,6 +20,7 @@ We hope to understand and present healthcare funding patterns in various countri
 Source: [United Nations](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf)
 
 #### Initial Questions 
+
 1. How much do different countries spend on health?
 2. How much do different actors such as government, insurance companies, households and donors contribute?
 3. What are the financing arrangements to pay for health?
