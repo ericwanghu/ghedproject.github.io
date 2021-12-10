@@ -614,4 +614,7 @@ combined_cp_che +
 
 On average, countries in all income levels and WHO regions spent significantly more on curative care than preventative care as a percent of current health expenditure. Up-mid income countries actually spent the most on curative care, while low income countries spent the least. High income and low-mid income countries spent relatively similar amounts on curative care as a percent of current health expenditure. Again, low income countries spent the most on average on preventative care as a percent of current health expenditure. The Western Pacific region actually spent the most on curative care, while the European region only spent the second highest on curative care. The African region spent the least on curative care, though countries in this region actually spent the most on average on preventative care as a percent of current health expenditure. 
 
+<br>
+<center>
+
 Click here to return to the [main](index.html) page.

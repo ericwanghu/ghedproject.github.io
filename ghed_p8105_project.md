@@ -1014,11 +1014,11 @@ fit_region_exp %>%
   broom::glance()
 ```
 
-    ## # A tibble: 1 × 12
+    ## # A tibble: 1 x 12
     ##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
     ##       <dbl>         <dbl> <dbl>     <dbl>   <dbl> <dbl>  <dbl> <dbl> <dbl>
     ## 1     0.585         0.585 0.666      672.       0     7 -3378. 6775. 6830.
-    ## # … with 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
+    ## # ... with 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 
 ### Pooja’s Part
 
@@ -1134,13 +1134,13 @@ un_country_class<- read_csv("data/un_country_classification.csv")
 
     ## Rows: 249 Columns: 16
 
-    ## ── Column specification ────────────────────────────────────────────────────────
+    ## -- Column specification --------------------------------------------------------
     ## Delimiter: ","
     ## chr (16): Global Code, Global Name, Region Code, Region Name, Sub-region Cod...
 
     ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+    ## i Use `spec()` to retrieve the full column specification for this data.
+    ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ``` r
 head(un_country_class)
@@ -1148,7 +1148,7 @@ head(un_country_class)
 
     ## Warning: One or more parsing issues, see `problems()` for details
 
-    ## # A tibble: 6 × 16
+    ## # A tibble: 6 x 16
     ##   `Global Code` `Global Name` `Region Code` `Region Name` `Sub-region Code`
     ##   <chr>         <chr>         <chr>         <chr>         <chr>            
     ## 1 001           World         002           Africa        015              
@@ -1157,7 +1157,7 @@ head(un_country_class)
     ## 4 001           World         002           Africa        015              
     ## 5 001           World         002           Africa        015              
     ## 6 001           World         002           Africa        015              
-    ## # … with 11 more variables: Sub-region Name <chr>,
+    ## # ... with 11 more variables: Sub-region Name <chr>,
     ## #   Intermediate Region Code <chr>, Intermediate Region Name <chr>,
     ## #   Country or Area <chr>, M49 Code <chr>, ISO-alpha2 Code <chr>,
     ## #   ISO-alpha3 Code <chr>, Least Developed Countries (LDC) <chr>,

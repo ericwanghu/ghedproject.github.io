@@ -9,8 +9,6 @@ navbar:
       href: analysis.html
     - text: "Zoom In: USA"
       href: usa.html
-    - text: "Zoom In: Africa"
-      href: africa.html
     - text: "Dashboard"
       href: dashboard.html
     - text: "Statistical Analysis"

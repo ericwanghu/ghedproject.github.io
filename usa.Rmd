@@ -116,5 +116,7 @@ us_states %>%
 
 We can see here that the states that put the most of their state and local spending towards health are Vermont, California, and Washington state. The states that contribute the least of their expenditure towards health are Arkansas, Iowa, and New Hampshire. It's interesting to see how spending varies so widely with regions. Take the drastic difference between New Hampshire and Vermont as an example. They are neighbors, but their health expenditure is very different.
 
+<br>
+<center>
 
 Click here to return to the [main](index.html) page.

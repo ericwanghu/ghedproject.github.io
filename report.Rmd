@@ -5,6 +5,53 @@ output:
     code_folding: hide
 ---
 
+## Global Healthcare Expenditure Patterns
+
+*Trisha Dwivedi, Pooja Mukund, Ragyie Rawal, Safiya Sirota, Eric Wang*
+
+*December 11 2021*
+
+####Motivation
+
+We hope to understand and present healthcare funding patterns in various countries. We want to show who is bearing the brunt of the costs and how spending distributions differ throughout the world. Several countries rely on the WHO for healthcare, treatment, and research funding, so recognizing underfunded areas is paramount to ensure care for everyone globally. This project is overall motivated by the health disparities throughout the world. We also hope to compare spending in specific countries across different areas, including: primary health care, infectious diseases, noncommunicable diseases, preventive, and curative care. We want to analyze the availability of resources for health and the extent to which they are used efficiently and equitably. Additionally, we want to ensure health services are available and affordable when people need them.
+
+#### Related Work
+
+Source: [United Nations](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf)
+
+#### Initial Questions 
+1. How much do different countries spend on health?
+2. How much do different actors such as government, insurance companies, households and donors contribute?
+3. What are the financing arrangements to pay for health?
+4. How much money is spent on primary health care (PHC)?
+5. How much money is spent on different diseases and programmes such as immunization?
+6. How much money is spent on the less than 5-year old population?
+
+#### Data 
+
+*Data Sources*
+
+Primary Data Source: [GHED](https://apps.who.int/nha/database)
+
+This data set got updated after we started the project with 2019 data, so we updated our code to account for the new 2019 data variables.
+
+*Data Cleaning*
+
+We were originally considering downloading only selected variables in a dataset, but then instead decided to download the original dataset containing all variables. This was because we wanted to have the original dataset available in our github repository for reproducibility, and also to have the original dataset available in case we wanted to expand our exploratory analysis. 
+For data cleaning, we decided to tidy the dataset respective to each analysis we did, rather than tidy at the beginning and then use that for all of the analyses. 
+
+#### Exploratory Analysis
+
+We considered multiple alternative strategies when selecting which countries to compare and analyze. Ultimately, we decided to use this website as a reference source (https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf) to identify developed and developing countries in order to compare government spending in developed countries with high incomes and government spending in developing countries with low incomes. We decided to utilize the WHO regions designated in the GHED dataset to pick countries to analyze government spending in different categories.
+
+#### General Difficulties
+
+Struggled at the beginning to create the website. We did not have ‘github.io’ in the original repository we created, so Eric created a new repository with an updated repository name which allowed for website creation.
+Struggled with determining which variables to use to compare different categories of interest, since the categories we originally picked had a lot of NA values and no data for the U.S.
+Additional Analysis  
+
+#### Discussion
+
 
 <br>
 <center>
