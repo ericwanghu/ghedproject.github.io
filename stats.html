@@ -13,8 +13,8 @@
 
 <title>Statistical Analysis</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -318,23 +318,8 @@ ghed_train = ghed_lm_df_shuffled[0:2340,]
 ghed_test = ghed_lm_df_shuffled[2341:3340,]</code></pre>
 <p>We used 2,340 as a train set, and 1,000 as a test set. We use the train set to train the Random Forest model and test the prediction accuracy using the test set. The model created, as well as the confusion matrix, is shown below. We note that class errors for each of the income groups range from 13-22%, meaning a 78-87% accuracy for each of the classes.</p>
 <pre class="r"><code>library(randomForest)</code></pre>
-<pre class="r"><code>model &lt;- randomForest(y=ghed_train$income_group,x=cbind(ghed_train$pvtd_pc_usd, ghed_train$gghed_pc_usd, ghed_train$ext_pc_usd, ghed_train$region_who),ntree=5)
-
-print(model)</code></pre>
-<pre><code>## 
-## Call:
-##  randomForest(x = cbind(ghed_train$pvtd_pc_usd, ghed_train$gghed_pc_usd,      ghed_train$ext_pc_usd, ghed_train$region_who), y = ghed_train$income_group,      ntree = 5) 
-##                Type of random forest: classification
-##                      Number of trees: 5
-## No. of variables tried at each split: 2
-## 
-##         OOB estimate of  error rate: 18.64%
-## Confusion matrix:
-##     1   2   3   4 class.error
-## 1 263  55   8   0   0.1932515
-## 2  56 491  63   1   0.1963993
-## 3   6  76 464  48   0.2188552
-## 4   0   3  75 489   0.1375661</code></pre>
+<pre><code>## Warning: package &#39;randomForest&#39; was built under R version 4.1.2</code></pre>
+<pre class="r"><code>model &lt;- randomForest(y=ghed_train$income_group,x=cbind(ghed_train$pvtd_pc_usd, ghed_train$gghed_pc_usd, ghed_train$ext_pc_usd, ghed_train$region_who),ntree=5)</code></pre>
 <p>Below are the predictions for our 1,000 size test set.</p>
 <pre class="r"><code>pred_1 = predict(model, cbind(ghed_test$pvtd_pc_usd, ghed_test$gghed_pc_usd, ghed_test$ext_pc_usd, ghed_test$region_who))</code></pre>
 <p>Confusion matrix:</p>
