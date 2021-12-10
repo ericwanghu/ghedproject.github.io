@@ -1,3 +1,9 @@
+# Global Health Expenditure Project
+
+Trisha Dwivedi, Pooja Mukund, Ragyie Rawal, Safiya Sirota, and Eric Wang
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/ericwanghu/ghedproject.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
