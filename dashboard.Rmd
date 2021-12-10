@@ -25,6 +25,9 @@ ghed_df<-ghed_df %>%
 
 developed_nations<-ghed_df%>%
   filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")
+
+undeveloped_nations <-ghed_df%>%
+  filter(country!="Canada" & country!="Japan"& country!="Republic of Korea"& country!="France" & country!="Germany"& country!="Italy"& country!="United Kingdom"& country!="United States of America", year == 2019)
 ```
 
 Column {data-width=500}
@@ -43,7 +46,7 @@ ghed_df%>%
   mutate(exp_type = replace(exp_type, exp_type == "gghed_che", "Government Expenditure"),
          exp_type = replace(exp_type, exp_type == "pvtd_che", "Private Expenditure"))%>%
   plot_ly(x=~country, y=~exp_per, name=~exp_type, color =~exp_type, type = 'bar', colors = "viridis")%>%
-  layout(yaxis = list(title = 'Percent of Total Expenditure'), xaxis = list(title = "Country",categoryorder = "total descending"), barmode = 'stack', colors = "viridis")
+  layout(yaxis = list(title = 'Percent of Total Expenditure'), xaxis = list(title = "Country", categoryorder = "total descending"), barmode = 'stack', colors = "viridis")
 
 ```
 
@@ -51,11 +54,12 @@ Column {data-width=500}
 -----------------------------------------------------------------------
 ### Out-of-pocket spending as % of Current Health Expenditure
 ```{r}
-developed_nations%>%
-  filter(year==2019)%>%
-  select(country, oops_che)%>%
-  arrange(desc(oops_che))%>%
+developed_nations %>%
+  filter(year==2019) %>%
+  select(country, oops_che) %>%
+  arrange(desc(oops_che)) %>%
   plot_ly(x=~country, y=~oops_che, name=~country, color =~country, type = 'bar', colors = "viridis")%>%
+  add_trace(data=undeveloped_nations, x=~country, y=~oops_che, name=~country, color =~country, type = 'bar', colors = "viridis", visible="legendonly") %>% 
   layout(yaxis = list(title = 'Out-of-pocket (OOPS) as % of Current Health Expenditure'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
   layout(xaxis = list(categoryorder = "total descending")) 
 ```
@@ -66,6 +70,7 @@ developed_nations%>%
   select(country, shi_che)%>%
   arrange(desc(shi_che))%>%
   plot_ly(x=~country, y=~shi_che, name=~country, color =~country, type = 'bar', colors = "viridis")%>%
+    add_trace(data=undeveloped_nations, x=~country, y = ~shi_che, name=~country, color =~country, type = 'bar', colors = "viridis", visible="legendonly") %>% 
   layout(yaxis = list(title = 'Social Health Insurance (SHI) as % of Current Health Expenditure (CHE)'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
   layout(xaxis = list(categoryorder = "total descending"))
 ```

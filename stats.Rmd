@@ -80,8 +80,6 @@ library(randomForest)
 ```{r}
 model <- randomForest(y=ghed_train$income_group,x=cbind(ghed_train$pvtd_pc_usd, ghed_train$gghed_pc_usd, ghed_train$ext_pc_usd, ghed_train$region_who),ntree=5)
 
-print(model)
-
 ```
 
 Below are the predictions for our 1,000 size test set. 
