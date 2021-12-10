@@ -43,7 +43,7 @@ For data cleaning, we decided to tidy the dataset respective to each analysis we
 
 #### Exploratory Analysis
 
-We considered multiple alternative strategies when selecting which countries to compare and analyze. Ultimately, we decided to use this website as a reference source (https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf) to identify developed and developing countries in order to compare government spending in developed countries with high incomes and government spending in developing countries with low incomes. We decided to utilize the WHO regions designated in the GHED dataset to pick countries to analyze government spending in different categories.
+We considered multiple alternative strategies when selecting which countries to compare and analyze. Ultimately, we decided to use this website as a reference [source](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf) to identify developed and developing countries in order to compare government spending in developed countries with high incomes and government spending in developing countries with low incomes. We decided to utilize the WHO regions designated in the GHED dataset to pick countries to analyze government spending in different categories.
 
 #### General Difficulties
 
