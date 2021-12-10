@@ -1,5 +1,5 @@
 ---
-title: "Zoom In: USA"
+title: 'Zoom In: USA'
 ---
 
 ```{r setup, include = FALSE}
@@ -7,9 +7,10 @@ library(tidyverse)
 library(readxl)
 library(maps)
 library(patchwork)
+library(plotly)
 
 knitr::opts_chunk$set(
-  fig.width = 6,
+  fig.width = 12,
   fig.asp = .6,
   out.width = "90%"
 )
@@ -44,7 +45,7 @@ us_states <- map_data("state")
 
 The plots below show patterns in health care spending in the USA over time and in specific states.
 
-```{r}
+```{r eval = FALSE, echo = FALSE}
 per_cap<- 
   ghed_df %>%
     filter(country == "United States of America") %>%
@@ -90,6 +91,36 @@ total +
   plot_annotation(
     title = "Health expenditure in the USA over time"
   )
+```
+
+Plotly Version of above graphs 
+```{r}
+exp_per_cap<- ghed_df%>%
+  filter(country == "United States of America")%>%
+  select(country, year, gghed_pc_usd, pvtd_pc_usd)%>%
+  pivot_longer(cols = contains("pc_usd"),
+               names_to = "exp_type", 
+               values_to = "exp_per_cap")%>%
+  mutate(exp_type = replace(exp_type, exp_type == "gghed_pc_usd", "Government Expenditure per Capita (USD)"),
+           exp_type = replace(exp_type, exp_type == "pvtd_pc_usd", "Private Expenditure per Capita (USD)"))%>%
+  plot_ly(x =~year, y=~exp_per_cap, name=~exp_type, color = ~exp_type, colors="viridis", type='scatter', mode='lines+markers', showlegend = F)%>%
+    layout( yaxis = list(title = 'Expenditure per Capita (USD)'), xaxis = list(title = "Year"))
+
+exp_per<-ghed_df%>%
+  filter(country=="United States of America")%>%
+  select(country, year, gghed_che, pvtd_che)%>%
+  mutate(sum_per = gghed_che + pvtd_che)%>%
+  pivot_longer(cols = contains("che"),
+               names_to = "exp_type",
+               values_to = "exp_per")%>%
+  mutate(exp_type = replace(exp_type, exp_type == "gghed_che", "Government Expenditure"),
+           exp_type = replace(exp_type, exp_type == "pvtd_che", "Private Expenditure"))%>%
+  plot_ly(x =~year, y=~exp_per, name=~exp_type, color = ~exp_type, colors="viridis", type='scatter', mode='lines+markers')%>%
+    layout(yaxis = list(title = 'Percent of Total Expenditure'), xaxis = list(title = "Year"))
+
+fig <- subplot(exp_per_cap, exp_per,nrows = 2, titleY = TRUE, titleX = TRUE, shareY = FALSE) %>% 
+  layout(title = 'Health Expenditure in the USA Over Time')
+fig
 ```
 
 These plots visualize health spending the U.S. from 2000-2019 in two different ways: in per capita USD and in % of total spending. The graph on the top highlights how the cost of health per person has increased each year for the last two decades. The graph below shows how government spending on health gradually overtook private spending around 2013.
