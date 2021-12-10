@@ -21,8 +21,9 @@ When we were brainstorming ideas for this project, we realized we all have a com
 
 The United Nations (UN) has a document which details country classifications, and this inspired us to focus some of our analysis on examining health care spending over time in developed and developing countries.
 
-WHO Health Financing: [here](https://www.who.int/data/gho/data/themes/topics/health-financing)
-UN Country Classification: [here](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf)
+* WHO Health Financing: [here](https://www.who.int/data/gho/data/themes/topics/health-financing)
+
+* UN Country Classification: [here](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf)
 
 #### Initial Questions 
 
