@@ -2,7 +2,7 @@
 title: "Global Health Expenditure Patterns"
 ---
 
-<img src="images/map.jpg" style="width:65%">
+<img src="images/map.png" style="width:70%">
 
 <br>
 
