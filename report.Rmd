@@ -13,46 +13,57 @@ output:
 
 #### Motivation
 
-We hope to understand and present healthcare funding patterns in various countries. We want to show who is bearing the brunt of the costs and how spending distributions differ throughout the world. Several countries rely on the WHO for healthcare, treatment, and research funding, so recognizing underfunded areas is paramount to ensure care for everyone globally. This project is overall motivated by the health disparities throughout the world. We also hope to compare spending in specific countries across different areas, including: primary health care, infectious diseases, noncommunicable diseases, preventive, and curative care. We want to analyze the availability of resources for health and the extent to which they are used efficiently and equitably. Additionally, we want to ensure health services are available and affordable when people need them.
+The Global Health Expenditure Database (GHED) is an open-access data source which contains health care spending data from 2000 to 2019 for almost 190 countries. The GHED is utilized by the World Health Organization (WHO) to monitor availability and distribution of global health resources. Through our analysis of this dataset, we hope to understand and present healthcare funding patterns in various countries and across different income levels and WHO regions. We want to show who is bearing the brunt of the costs and how spending distributions differ throughout the world. Several countries rely on the WHO for healthcare, treatment, and research funding, so recognizing underfunded areas is paramount to ensure care for everyone globally. This project is overall motivated by the health disparities throughout the world. We also hope to compare spending in specific countries across different areas, including: primary health care, preventative care, curative care, infectious diseases, and noncommunicable diseases. We want to analyze the availability of resources for health and the extent to which they are used efficiently and equitably.
 
 #### Related Work
 
-Source: [United Nations](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf)
+When we were brainstorming ideas for this project, we realized we all have a common interest in examining global healthcare systems and understanding global health disparities. We found the WHO Health Financing website, which is where we discovered the importance of the GHED and decided to conduct our own analysis of this dataset. 
+
+The United Nations (UN) has a document which details country classifications, and this inspired us to focus some of our analysis on examining health care spending over time in developed and developing countries.
+
+WHO Health Financing: [here](https://www.who.int/data/gho/data/themes/topics/health-financing)
+UN Country Classification: [here](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf)
 
 #### Initial Questions 
 
-1. How much do different countries spend on health?
-2. How much do different actors such as government, insurance companies, households and donors contribute?
-3. What are the financing arrangements to pay for health?
-4. How much money is spent on primary health care (PHC)?
-5. How much money is spent on different diseases and programmes such as immunization?
-6. How much money is spent on the less than 5-year old population?
+Initially, we wanted to learn more about the following questions: 
+
+1. How does spending compare per capita between countries with high and low socioeconomic status? 
+2. Are countries putting enough resources into their most prevalent diseases? 
+3. How much do different countries spend on curative vs. preventive care? 
+4. How much do out of pocket costs, government funding, and private insurance companies contribute?
+
+We managed to evaluate most of the questions, except for the second one. After some evaluation of the dataset, we realized there was not enough data available to extensively evaluate expenditure on specific diseases in countries outside of the WHO Africa region.
+
+While looking through the international data, we realized we also wanted to focus in on the United States. Specifically, we wanted to investigate patterns of government spending over time and in different states. We were able to use our original WHO dataset to find information on yearly spending since 2000, but we did not have state-level data. Therefore we sought out a second, more granular dataset to compare expenditure between U.S. states.
+
 
 #### Data 
 
 *Data Sources*
 
-Primary Data Source: [GHED](https://apps.who.int/nha/database)
+Our primary data source is the Global Health Expenditure Database: [here](https://apps.who.int/nha/database)
 
-This data set got updated after we started the project with 2019 data, so we updated our code to account for the new 2019 data variables.
+Our secondary data source is the State and Local Finance Database, which we used for evaluating patterns in health care spending in specific US states: [here](https://state-local-finance-data.taxpolicycenter.org/pages.cfm)
 
 *Data Cleaning*
 
-We were originally considering downloading only selected variables in a dataset, but then instead decided to download the original dataset containing all variables. This was because we wanted to have the original dataset available in our github repository for reproducibility, and also to have the original dataset available in case we wanted to expand our exploratory analysis. 
-For data cleaning, we decided to tidy the dataset respective to each analysis we did, rather than tidy at the beginning and then use that for all of the analyses. 
-
-#### Exploratory Analysis
-
-We considered multiple alternative strategies when selecting which countries to compare and analyze. Ultimately, we decided to use this website as a reference [source](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf) to identify developed and developing countries in order to compare government spending in developed countries with high incomes and government spending in developing countries with low incomes. We decided to utilize the WHO regions designated in the GHED dataset to pick countries to analyze government spending in different categories.
-
-#### General Difficulties
-
-Struggled at the beginning to create the website. We did not have ‘github.io’ in the original repository we created, so Eric created a new repository with an updated repository name which allowed for website creation.
-Struggled with determining which variables to use to compare different categories of interest, since the categories we originally picked had a lot of NA values and no data for the U.S.
-Additional Analysis  
+We did not need to do any scraping since we downloaded the dataset directly from the “Data Explorer” tab on the GHED website. After discussing with our TA, we decided to download the whole available dataset containing all variables instead of selecting for specific variables. This was because we wanted to have the whole dataset available in our repository for reproducibility purposes, and so we could have access to all variables in case we wanted to expand our exploratory analysis. 
+The data we downloaded was already very clean, though there were columns with many “NA” values representing missing data. At the beginning of our analyses, we imported the data and used `janitor::clean_names()`. After that, we wrangled the dataset appropriately for each separate analysis.
 
 #### Discussion
 
+*Key Findings*
+
+We noticed some interesting trends through this analysis. On a global level, the EUR region has the highest proportion of high income countries; these countries dedicate the highest proportion of their GDP to healthcare, followed by the WPR and AMR regions. Among the highly developed economies of the G-7 countries, the United States has the highest total and government spending per capita over time and grows at a steeper rate year over year than the other countries. Japan had a spike in government health expenditure around 2011 and 2012, exceeding the US - upon looking into this, we note that the deadly earthquake and tsunami that hit Japan in 2011 coincides with this increase. 
+
+In addition, countries with developing economies spent close to $0 to $1500 per capita on total healthcare spending while G-7 developed economies spent between $1500 to $11000 per capita. In spite of this, taking a look at categories on a detailed level, we noticed that low income countries spent the most on average on primary healthcare as a proportion of GDP, while upper-middle income countries spent the least. 
+
+Across all income levels and WHO regions, countries on average spent much more on curative care than on preventative care. This reflects that global health care practices seem to prioritize curative care, and focus less on preventative care for patients. The AMR region spends the most on average on curative care, and it’s interesting that the AFR region actually spent the most on preventative care as a percent of GDP. 
+
+Finally, based on WHO region and amounts of private and government expenditure and external funding, we found that a Random Forest classification model performs well using these variables to predict income level groups, with an 84.2% accuracy.
+
+***View Full Report [HERE](fullreport.pdf)***
 
 <br>
 <center>
