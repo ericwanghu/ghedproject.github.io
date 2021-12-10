@@ -21,7 +21,7 @@ Through our analysis of this dataset, we hope to understand and present healthca
 
 <center>
 
-<img src="images/columbiabiostats.png" style="width:60%">
+<img src="images/columbiabiostats.png" style="width:50%">
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>
