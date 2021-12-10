@@ -2,7 +2,11 @@
 title: "Data Set"
 ---
 
-We obtained our data from the [Global Health Expenditure Database](https://apps.who.int/nha/database).
+##### We primarily used the following two sources.
+
+*Primary Data Source:* [Global Health Expenditure Data](https://apps.who.int/nha/database)
+
+*Secondary Data Source:* [State and Local Finance Data](https://state-local-finance-data.taxpolicycenter.org/pages.cfm)
 
 
 <br>
