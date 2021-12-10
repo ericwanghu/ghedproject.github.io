@@ -55,7 +55,7 @@ Column {data-width=500}
 ### Out-of-pocket spending as % of Current Health Expenditure
 
 ```{r, message=FALSE}
-ghed_df%>%
+developed_nations%>%
   filter(year==2019)%>%
   select(country, oops_che)%>%
   arrange(desc(oops_che))%>%
