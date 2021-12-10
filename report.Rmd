@@ -63,7 +63,9 @@ Across all income levels and WHO regions, countries on average spent much more o
 
 Finally, based on WHO region and amounts of private and government expenditure and external funding, we found that a Random Forest classification model performs well using these variables to predict income level groups, with an 84.2% accuracy.
 
-***View Full Report [HERE](fullreport.pdf)***
+<h6 style="text-align: middle;" markdown="1"> </h6>
+
+#### View Full Report [HERE](fullreport.pdf)
 
 <br>
 <center>

@@ -2,7 +2,13 @@
 title: "WHO Cares about Healthcare?"
 ---
 
-<img src="images/map.png" style="width:70%">
+### Global Healthcare Expenditure Patterns
+
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+<h6 style="text-align: middle;" markdown="1"> </h6>
+
+<img src="images/map.png" style="width:90%">
 
 <br>
 
