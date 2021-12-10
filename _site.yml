@@ -9,10 +9,10 @@ navbar:
       href: analysis.html
     - text: "Zoom In: USA"
       href: usa.html
-    - text: "Dashboard"
-      href: dashboard.html
     - text: "Statistical Analysis"
       href: stats.html
+    - text: "Dashboard"
+      href: dashboard.html
   right:
     - text: "Report"
       href: report.html
