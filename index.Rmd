@@ -4,19 +4,15 @@ title: "Global Health Expenditure Database"
 
 <br>
 
-# Motivation
+### Motivation
 
  The Global Health Expenditure Database (GHED) is an open-access data source which contains health care spending data from  2000 to 2019 for almost 190 countries. The GHED is utilized by the World Health Organization (WHO) to monitor availability and distribution of global health resources. 
 
 Through our analysis of this dataset, we hope to understand and present healthcare funding patterns in various countries and across different income levels and WHO regions. We want to show who is bearing the brunt of the costs and how spending distributions differ throughout the world. Several countries rely on the WHO for healthcare, treatment, and research funding, so recognizing underfunded areas is paramount to ensure care for everyone globally. This project is overall motivated by the health disparities throughout the world. We also hope to compare spending in specific countries across different areas, including: primary health care, preventative care, curative care, infectious diseases, and noncommunicable diseases. We want to analyze the availability of resources for health and the extent to which they are used efficiently and equitably. Additionally, we want to explore if health services are available and affordable when people need them. 
 
-# Website Overview 
+### Website Overview 
 
-* An overview of the GHED dataset and an analysis of global trends
-* Exploration of healthcare spending in the United States over time and in specific states
-* A statistical model to predict income group 
-* Our project report 
-
+<iframe width="840" height="472" src="https://www.youtube.com/watch?v=XLXO-W7dHzo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>
@@ -37,6 +33,10 @@ Explore Our Project
 
 [Zoom In: USA](usa.html)
 
+[Statistical Analysis](stats.html)
+
 [Dashboard](dashboard.html)
+
+[Final Report](report.html)
 
 [About Us](about.html)
