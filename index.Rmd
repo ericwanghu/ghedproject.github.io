@@ -1,6 +1,8 @@
 ---
-title: "Global Health Expenditure Database"
+title: "Global Health Expenditure Patterns"
 ---
+
+<img src="images/map.jpg" style="width:65%">
 
 <br>
 
