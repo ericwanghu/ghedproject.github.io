@@ -1,5 +1,5 @@
 ---
-title: "Like A G-7"
+title: "Like A G-7 (Group of 7 Developed Countries)"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -23,10 +23,10 @@ ghed_df<-ghed_df %>%
     janitor::clean_names() 
 
 developed_nations<-ghed_df%>%
-  filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")
+  filter(country=="Canada"| country=="Japan"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")
 
 undeveloped_nations <-ghed_df%>%
-  filter(country!="Canada" & country!="Japan"& country!="Republic of Korea"& country!="France" & country!="Germany"& country!="Italy"& country!="United Kingdom"& country!="United States of America", year == 2019)
+  filter(country!="Canada" & country!="Japan"& country!="France" & country!="Germany"& country!="Italy"& country!="United Kingdom"& country!="United States of America", year == 2019)
 ```
 
 Column {data-width=500}
@@ -35,7 +35,7 @@ Column {data-width=500}
 ### Private vs. Government Expenditure in Developed Countries in 2019
 ```{r,message=FALSE}
 ghed_df%>%
-  filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")%>%
+  filter(country=="Canada"| country=="Japan"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")%>%
   filter(year == 2019)%>%
   select(country, year, gghed_che, pvtd_che)%>%
   mutate(sum_per = gghed_che + pvtd_che)%>%
@@ -61,7 +61,7 @@ developed_nations%>%
   arrange(desc(oops_che))%>%
   plot_ly(x=~country, y=~oops_che, name=~country, color =~country, type = 'bar', colors = "viridis")%>%
   add_trace(data=undeveloped_nations, x=~country, y=~oops_che, name=~country, color =~country, type = 'bar', colors = "viridis", visible="legendonly") %>% 
-  layout(yaxis = list(title = 'Out-of-pocket (OOPS) as % of Current Health Expenditure'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
+  layout(yaxis = list(title = 'OOPS Spending'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
   layout(xaxis = list(categoryorder = "total descending")) 
 ```
 
@@ -73,9 +73,6 @@ developed_nations%>%
   arrange(desc(shi_che))%>%
   plot_ly(x=~country, y=~shi_che, name=~country, color =~country, type = 'bar', colors = "viridis")%>%
     add_trace(data=undeveloped_nations, x=~country, y = ~shi_che, name=~country, color =~country, type = 'bar', colors = "viridis", visible="legendonly") %>% 
-  layout(yaxis = list(title = 'Social Health Insurance (SHI) as % of Current Health Expenditure (CHE)'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
+  layout(yaxis = list(title = 'SHI Spending'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
   layout(xaxis = list(categoryorder = "total descending"))
 ```
-
-
-
