@@ -5,7 +5,7 @@ title: "About Us"
 <br>
 <center>
 
-### Trisha Dwiveldi
+### Trisha Dwivedi
 
 <img src="images/trisha.jpg" style="width:40%">
 
@@ -13,6 +13,7 @@ title: "About Us"
 
 <h6 style="text-align: middle;" markdown="1">MS Biostatistics</h6>
 <h6 style="text-align: middle;" markdown="1">Pharmaceutical Statistics Track</h6>
+[Personal Site](https://trishad1.github.io/)
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>
@@ -26,6 +27,7 @@ title: "About Us"
 
 <h6 style="text-align: middle;" markdown="1">MS Biostatistics</h6>
 <h6 style="text-align: middle;" markdown="1">Public Health Data Science Track</h6>
+[Personal Site](https://pm3148.github.io/)
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>
@@ -39,6 +41,7 @@ title: "About Us"
 
 <h6 style="text-align: middle;" markdown="1">MS Biostatistics</h6>
 <h6 style="text-align: middle;" markdown="1">Statistical Genetics Track</h6>
+[Personal Site](https://ragyierawal.github.io/)
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>
@@ -51,6 +54,7 @@ title: "About Us"
 **[LinkedIn](https://www.linkedin.com/in/safiya-sirota/)**
 
 <h6 style="text-align: middle;" markdown="1">PhD Biostatistics</h6>
+[Personal Site](https://safiyasirota.github.io/)
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>
@@ -64,6 +68,7 @@ title: "About Us"
 
 <h6 style="text-align: middle;" markdown="1">MS Biostatistics</h6>
 <h6 style="text-align: middle;" markdown="1">Pharmaceutical Statistics Track</h6>
+[Personal Site](https://ericwanghu.github.io/)
 
 <h6 style="text-align: middle;" markdown="1"> </h6>
 <h6 style="text-align: middle;" markdown="1"> </h6>

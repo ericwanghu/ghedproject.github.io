@@ -34,6 +34,11 @@ ghed_df <-
 
 Let's start with an overview of the Global Health Expenditure Dataset and take a look at global trends. \
 
+We started our exploratory analysis by defining which income levels, WHO regions, and specific countries to compare and analyze. 
+
+To conduct income-level analysis, we used the income levels which were pre-defined in the GHED: Low, Lower-Middle, Upper-Middle, and High incomes. To conduct WHO region analysis, we utilized the WHO regions designated in the GHED dataset. These regions are: AFR (African Region), AMR (Region of the Americas), EMR (Eastern Mediterranean Region), EUR (European Region), SEAR (South-East Asian Region), and WPR (Western Pacific Region). 
+
+We considered multiple strategies when selecting which countries to compare and analyze. Ultimately, we decided to use the **[UN Country Classification document](https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf)** as a reference source to identify developed and developing countries in order to compare government spending in developed countries with high incomes and government spending in developing countries with low incomes. 
 
 ### Distribution of income levels of countries in each WHO region
 
@@ -64,7 +69,7 @@ ghed_df %>%
   xlab("country income group (2019)")
 ```
 
-The figure above shows the distribution of income levels of countries (categorized in 2019) in each WHO region: AFR (African Region), AMR (Region of the Americas), EMR (Eastern Mediterranean Region), EUR (European Region), SEAR (South-East Asian Region), and WPR (Western Pacific Region). \
+The figure above shows the distribution of income levels of countries (categorized in 2019) in each WHO region: AFR, AMR, EMR, EUR, SEAR, and WPR. \
 
 Highest proportion of income group type by region: \
 Low income: AFR \
@@ -85,6 +90,7 @@ ghed_df %>%
   ) %>%
   group_by(income_group) %>%
   summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %>%
+  rename("Income Group"="income_group") %>%
   rename("Mean Current Health Expenditure as % of GDP"="mean_che_gdp") %>%
   rename("Mean Current Health Expenditure per Capita (US$)"="mean_che_pc_usd") %>%
   knitr::kable(digits = 2)
@@ -102,6 +108,7 @@ ghed_df %>%
   group_by(region_who) %>%
   summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %>%
   arrange(mean_che_pc_usd) %>%
+  rename("WHO Region"="region_who") %>%
   rename("Mean Current Health Expenditure as % of GDP"="mean_che_gdp") %>%
   rename("Mean Current Health Expenditure per Capita (US$)"="mean_che_pc_usd") %>%
   knitr::kable(digits = 2)
@@ -245,7 +252,8 @@ govt_spending_developing_plot
 ```
 
 
-As we can see from the above line plots, among these developing economies, Argentina has the highest total and government spending per capita over time and grows at a steeper rate year over year than the other countries. According to an Economist article, Argentina's government has been devoting more resources to healthcare over the years to address healthcare inequalities. Some of the African countries, such as Senegal, South Africa, and Uganda, don't seem to have increased health spending much, if at all, over the last two decades. \
+As we can see from the above line plots, among these developing economies, Argentina has the highest total and government spending per capita over time and grows at a steeper rate year over year than the other countries. According to an
+**[Economist article](https://solidfoundations.economist.com/reports/Amgen_Argentina_English_Final.pdf)**, Argentina's government has been devoting more resources to healthcare over the years to address healthcare inequalities. Some of the African countries, such as Senegal, South Africa, and Uganda, don't seem to have increased health spending much, if at all, over the last two decades. \
 Note that total spending per capita ranges from close to \$0 to \$1500 and government spending per capita ranges from close to \$0 to \$1000. Both these ranges are much less than that of the G-7 developed economies mentioned above: total spending per capita from \$1500 to \$11000 and government spending per capita from \$1000 to \$5500. \
 
 
