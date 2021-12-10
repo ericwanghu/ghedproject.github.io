@@ -31,7 +31,7 @@ Column {data-width=500}
 -----------------------------------------------------------------------
 
 ### Private vs. Government Expenditure in Developed Countries in 2019
-```{r}
+```{r,message=FALSE}
 ghed_df%>%
   filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")%>%
   filter(year == 2019)%>%
@@ -49,9 +49,11 @@ ghed_df%>%
 
 Column {data-width=500}
 -----------------------------------------------------------------------
+
 ### Out-of-pocket spending as % of Current Health Expenditure
-```{r}
-developed_nations%>%
+```{r, message=FALSE}
+#developed_nations
+ghed_df%>%
   filter(year==2019)%>%
   select(country, oops_che)%>%
   arrange(desc(oops_che))%>%
@@ -59,8 +61,9 @@ developed_nations%>%
   layout(yaxis = list(title = 'Out-of-pocket (OOPS) as % of Current Health Expenditure'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
   layout(xaxis = list(categoryorder = "total descending")) 
 ```
+
 ### Social Health Insurance as % of Current Health Expenditure
-```{r}
+```{r, message=FALSE}
 developed_nations%>%
   filter(year==2019)%>%
   select(country, shi_che)%>%

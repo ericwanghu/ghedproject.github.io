@@ -13,8 +13,8 @@
 
 <title>Global Analysis</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -300,6 +300,9 @@ $(document).ready(function () {
   janitor::clean_names()</code></pre>
 <p>Let’s start with an overview of the Global Health Expenditure Dataset and take a look at global trends.<br />
 </p>
+<p>We started our exploratory analysis by defining which income levels, WHO regions, and specific countries to compare and analyze.</p>
+<p>To conduct income-level analysis, we used the income levels which were pre-defined in the GHED: Low, Lower-Middle, Upper-Middle, and High incomes. To conduct WHO region analysis, we utilized the WHO regions designated in the GHED dataset. These regions are: AFR (African Region), AMR (Region of the Americas), EMR (Eastern Mediterranean Region), EUR (European Region), SEAR (South-East Asian Region), and WPR (Western Pacific Region).</p>
+<p>We considered multiple strategies when selecting which countries to compare and analyze. Ultimately, we decided to use the <strong><a href="https://www.un.org/en/development/desa/policy/wesp/wesp_current/2014wesp_country_classification.pdf">UN Country Classification document</a></strong> as a reference source to identify developed and developing countries in order to compare government spending in developed countries with high incomes and government spending in developing countries with low incomes.</p>
 <div id="distribution-of-income-levels-of-countries-in-each-who-region" class="section level3">
 <h3>Distribution of income levels of countries in each WHO region</h3>
 <pre class="r"><code>ghed_df %&gt;%
@@ -326,7 +329,7 @@ $(document).ready(function () {
   ylab(&quot;% of countries in region&quot;) +
   xlab(&quot;country income group (2019)&quot;)</code></pre>
 <p><img src="analysis_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
-<p>The figure above shows the distribution of income levels of countries (categorized in 2019) in each WHO region: AFR (African Region), AMR (Region of the Americas), EMR (Eastern Mediterranean Region), EUR (European Region), SEAR (South-East Asian Region), and WPR (Western Pacific Region).<br />
+<p>The figure above shows the distribution of income levels of countries (categorized in 2019) in each WHO region: AFR, AMR, EMR, EUR, SEAR, and WPR.<br />
 </p>
 <p>Highest proportion of income group type by region:<br />
 Low income: AFR<br />
@@ -346,6 +349,7 @@ Hi income: EUR<br />
   ) %&gt;%
   group_by(income_group) %&gt;%
   summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %&gt;%
+  rename(&quot;Income Group&quot;=&quot;income_group&quot;) %&gt;%
   rename(&quot;Mean Current Health Expenditure as % of GDP&quot;=&quot;mean_che_gdp&quot;) %&gt;%
   rename(&quot;Mean Current Health Expenditure per Capita (US$)&quot;=&quot;mean_che_pc_usd&quot;) %&gt;%
   knitr::kable(digits = 2)</code></pre>
@@ -357,7 +361,7 @@ Hi income: EUR<br />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">income_group</th>
+<th align="left">Income Group</th>
 <th align="right">Mean Current Health Expenditure as % of GDP</th>
 <th align="right">Mean Current Health Expenditure per Capita (US$)</th>
 </tr>
@@ -396,6 +400,7 @@ Hi income: EUR<br />
   group_by(region_who) %&gt;%
   summarise(mean_che_gdp = mean(che_gdp,na.rm=TRUE), mean_che_pc_usd = mean(che_pc_usd,na.rm=TRUE)) %&gt;%
   arrange(mean_che_pc_usd) %&gt;%
+  rename(&quot;WHO Region&quot;=&quot;region_who&quot;) %&gt;%
   rename(&quot;Mean Current Health Expenditure as % of GDP&quot;=&quot;mean_che_gdp&quot;) %&gt;%
   rename(&quot;Mean Current Health Expenditure per Capita (US$)&quot;=&quot;mean_che_pc_usd&quot;) %&gt;%
   knitr::kable(digits = 2)</code></pre>
@@ -407,7 +412,7 @@ Hi income: EUR<br />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">region_who</th>
+<th align="left">WHO Region</th>
 <th align="right">Mean Current Health Expenditure as % of GDP</th>
 <th align="right">Mean Current Health Expenditure per Capita (US$)</th>
 </tr>

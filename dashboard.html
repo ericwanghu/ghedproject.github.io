@@ -1,33 +1,22 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<html>
+
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
 
 
 
 <title>Dashboard</title>
 
-<meta property="og:title" content="Dashboard" />
-
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-
-<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
-
-
-<script type="text/javascript">
-window.FlexDashboardComponents = [];
-</script>
-
-<script id="flexdashboard-navbar" type="application/json">
-[{"title":"Source Code","icon":"fa-code","href":"source_embed","align":"right"}]
-</script>
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -40,13 +29,10 @@ window.FlexDashboardComponents = [];
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-<link href="site_libs/featherlight-1.3.5/featherlight.min.css" rel="stylesheet" />
-<script src="site_libs/featherlight-1.3.5/featherlight.min.js"></script>
-<link href="site_libs/prism-1.4.1/prism.css" rel="stylesheet" />
-<script src="site_libs/prism-1.4.1/prism.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
@@ -54,762 +40,195 @@ window.FlexDashboardComponents = [];
 <script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
 <link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
 <style type="text/css">
-
-/*
- Dashboard CSS from Keen IO Dashboards
- (https://github.com/keen/dashboards)
-*/
-
-body {
-  background: #f2f2f2;
-  padding: 60px 0 0 8px; /* padding-top overridden by theme */
-}
-
-body hr {
-  border-color: #d7d7d7;
-  margin: 10px 0;
-}
-
-.navbar-inverse .navbar-nav > li > a,
-.navbar .navbar-brand {
-  text-decoration: none;
-}
-
-.navbar-logo {
-  margin-top: 1px;
-}
-
-.navbar-logo img {
-  margin-right: 12px;
-}
-
-.navbar-author {
-  margin-left: 10px;
-  font-size: 15px;
-}
-
-.navbar .dropdown-menu .fa {
-  min-width: 20px;
-}
-
-.navbar .dropdown-menu {
-  min-width: 150px;
-  max-height: 500px;
-  overflow: auto;
-}
-
-.chart-wrapper,
-.nav-tabs-custom,
-.sbframe-commentary
-{
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  border-radius: 3px;
-  margin-bottom: 8px;
-  margin-right: 8px;
-}
-
-.chart-title {
-  border-bottom: 1px solid #d7d7d7;
-  color: #666;
-  font-size: 14px;
-  font-weight: 300;
-  padding: 7px 10px 4px;
-}
-
-.chart-wrapper .chart-title:empty {
-  display: none;
-}
-
-.chart-wrapper .chart-stage {
-  overflow: hidden;
-  padding: 5px 10px;
-  position: relative;
-}
-
-.chart-wrapper .chart-notes {
-  background: #fbfbfb;
-  border-top: 1px solid #e2e2e2;
-  color: #808080;
-  font-size: 12px;
-  padding: 8px 10px 5px;
-}
-
-/*
- CSS for handling flexbox layout
-*/
-
-#dashboard-container {
-  visibility: hidden;
-}
-
-.tab-content>.dashboard-page-wrapper.active {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.dashboard-page-wrapper {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.dashboard-row-orientation {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.dashboard-row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.dashboard-row-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-.dashboard-column-orientation {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.dashboard-column {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.chart-wrapper-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.chart-stage-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  position: relative;
-}
-
-.chart-shim {
-  position: absolute;
-  left: 8px; top: 8px; right: 8px; bottom: 8px;
-}
-
-.no-padding .chart-shim {
-  left: 0; top: 0; right: 0; bottom: 0;
-}
-
-.flowing-content-shim {
-  overflow: auto;
-  left: 0; top: 0; right: 0; bottom: 0;
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.flowing-content-container {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.chart-stage .table-bordered {
-  border: none;
-}
-
-.chart-stage .table-bordered > tbody > tr > th,
-.chart-stage .table-bordered > tfoot > tr > th,
-.chart-stage .table-bordered > tbody > tr > td,
-.chart-stage .table-bordered > tfoot > tr > td {
-  border: none;
-}
-
-.chart-stage .table-bordered > tbody > tr > td {
-  border-top: 1px solid #dddddd;
-}
-
-.chart-stage .table-bordered > thead > tr > th {
-  border: none;
-  border-bottom: 2px solid #dddddd;
-}
-
-.bootstrap-table table>thead {
-  background-color: #fff;
-}
-
-.bootstrap-table table.data,
-.bootstrap-table table.shiny-table {
-  width: inherit !important;
-}
-
-.bootstrap-table table.data>tbody>tr>th,
-.bootstrap-table table.shiny-table>tbody>tr>th {
-  border-top: none;
-  border-bottom: 2px solid #dddddd;
-  padding: 5px;
-}
-
-.bootstrap-table .data td[align=right] {
-  font-family: inherit;
-}
-
-.chart-wrapper form {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.shiny-input-container label {
-  font-weight: normal;
-}
-
-.chart-stage .html-widget {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.chart-stage .html-widget-static-bound {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.chart-stage .shiny-bound-output {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Omit display of empty paragraphs */
-
-.chart-shim>p:empty {
-  display: none;
-}
-
-.chart-stage>p:empty {
-  display: none;
-}
-
-/* Omit display of special knitr options div*/
-
-.chart-stage .knitr-options {
-  display: none;
-}
-
-/* Automatically resizing images */
-
-.image-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-}
-
-.image-container img {
-  opacity: 0;
-  overflow: hidden;
-}
-
-/* Value box */
-
-.value-box {
-  border-radius: 2px;
-  position: relative;
-  display: block;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.value-box > .inner {
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.value-box .value {
-  font-size: 38px;
-  font-weight: bold;
-  margin: 0 0 3px 0;
-  white-space: nowrap;
-  padding: 0;
-}
-
-.value-box .caption {
-  font-size: 15px;
-}
-.value-box .caption > small {
-  display: block;
-  font-size: 13px;
-  margin-top: 5px;
-}
-
-.value-box .icon i {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 80px;
-  color: rgba(0, 0, 0, 0.15);
-}
-
-.linked-value:hover {
-  cursor: pointer;
-}
-
-.value-box.linked-value:hover {
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* STORYBOARD */
-
-.storyboard-nav button {
-  background: transparent;
-  border: 0;
-  opacity: .3;
-  outline: none;
-  padding: 0;
-}
-
-.storyboard-nav button:hover,
-.storyboard-nav button:hover {
-  opacity: .5;
-}
-
-.storyboard-nav button:disabled,
-.storyboard-nav button:disabled {
-  opacity: .1;
-}
-
-.storyboard-nav .sbnext,
-.storyboard-nav .sbprev {
-  float: left;
-  width: 2%;
-  height: 120px;
-  font-size: 50px;
-}
-
-.storyboard-nav .sbprev {
-  text-align: left;
-  width: 2%;
-}
-
-.storyboard-nav .sbnext {
-  float: right;
-  text-align: right;
-  margin-right: 8px;
-}
-
-.storyboard-nav .sbframelist {
-  margin: 0 auto;
-  width: 94%;
-  height: 120px;
-  overflow: hidden;
-  text-shadow: none;
-  margin-bottom: 8px;
-}
-
-.storyboard-nav .sbframelist ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-.storyboard-nav .sbframelist ul li {
-  float: left;
-  width: 270px;
-  height: 100%;
-  padding: 10px 10px 10px 10px;
-  margin-right: 8px;
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  border-radius: 3px;
-  color: #3a3c47;
-  text-align: left;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.storyboard-nav .sbframelist ul li:last-child {
-  margin-right: 0px;
-}
-
-.storyboard-nav .sbframelist ul li.active {
-  color: #fff;
-  background: #B8B8B8;
-}
-
-.sbframe-commentary {
-  width: 300px;
-  background: #fbfbfb;
-  font-size: 14px;
-}
-
-.sbframe-commentary ul {
-  padding-left: 22px;
-}
-
-.sbframe.active {
-  display: flex;
-}
-
-.sbframe:not(.active) {
-  display: none;
-}
-
-/* NAV TABS */
-
-.nav-tabs-custom > .nav-tabs {
-  margin: 0;
-  border-bottom: 1px solid #d7d7d7;
-  color: #666;
-  font-size: 14px;
-  font-weight: 300;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-}
-.nav-tabs-custom > .nav-tabs > li {
-  border-top: 3px solid transparent;
-  margin-bottom: -1px;
-  margin-right: 5px;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:active {
-  color: #666;
-  font-weight: 300;
-  font-size: 14px;
-  border-radius: 0;
-  padding: 3px 10px 5px;
-  text-transform: none;
-}
-
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
-  border-bottom-color: transparent;
-}
-
-.nav-tabs-custom > .nav-tabs > li > a.text-muted {
-  color: #999;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:hover {
-  background: transparent;
-  margin: 0;
-}
-.nav-tabs-custom > .nav-tabs > li > a:hover {
-  color: #999;
-}
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
-  border-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li.active {
-  border-top-color: #3c8dbc;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a,
-.nav-tabs-custom > .nav-tabs > li.active:hover > a {
-  background-color: #fff;
-  color: #666;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a {
-  border-top-color: transparent;
-  border-left-color: #d7d7d7;
-  border-right-color: #d7d7d7;
-}
-.nav-tabs-custom > .nav-tabs > li:first-of-type {
-  margin-left: 0;
-}
-.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
-  border-left-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs.pull-right {
-  float: none !important;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li {
-  float: right;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
-  margin-right: 0;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
-  border-left-width: 1px;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
-  border-left-color: #d7d7d7;
-  border-right-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li.header {
-  line-height: 35px;
-  padding: 0 10px;
-  font-size: 20px;
-  color: #666;
-}
-.nav-tabs-custom > .nav-tabs > li.header > .fa,
-.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
-.nav-tabs-custom > .nav-tabs > li.header > .ion {
-  margin-right: 5px;
-}
-.nav-tabs-custom > .tab-content {
-  background: #fff;
-  padding: 0;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.nav-tabs-custom > .tab-content > .chart-wrapper {
-  background: #fff;
-  border: none;
-  margin: 0;
-}
-
-
-.nav-tabs-custom > .tab-content > .active {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.nav-tabs-custom .dropdown.open > a:active,
-.nav-tabs-custom .dropdown.open > a:focus {
-  background: transparent;
-  color: #999;
-}
-
-
-@media (max-width: 767px) {
-  .value-box {
-    text-align: center;
-    margin-right: 8px;
-  }
-  .value-box .icon {
-    display: none;
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
   }
 }
+</script>
 
-/* Fixed position sidebar */
 
-.section.sidebar {
-  position: fixed;
-  top: 51px; /* overridden by theme */
-  left: 0;
-  bottom: 0;
-  border-right: 1px solid #e2e2e2;
-  background-color: white; /* overridden by theme */
-  padding-left: 10px;
-  padding-right: 10px;
-  visibility: hidden;
-  overflow: auto;
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-.section.sidebar form p:first-child {
-  margin-top: 10px;
+img {
+  max-width:100%;
 }
-
-/* Embedded source code */
-
-#flexdashboard-source-code {
-  display: none;
+.tabbed-pane {
+  padding-top: 12px;
 }
-
-.featherlight-content #flexdashboard-source-code {
-  display: inline-block;
+.html-widget {
+  margin-bottom: 20px;
 }
-
-.featherlight-content {
-  width: 80%;
-  max-width: 800px;
-  padding: 0 !important;
-  border-bottom: none !important;
-}
-
-.featherlight:last-of-type {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.featherlight-inner {
-  width: 100%;
-}
-
-.featherlight-content pre {
-  margin: 0;
-  border: 0;
-  background: #fff;
-  font-size: 12px;
-}
-
-.unselectable {
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: -moz-none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-#flexdashboard-source-code code {
-  -ms-user-select: text;
-  -webkit-user-select: text;
-  -khtml-user-select: text;
-  -moz-user-select: text;
-  -o-user-select: text;
-  user-select: text;
-}
-
-/* DataTables Tweaks */
-
-.dataTables_filter input[type="search"] {
-  -webkit-appearance: searchfield;
+button.code-folding-btn:focus {
   outline: none;
 }
-
-.dataTables_wrapper.no-footer
-.dataTables_info {
-  padding-top: 0;
+summary {
+  display: list-item;
 }
-
-
-table.dataTable thead th {
-  border-bottom: 1px solid #d7d7d7;
-}
-
-.dataTables_wrapper.no-footer .dataTables_scrollBody {
-  border-bottom: 1px solid #d7d7d7;
-}
-
-/* Mobile phone only CSS */
-
-.desktop-layout div.section.mobile {
-  display: none;
-}
-
-.mobile-layout div.section.no-mobile {
-  display: none;
-}
-
-.mobile-figure {
-  display: none;
-}
-
-
-
-body {
-  padding-top: 60px;
-}
-
-.section.sidebar {
-  top: 51px;
-  background-color: rgba(39, 128, 227, 0.1);
-}
-
-.value-box {
-  color: #f9f9f9;
-}
-
-.bg-primary {
-  background-color: rgba(39, 128, 227, 0.7);
-}
-
-.storyboard-nav .sbframelist ul li.active {
-  background-color: rgba(39, 128, 227, 0.7);
-}
-
-.nav-tabs-custom > .nav-tabs > li.active {
-  border-top-color: rgba(39, 128, 227, 0.7);
-}
-
-.bg-info {
-  background-color: rgba(153, 84, 187, 0.7);
-}
-
-.bg-warning {
-  background-color: rgba(255, 117, 24, 0.7);
-}
-
-.bg-danger {
-  background-color: rgba(255, 0, 57, 0.7);
-}
-
-.bg-success {
-  background-color: rgba(63, 182, 24, 0.7);
-}
-
-.chart-title {
-  font-weight: 500;
-}
-
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:active {
-  font-weight: 500;
-}
-
-@media only screen and (min-width: 768px) {
-html, body {
-  height: 100%;
-}
-
-#dashboard-container {
-  height: 100%;
-}
+pre code {
+  padding: 0;
 }
 </style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
 
 
 
@@ -817,1970 +236,180 @@ html, body {
 
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-<div class="container-fluid">
-<div class="navbar-header">
 
-<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
+<div class="container-fluid main-container">
 
-<span class="navbar-logo pull-left">
-  
-</span>
-<span class="navbar-brand">
-  Dashboard
-  <span class="navbar-author">
-        </span>
-</span>
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GHED Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="analysis.html">Global Analysis</a>
+</li>
+<li>
+  <a href="usa.html">Zoom In: USA</a>
+</li>
+<li>
+  <a href="stats.html">Statistical Analysis</a>
+</li>
+<li>
+  <a href="dashboard.html">Dashboard</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="report.html">Report</a>
+</li>
+<li>
+  <a href="about.html">About Us</a>
+</li>
+<li>
+  <a href="https://github.com/ericwanghu/ghedproject.github.io">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Dashboard</h1>
 
 </div>
-<div id="navbar" class="navbar-collapse collapse">
-<ul class="nav navbar-nav navbar-left">
-</ul>
-<ul class="nav navbar-nav navbar-right">
-</ul>
-</div><!--/.nav-collapse-->
-</div><!--/.container-->
-</div><!--/.navbar-->
 
-<script type="text/javascript">
 
-
-var FlexDashboard = (function () {
-
-  // initialize options
-  var _options = {};
-
-  var FlexDashboard = function() {
-
-    // default options
-    _options = $.extend(_options, {
-      theme: "cosmo",
-      fillPage: false,
-      orientation: 'columns',
-      storyboard: false,
-      defaultFigWidth: 576,
-      defaultFigHeight: 461,
-      defaultFigWidthMobile: 360,
-      defaultFigHeightMobile: 461,
-      isMobile: false,
-      isPortrait: false,
-      resize_reload: true
-    });
-  };
-
-  function init(options) {
-
-    // extend default options
-    $.extend(true, _options, options);
-
-    // add ids to sections that don't have them (pandoc won't assign ids
-    // to e.g. sections with titles consisting of only chinese characters)
-    var nextId = 1;
-    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
-      $(this).attr('id', 'dashboard-' + nextId++);
-    });
-
-    // find navbar items
-    var navbarItems = $('#flexdashboard-navbar');
-    if (navbarItems.length)
-      navbarItems = JSON.parse(navbarItems.html());
-    addNavbarItems(navbarItems);
-
-    // find the main dashboard container
-    var dashboardContainer = $('#dashboard-container');
-
-    // resolve mobile classes
-    resolveMobileClasses(dashboardContainer);
-
-    // one time global initialization for components
-    componentsInit(dashboardContainer);
-
-    // look for a global sidebar
-    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
-    if (globalSidebar.length > 0) {
-
-      // global layout for fullscreen displays
-      if (!isMobilePhone()) {
-
-         // hoist it up to the top level
-         globalSidebar.insertBefore(dashboardContainer);
-
-         // lay it out (set width/positions)
-         layoutSidebar(globalSidebar, dashboardContainer);
-
-      // tuck sidebar into first page for mobile phones
-      } else {
-
-        // convert it into a level3 section
-        globalSidebar.removeClass('sidebar');
-        globalSidebar.removeClass('level1');
-        globalSidebar.addClass('level3');
-        var h1 = globalSidebar.children('h1');
-        var h3 = $('<h3></h3>');
-        h3.append(h1.contents());
-        h3.insertBefore(h1);
-        h1.detach();
-
-        // move it into the first page
-        var page = dashboardContainer.find('.section.level1').first();
-        if (page.length > 0)
-          page.prepend(globalSidebar);
-      }
-    }
-
-    // look for pages to layout
-    var pages = $('div.section.level1');
-    if (pages.length > 0) {
-
-        // find the navbar and collapse on clicked
-        var navbar = $('#navbar');
-        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
-           navbar.collapse('hide');
-        });
-
-        // envelop the dashboard container in a tab content div
-        dashboardContainer.wrapInner('<div class="tab-content"></div>');
-
-        pages.each(function(index) {
-
-          // lay it out
-          layoutDashboardPage($(this));
-
-          // add it to the navbar
-          addToNavbar($(this), index === 0);
-
-        });
-
-    } else {
-
-      // remove the navbar and navbar button if we don't
-      // have any navbuttons
-      if (navbarItems.length === 0) {
-        $('#navbar').remove();
-        $('#navbar-button').remove();
-      }
-
-      // add the storyboard class if requested
-      if (_options.storyboard)
-        dashboardContainer.addClass('storyboard');
-
-      // layout the entire page
-      layoutDashboardPage(dashboardContainer);
-    }
-
-    // if we are in shiny we need to trigger a window resize event to
-    // force correct layout of shiny-bound-output elements
-    if (isShinyDoc())
-      $(window).trigger('resize');
-
-    // make main components visible
-    $('.section.sidebar').css('visibility', 'visible');
-    dashboardContainer.css('visibility', 'visible');
-
-    // handle location hash
-    handleLocationHash();
-
-    // intialize prism highlighting
-    initPrismHighlighting();
-
-    // record mobile and orientation state then register a handler
-    // to refresh if resize_reload is set to true and it changes
-    _options.isMobile = isMobilePhone();
-    _options.isPortrait = isPortrait();
-    if (_options.resize_reload) {
-      $(window).on('resize', function() {
-        if (_options.isMobile !== isMobilePhone() ||
-            _options.isPortrait !== isPortrait()) {
-          window.location.reload();
-        }
-      });
-    } else {
-      // if in desktop mode and resizing to mobile, make sure the heights are 100%
-      // This enforces what `fillpage.css` does for "wider" pages.
-      // Since we are not reloading once the page becomes small, we need to force the height to 100%
-      // This is a new situation introduced when `_options.resize_reload` is `false`
-      if (! _options.isMobile) {
-        // only add if `fillpage.css` was added in the first place
-        if (_options.fillPage) {
-          // fillpage.css
-          $("html,body,#dashboard").css("height", "100%");
-        }
-      }
-    }
-    // trigger layoutcomplete event
-    dashboardContainer.trigger('flexdashboard:layoutcomplete');
-  }
-
-  function resolveMobileClasses(dashboardContainer) {
-     // add top level layout class
-    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
-                                                  'desktop-layout');
-
-    // look for .mobile sections and add .no-mobile to their peers
-    var mobileSections = $('.section.mobile');
-    mobileSections.each(function() {
-       var id = $(this).attr('id');
-       var nomobileId = id.replace(/-\d+$/, '');
-       $('#' + nomobileId).addClass('no-mobile');
-    });
-  }
-
-  function addNavbarItems(navbarItems) {
-
-    var navbarLeft = $('ul.navbar-left');
-    var navbarRight = $('ul.navbar-right');
-
-    for (var i = 0; i<navbarItems.length; i++) {
-
-      // get the item
-      var item = navbarItems[i];
-
-      // determine the container
-      var container = null;
-      if (item.align === "left")
-        container = navbarLeft;
-      else
-        container = navbarRight;
-
-      // navbar menu if we have multiple items
-      if (item.items) {
-        var menu = navbarMenu(null, item.icon, item.title, container);
-        for (var j = 0; j<item.items.length; j++) {
-          var subItem = item.items[j];
-          var li = $('<li></li>');
-          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
-          menu.append(li);
-        }
-      } else {
-        var li = $('<li></li>');
-        li.append(navbarLink(item.icon, item.title, item.href, item.target));
-        container.append(li);
-      }
-    }
-  }
-
-  // create or get a reference to an existing dropdown menu
-  function navbarMenu(id, icon, title, container) {
-    var existingMenu = [];
-    if (id)
-      existingMenu = container.children('#' + id);
-    if (existingMenu.length > 0) {
-      return existingMenu.children('ul');
-    } else {
-      var li = $('<li></li>');
-      if (id)
-        li.attr('id', id);
-      li.addClass('dropdown');
-      // auto add "Share" title on mobile if necessary
-      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
-        title = "Share";
-      if (title) {
-        title = title + ' <span class="caret"></span>';
-      }
-      var a = navbarLink(icon, title, "#");
-      a.addClass('dropdown-toggle');
-      a.attr('data-toggle', 'dropdown');
-      a.attr('role', 'button');
-      a.attr('aria-expanded', 'false');
-      li.append(a);
-      var ul = $('<ul class="dropdown-menu"></ul>');
-      ul.attr('role', 'menu');
-      li.append(ul);
-      container.append(li);
-      return ul;
-    }
-  }
-
-  function addToNavbar(page, active) {
-
-    // capture the id and data-icon attribute (if any)
-    var id = page.attr('id');
-    var icon = page.attr('data-icon');
-    var navmenu = page.attr('data-navmenu');
-
-    // get hidden state (transfer this to navbar)
-    var hidden = page.hasClass('hidden');
-    page.removeClass('hidden');
-
-    // sanitize the id for use with bootstrap tabs
-    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
-    page.attr('id', id);
-
-    // get the wrapper
-    var wrapper = page.closest('.dashboard-page-wrapper');
-
-    // move the id to the wrapper
-    page.removeAttr('id');
-    wrapper.attr('id', id);
-
-    // add the tab-pane class to the wrapper
-    wrapper.addClass('tab-pane');
-    if (active)
-      wrapper.addClass('active');
-
-    // get a reference to the h1, discover its inner contens, then detach it
-    var h1 = wrapper.find('h1').first();
-    var title = h1.contents();
-    h1.detach();
-
-    // create a navbar item
-    var li = $('<li></li>');
-    var a = navbarLink(icon, title, '#' + id);
-    a.attr('data-toggle', 'tab');
-    li.append(a);
-
-    // add it to the navbar (or navbar menu if specified)
-    var container = $('ul.navbar-left');
-    if (navmenu) {
-      var menuId = navmenu.replace(/\s+/g, '');
-      var menu = navbarMenu(menuId, null, navmenu, container);
-      menu.append(li);
-    } else {
-      container.append(li);
-    }
-
-    // hide it if requested
-    if (hidden)
-      li.addClass('hidden');
-  }
-
-  function navbarLink(icon, title, href, target) {
-
-    var a = $('<a></a>');
-    if (icon) {
-
-      // get the name of the icon set and icon
-      var dashPos = icon.indexOf("-");
-      var iconSet = null;
-      var iconSplit = icon.split(" ");
-      if (iconSplit.length > 1) {
-        iconSet = iconSplit[0];
-        icon = iconSplit.slice(1).join(" ");
-      } else {
-        iconSet = icon.substring(0, dashPos);
-      }
-      var iconName = icon.substring(dashPos + 1);
-
-      // create the icon
-      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
-      if (title)
-        iconElement.css('margin-right', '7px');
-      a.append(iconElement);
-      // if href is null see if we can auto-generate based on icon (e.g. social)
-      if (!href)
-        maybeGenerateLinkFromIcon(iconName, a);
-    }
-    if (title)
-      a.append(title);
-
-    // add the href.
-    if (href) {
-      if (href === "source_embed") {
-        a.attr('href', '#');
-        a.attr('data-featherlight', "#flexdashboard-source-code");
-        a.featherlight({
-            beforeOpen: function(event){
-              $('body').addClass('unselectable');
-            },
-            afterClose: function(event){
-              $('body').removeClass('unselectable');
-            }
-        });
-      } else {
-        a.attr('href', href);
-      }
-    }
-
-    // add the arget
-    if (target)
-      a.attr('target', target);
-
-    return a;
-  }
-
-  // auto generate a link from an icon name (e.g. twitter) when possible
-  function maybeGenerateLinkFromIcon(iconName, a) {
-
-     var serviceLinks = {
-      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
-      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
-      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
-      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
-      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
-    };
-
-    var makeSocialLink = function(a, href) {
-      a.attr('href', '#');
-      a.on('click', function(e) {
-        e.preventDefault();
-        window.open(href);
-      });
-    };
-
-    $.each(serviceLinks, function(key, value) {
-      if (iconName.indexOf(key) !== -1)
-        makeSocialLink(a, value);
-    });
-  }
-
-  // layout a dashboard page
-  function layoutDashboardPage(page) {
-
-    // use a page wrapper so that free form content above the
-    // dashboard appears at the top rather than the side (as it
-    // would without the wrapper in a column orientation)
-    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
-    page.wrap(wrapper);
-
-    // if there are no level2 or level3 headers synthesize a level3
-    // header to contain the (e.g. frame it, scroll container, etc.)
-    var headers = page.find('h2,h3');
-    if (headers.length === 0)
-      page.wrapInner('<div class="section level3"></div>');
-
-    // hoist up any content before level 2 or level 3 headers
-    var children = page.children();
-    children.each(function(index) {
-      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
-        return false;
-      $(this).insertBefore(page);
-    });
-
-    // determine orientation and fillPage behavior for distinct media
-    var orientation, fillPage, storyboard;
-
-    // media: mobile phone
-    if (isMobilePhone()) {
-
-      // if there is a sidebar we need to ensure it's content
-      // is properly framed as an h3
-      var sidebar = page.find('.section.sidebar');
-      sidebar.removeClass('sidebar');
-      sidebar.wrapInner('<div class="section level3"></div>');
-      var h2 = sidebar.find('h2');
-      var h3 = $('<h3></h3>');
-      h3.append(h2.contents());
-      h3.insertBefore(h2);
-      h2.detach();
-
-      // wipeout h2 elements then enclose them in a single h2
-      var level2 = page.find('div.section.level2');
-      level2.each(function() {
-        level2.children('h2').remove();
-        level2.children().unwrap();
-      });
-      page.wrapInner('<div class="section level2"></div>');
-
-      // substitute mobile images
-      if (isPortrait()) {
-        var mobileFigures = $('img.mobile-figure');
-        mobileFigures.each(function() {
-          // get the src (might be base64 encoded)
-          var src = $(this).attr('src');
-
-          // find it's peer
-          var id = $(this).attr('data-mobile-figure-id');
-          var img = $('img[data-figure-id=' + id + "]");
-          img.attr('src', src)
-             .attr('width', _options.defaultFigWidthMobile)
-             .attr('height', _options.defaultFigHeightMobile);
-        });
-      }
-
-      // hoist storyboard commentary into it's own section
-      if (page.hasClass('storyboard')) {
-        var commentaryHR = page.find('div.section.level3 hr');
-        commentaryHR.each(function() {
-          var commentary = $(this).nextAll().detach();
-          var commentarySection = $('<div class="section level3"></div>');
-          commentarySection.append(commentary);
-          commentarySection.insertAfter($(this).closest('div.section.level3'));
-          $(this).remove();
-        });
-      }
-
-      // force a non full screen layout by columns
-      orientation = _options.orientation = 'columns';
-      fillPage = _options.fillPage = false;
-      storyboard = _options.storyboard = false;
-
-    // media: desktop
-    } else {
-
-      // determine orientation
-      orientation = page.attr('data-orientation');
-      if (orientation !== 'rows' && orientation != 'columns')
-        orientation = _options.orientation;
-
-      // determine storyboard mode
-      storyboard = page.hasClass('storyboard');
-
-      // fillPage based on options (force for storyboard)
-      fillPage = _options.fillPage || storyboard;
-
-      // handle sidebar
-      var sidebar = page.find('.section.level2.sidebar');
-      if (sidebar.length > 0)
-        layoutSidebar(sidebar, page);
-    }
-
-    // give it and it's parent divs height: 100% if we are in fillPage mode
-    if (fillPage) {
-      page.addClass('vertical-layout-fill');
-      page.css('height', '100%');
-      page.parents('div').css('height', '100%');
-    } else {
-      page.addClass('vertical-layout-scroll');
-    }
-
-    // perform the layout
-    if (storyboard)
-      layoutPageAsStoryboard(page);
-    else if (orientation === 'rows')
-      layoutPageByRows(page, fillPage);
-    else if (orientation === 'columns')
-      layoutPageByColumns(page, fillPage);
-  }
-
-  function layoutSidebar(sidebar, content) {
-
-    // get it out of the header hierarchy
-    sidebar = sidebar.first();
-    if (sidebar.hasClass('level1')) {
-      sidebar.removeClass('level1');
-      sidebar.children('h1').remove();
-    } else if (sidebar.hasClass('level2')) {
-      sidebar.removeClass('level2');
-      sidebar.children('h2').remove();
-    }
-
-    // determine width
-    var sidebarWidth = isTablet() ? 220 : 250;
-    var dataWidth = parseInt(sidebar.attr('data-width'));
-    if (dataWidth)
-      sidebarWidth = dataWidth;
-
-    // set the width and shift the page right to accomodate the sidebar
-    sidebar.css('width', sidebarWidth + 'px');
-    content.css('padding-left', sidebarWidth + 'px');
-
-    // wrap it's contents in a form
-    sidebar.wrapInner($('<form></form>'));
-  }
-
-  function layoutPageAsStoryboard(page) {
-
-    // create storyboard navigation
-    var nav = $('<div class="storyboard-nav"></div>');
-
-    // add navigation buttons
-    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
-    nav.append(prev);
-    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
-    nav.append(next);
-
-    // add navigation frame
-    var frameList = $('<div class="sbframelist"></div>');
-    nav.append(frameList);
-    var ul = $('<ul></ul>');
-    frameList.append(ul);
-
-     // find all the level3 sections (those are the storyboard frames)
-    var frames = page.find('div.section.level3');
-    frames.each(function() {
-
-      // mark it
-      $(this).addClass('sbframe');
-
-      // divide it into chart content and (optional) commentary
-      $(this).addClass('dashboard-column-orientation');
-
-      // stuff the chart into it's own div w/ flex
-      $(this).wrapInner('<div class="sbframe-component"></div>');
-      setFlex($(this), 1);
-      var frame = $(this).children('.sbframe-component');
-
-      // extract the title from the h3
-      var li = $('<li></li>');
-      var h3 = frame.children('h3');
-      li.append(h3.contents());
-      h3.detach();
-      ul.append(li);
-
-      // extract commentary
-      var hr = frame.children('hr');
-      if (hr.length) {
-        var commentary = hr.nextAll().detach();
-        hr.remove();
-        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
-        commentaryFrame.addClass('flowing-content-shim');
-        commentaryFrame.addClass('flowing-content-container');
-        commentaryFrame.append(commentary);
-        $(this).append(commentaryFrame);
-
-        // look for a data-commentary-width attribute
-        var commentaryWidth = $(this).attr('data-commentary-width');
-        if (commentaryWidth)
-          commentaryFrame.css('width', commentaryWidth + 'px');
-      }
-
-      // layout the chart (force flex)
-      var result = layoutChart(frame, true);
-
-      // ice the notes if there are none
-      if (!result.notes)
-        frame.find('.chart-notes').remove();
-
-      // set flex on chart
-      setFlex(frame, 1);
-    });
-
-    // create a div to hold all the frames
-    var frameContent = $('<div class="sbframe-content"></div>');
-    frameContent.addClass('dashboard-row-orientation');
-    frameContent.append(frames.detach());
-
-    // row orientation to stack nav and frame content
-    page.addClass('dashboard-row-orientation');
-    page.append(nav);
-    page.append(frameContent);
-    setFlex(frameContent, 1);
-
-    // initialize sly
-    var sly = new Sly(frameList, {
-    		horizontal: true,
-    		itemNav: 'basic',
-    		smart: true,
-    		activateOn: 'click',
-    		startAt: 0,
-    		scrollBy: 1,
-    		activatePageOn: 'click',
-    		speed: 200,
-    		moveBy: 600,
-    		dragHandle: true,
-    		dynamicHandle: true,
-    		clickBar: true,
-    		keyboardNavBy: 'items',
-    		next: next,
-    		prev: prev
-    	}).init();
-
-    // make first frame active
-    frames.removeClass('active');
-    frames.first().addClass('active');
-
-    // subscribe to frame changed events
-    sly.on('active', function (eventName, itemIndex) {
-      frames.removeClass('active');
-      frames.eq(itemIndex).addClass('active')
-                          .trigger('shown');
-    });
-  }
-
-  function layoutPageByRows(page, fillPage) {
-
-    // row orientation
-    page.addClass('dashboard-row-orientation');
-
-    // find all the level2 sections (those are the rows)
-    var rows = page.find('div.section.level2');
-
-    // if there are no level2 sections then treat the
-    // entire page as if it's a level 2 section
-    if (rows.length === 0) {
-      page.wrapInner('<div class="section level2"></div>');
-      rows = page.find('div.section.level2');
-    }
-
-    rows.each(function () {
-
-      // flags
-      var haveNotes = false;
-      var haveFlexHeight = true;
-
-      // remove the h2
-      $(this).children('h2').remove();
-
-      // check for a tabset
-      var isTabset = $(this).hasClass('tabset');
-      if (isTabset)
-        layoutTabset($(this));
-
-      // give it row layout semantics if it's not a tabset
-      if (!isTabset)
-        $(this).addClass('dashboard-row');
-
-      // find all of the level 3 subheads
-      var columns = $(this).find('div.section.level3');
-
-      // determine figureSizes sizes
-      var figureSizes = chartFigureSizes(columns);
-
-      // fixup the columns
-      columns.each(function(index) {
-
-        // layout the chart (force flex if we are in a tabset)
-        var result = layoutChart($(this), isTabset);
-
-        // update flexHeight state
-        if (!result.flex)
-          haveFlexHeight = false;
-
-        // update state
-        if (result.notes)
-          haveNotes = true;
-
-        // set the column flex based on the figure width
-        // (value boxes will just get the default figure width)
-        var chartWidth = figureSizes[index].width;
-        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
-
-      });
-
-      // remove empty chart note divs
-      if (isTabset)
-        $(this).find('.chart-notes').filter(function() {
-            return $(this).html() === "&nbsp;";
-        }).remove();
-      if (!haveNotes)
-        $(this).find('.chart-notes').remove();
-
-       // make it a flexbox row
-      if (haveFlexHeight)
-        $(this).addClass('dashboard-row-flex');
-
-      // now we can set the height on all the wrappers (based on maximum
-      // figure height + room for title and notes, or data-height on the
-      // container if specified). However, don't do this if there is
-      // no flex on any of the constituent columns
-      var flexHeight = null;
-      var dataHeight = parseInt($(this).attr('data-height'));
-      if (dataHeight)
-        flexHeight = adjustedHeight(dataHeight, columns.first());
-      else if (haveFlexHeight)
-        flexHeight = maxChartHeight(figureSizes, columns);
-      if (flexHeight) {
-        if (fillPage)
-          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
-        else {
-          $(this).css('height', flexHeight + 'px');
-          setFlex($(this), '0 0 ' + flexHeight + 'px');
-        }
-      }
-
-    });
-  }
-
-  function layoutPageByColumns(page, fillPage) {
-
-    // column orientation
-    page.addClass('dashboard-column-orientation');
-
-    // find all the level2 sections (those are the columns)
-    var columns = page.find('div.section.level2');
-
-    // if there are no level2 sections then treat the
-    // entire page as if it's a level 2 section
-    if (columns.length === 0) {
-      page.wrapInner('<div class="section level2"></div>');
-      columns = page.find('div.section.level2');
-    }
-
-    // layout each column
-    columns.each(function (index) {
-
-      // remove the h2
-      $(this).children('h2').remove();
-
-      // make it a flexbox column
-      $(this).addClass('dashboard-column');
-
-      // check for a tabset
-      var isTabset = $(this).hasClass('tabset');
-      if (isTabset)
-        layoutTabset($(this));
-
-      // find all the h3 elements
-      var rows = $(this).find('div.section.level3');
-
-      // get the figure sizes for the rows
-      var figureSizes = chartFigureSizes(rows);
-
-      // column flex is the max row width (or data-width if specified)
-      var flexWidth;
-      var dataWidth = parseInt($(this).attr('data-width'));
-      if (dataWidth)
-        flexWidth = dataWidth;
-      else
-        flexWidth = maxChartWidth(figureSizes);
-      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
-
-      // layout each chart
-      rows.each(function(index) {
-
-        // perform the layout
-        var result = layoutChart($(this), false);
-
-        // ice the notes if there are none
-        if (!result.notes)
-          $(this).find('.chart-notes').remove();
-
-        // set flex height based on figHeight, then adjust
-        if (result.flex) {
-          var chartHeight = figureSizes[index].height;
-          chartHeight = adjustedHeight(chartHeight, $(this));
-          if (fillPage)
-            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
-          else {
-            $(this).css('height', chartHeight + 'px');
-            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
-          }
-        }
-      });
-    });
-  }
-
-  function chartFigureSizes(charts) {
-
-    // sizes
-    var figureSizes = new Array(charts.length);
-
-    // check each chart
-    charts.each(function(index) {
-
-      // start with default
-      figureSizes[index] = {
-        width: _options.defaultFigWidth,
-        height: _options.defaultFigHeight
-      };
-
-      // look for data-height or data-width then knit options
-      var dataWidth = parseInt($(this).attr('data-width'));
-      var dataHeight = parseInt($(this).attr('data-height'));
-      var knitrOptions = $(this).find('.knitr-options:first');
-      var knitrWidth, knitrHeight;
-      if (knitrOptions) {
-        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
-        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
-      }
-
-      // width
-      if (dataWidth)
-        figureSizes[index].width = dataWidth;
-      else if (knitrWidth)
-        figureSizes[index].width = knitrWidth;
-
-      // height
-      if (dataHeight)
-        figureSizes[index].height = dataHeight;
-      else if (knitrHeight)
-        figureSizes[index].height = knitrHeight;
-    });
-
-    // return sizes
-    return figureSizes;
-  }
-
-  function maxChartHeight(figureSizes, charts) {
-
-    // first compute the maximum height
-    var maxHeight = _options.defaultFigHeight;
-    for (var i = 0; i<figureSizes.length; i++)
-      if (figureSizes[i].height > maxHeight)
-        maxHeight = figureSizes[i].height;
-
-    // now add offests for chart title and chart notes
-    if (charts.length)
-      maxHeight = adjustedHeight(maxHeight, charts.first());
-
-    return maxHeight;
-  }
-
-  function adjustedHeight(height, chart) {
-    if (chart.length > 0) {
-      var chartTitle = chart.find('.chart-title');
-      if (chartTitle.length)
-        height += chartTitle.first().outerHeight();
-      var chartNotes = chart.find('.chart-notes');
-      if (chartNotes.length)
-        height += chartNotes.first().outerHeight();
-    }
-    return height;
-  }
-
-  function maxChartWidth(figureSizes) {
-    var maxWidth = _options.defaultFigWidth;
-    for (var i = 0; i<figureSizes.length; i++)
-      if (figureSizes[i].width > maxWidth)
-        maxWidth = figureSizes[i].width;
-    return maxWidth;
-  }
-
-  // layout a chart
-  function layoutChart(chart, forceFlex) {
-
-    // state to return
-    var result = {
-      notes: false,
-      flex: false
-    };
-
-    // extract the title
-    var title = extractTitle(chart);
-
-    // find components that apply to this container
-    var components = componentsFind(chart);
-
-    // if it's a custom component then call it and return
-    var customComponents = componentsCustom(components);
-    if (customComponents.length) {
-      componentsLayout(customComponents, title, chart);
-      result.notes = false;
-      result.flex = forceFlex || componentsFlex(customComponents);
-      return result;
-    }
-
-    // put all the content in a chart wrapper div
-    chart.addClass('chart-wrapper');
-    chart.wrapInner('<div class="chart-stage"></div>');
-    var chartContent = chart.children('.chart-stage');
-
-    // flex the content if appropriate
-    result.flex = forceFlex || componentsFlex(components);
-    if (result.flex) {
-      // add flex classes
-      chart.addClass('chart-wrapper-flex');
-      chartContent.addClass('chart-stage-flex');
-
-      // additional shim to break out of flexbox sizing
-      chartContent.wrapInner('<div class="chart-shim"></div>');
-      chartContent = chartContent.children('.chart-shim');
-    }
-
-    // set custom data-padding attribute
-    var pad = chart.attr('data-padding');
-    if (pad) {
-      if (pad === "0")
-        chart.addClass('no-padding');
-      else {
-        pad = pad + 'px';
-        chartContent.css('left', pad)
-                    .css('top', pad)
-                    .css('right', pad)
-                    .css('bottom', pad)
-      }
-    }
-
-    // call compoents
-    componentsLayout(components, title, chartContent);
-
-    // also activate components on shiny output
-    findShinyOutput(chartContent).on('shiny:value',
-      function(event) {
-        var element = $(event.target);
-        setTimeout(function() {
-
-          // see if we opted out of flex based on our output (for shiny
-          // we can't tell what type of output we have until after the
-          // value is bound)
-          var components = componentsFind(element);
-          var flex = forceFlex || componentsFlex(components);
-          if (!flex) {
-            chart.css('height', "");
-            setFlex(chart, "");
-            chart.removeClass('chart-wrapper-flex');
-            chartContent.removeClass('chart-stage-flex');
-            chartContent.children().unwrap();
-          }
-
-          // perform layout
-          componentsLayout(components, title, element.parent());
-        }, 10);
-      });
-
-    // add the title
-    var chartTitle = $('<div class="chart-title"></div>');
-    chartTitle.append(title);
-    chart.prepend(chartTitle);
-
-    // add the notes section
-    var chartNotes = $('<div class="chart-notes"></div>');
-    chartNotes.html('&nbsp;');
-    chart.append(chartNotes);
-
-    // attempt to extract notes if we have a component
-    if (components.length)
-      result.notes = extractChartNotes(chartContent, chartNotes);
-
-    // return result
-    return result;
-  }
-
-  // build a tabset from a section div with the .tabset class
-  function layoutTabset(tabset) {
-
-    // check for fade option
-    var fade = tabset.hasClass("tabset-fade");
-    var navClass = "nav-tabs";
-
-    // determine the heading level of the tabset and tabs
-    var match = tabset.attr('class').match(/level(\d) /);
-    if (match === null)
-      return;
-    var tabsetLevel = Number(match[1]);
-    var tabLevel = tabsetLevel + 1;
-
-    // find all subheadings immediately below
-    var tabs = tabset.find("div.section.level" + tabLevel);
-    if (!tabs.length)
-      return;
-
-    // create tablist and tab-content elements
-    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
-    $(tabs[0]).before(tabList);
-    var tabContent = $('<div class="tab-content"></div>');
-    $(tabs[0]).before(tabContent);
-
-    // build the tabset
-    tabs.each(function(i) {
-
-      // get the tab div
-      var tab = $(tabs[i]);
-
-      // get the id then sanitize it for use with bootstrap tabs
-      var id = tab.attr('id');
-
-      // sanitize the id for use with bootstrap tabs
-      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
-      tab.attr('id', id);
-
-      // get the heading element within it and grab it's text
-      var heading = tab.find('h' + tabLevel + ':first');
-      var headingDom = heading.contents();
-
-      // build and append the tab list item
-      var a = $('<a role="tab" data-toggle="tab"></a>');
-      a.append(headingDom);
-      a.attr('href', '#' + id);
-      a.attr('aria-controls', id);
-      var li = $('<li role="presentation"></li>');
-      li.append(a);
-      if (i === 0)
-        li.attr('class', 'active');
-      tabList.append(li);
-
-      // set it's attributes
-      tab.attr('role', 'tabpanel');
-      tab.addClass('tab-pane');
-      tab.addClass('tabbed-pane');
-      tab.addClass('no-title');
-      if (fade)
-        tab.addClass('fade');
-      if (i === 0) {
-        tab.addClass('active');
-        if (fade)
-          tab.addClass('in');
-      }
-
-      // move it into the tab content div
-      tab.detach().appendTo(tabContent);
-    });
-
-    // add nav-tabs-custom
-    tabset.addClass('nav-tabs-custom');
-
-    // internal layout is dashboard-column with tab-content flexing
-    tabset.addClass('dashboard-column');
-    setFlex(tabContent, 1);
-  }
-
-  // one time global initialization for components
-  function componentsInit(dashboardContainer) {
-    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
-      var component = window.FlexDashboardComponents[i];
-      if (component.init)
-        component.init(dashboardContainer);
-    }
-  }
-
-  // find components that apply within a container
-  function componentsFind(container) {
-
-    // look for components
-    var components = [];
-    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
-      var component = window.FlexDashboardComponents[i];
-      if (component.find(container).length)
-        components.push(component);
-    }
-
-    // if there were none then use a special flowing content component
-    // that just adds a scrollbar in fillPage mode
-    if (components.length == 0) {
-      components.push({
-        find: function(container) {
-          return container;
-        },
-
-        flex: function(fillPage) {
-          return fillPage;
-        },
-
-        layout: function(title, container, element, fillPage) {
-          if (fillPage) {
-            container.addClass('flowing-content-shim');
-            container.addClass('flowing-content-container');
-          }
-        }
-      });
-    }
-
-    return components;
-  }
-
-  // if there is a custom component then pick it out
-  function componentsCustom(components) {
-    var customComponent = [];
-    for (var i=0; i<components.length; i++)
-      if (components[i].type === "custom") {
-        customComponent.push(components[i]);
-        break;
-      }
-    return customComponent;
-  }
-
-  // query all components for flex
-  function componentsFlex(components) {
-
-    // no components at all means no flex
-    if (components.length === 0)
-      return false;
-
-    // otherwise query components (assume true unless we see false)
-    var isMobile = isMobilePhone();
-    for (var i=0; i<components.length; i++)
-      if (components[i].flex && !components[i].flex(_options.fillPage))
-        return false;
-    return true;
-  }
-
-  // layout all components
-  function componentsLayout(components, title, container) {
-    var isMobile = isMobilePhone();
-    for (var i=0; i<components.length; i++) {
-      var element = components[i].find(container);
-      if (components[i].layout) {
-        // call layout (don't call other components if it returns false)
-        var result = components[i].layout(title, container, element, _options.fillPage);
-        if (result === false)
-          return;
-      }
-    }
-  }
-
-  // get a reference to the h3, discover it's inner html, and remove it
-  function extractTitle(container) {
-    var h3 = container.children('h3').first();
-    var title = '';
-    if (!container.hasClass('no-title'))
-      title = h3.contents();
-    h3.detach();
-    return title;
-  }
-
-  // extract chart notes
-  function extractChartNotes(chartContent, chartNotes) {
-    // look for a terminating blockquote or image caption
-    var blockquote = chartContent.children('blockquote:last-child');
-    var caption = chartContent.children('div.image-container')
-                              .children('p.caption');
-    if (blockquote.length) {
-      chartNotes.empty().append(blockquote.children('p:first-child').contents());
-      blockquote.remove();
-      return true;
-    } else if (caption.length) {
-      chartNotes.empty().append(caption.contents());
-      caption.remove();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function findShinyOutput(chartContent) {
-    return chartContent.find('.shiny-text-output, .shiny-html-output');
-  }
-
-  // safely detect rendering on a mobile phone
-  function isMobilePhone() {
-    try
-    {
-      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
-    }
-    catch(e) {
-      return false;
-    }
-  }
-
-  function isFillPage() {
-    return _options.fillPage;
-  }
-
-  // detect portrait mode
-  function isPortrait() {
-    return ($(window).width() < $(window).height());
-  }
-
-  // safely detect rendering on a tablet
-  function isTablet() {
-    try
-    {
-      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
-    }
-    catch(e) {
-      return false;
-    }
-  }
-
-  // test whether this is a shiny doc
-  function isShinyDoc() {
-    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
-  }
-
-  // set flex using vendor specific prefixes
-  function setFlex(el, flex) {
-    el.css('-webkit-box-flex', flex)
-      .css('-webkit-flex', flex)
-      .css('-ms-flex', flex)
-      .css('flex', flex);
-  }
-
-  // support bookmarking of pages
-  function handleLocationHash() {
-
-    // restore tab/page from bookmark
-    var hash = window.decodeURIComponent(window.location.hash);
-    if (hash.length > 0)
-      $('ul.nav a[href="' + hash + '"]').tab('show');
-    FlexDashboardUtils.manageActiveNavbarMenu();
-
-    // navigate to a tab when the history changes
-    window.addEventListener("popstate", function(e) {
-      var hash = window.decodeURIComponent(window.location.hash);
-      var activeTab = $('ul.nav a[href="' + hash + '"]');
-      if (activeTab.length) {
-        activeTab.tab('show');
-      } else {
-        $('ul.nav a:first').tab('show');
-      }
-      FlexDashboardUtils.manageActiveNavbarMenu();
-    });
-
-    // add a hash to the URL when the user clicks on a tab/page
-    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
-      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
-      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
-      var href = baseUrl + hash;
-      FlexDashboardUtils.setLocation(href);
-    });
-
-    // handle clicks of other links that should activate pages
-    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
-    navPages.each(function() {
-      var href =  $(this).attr('href');
-      var links = $('a[href="' + href + '"][data-toggle!=tab]');
-      links.each(function() {
-        $(this).on('click', function(e) {
-          window.FlexDashboardUtils.showPage(href);
-        });
-      });
-    });
-  }
-
-  // tweak Prism highlighting
-  function initPrismHighlighting() {
-
-    if (window.Prism) {
-      Prism.languages.insertBefore('r', 'comment', {
-        'heading': [
-          {
-            // title 1
-        	  // =======
-
-        	  // title 2
-        	  // -------
-        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
-            alias: 'operator'
-          },
-          {
-            // ### title 3
-            pattern: /(^\s*)###[^#].+/m,
-            lookbehind: true,
-            alias: 'operator'
-          }
-        ]
-      });
-
-      // prism highlight
-      Prism.highlightAll();
-    }
-  }
-
-
-  // get theme color
-  var themeColors = {
-    bootstrap: {
-      primary: "rgba(51, 122, 183, 0.4)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    cerulean: {
-      primary: "rgb(47, 164, 231)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    journal: {
-      primary: "rgba(235, 104, 100, 0.70)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    flatly: {
-      primary: "rgba(44, 62, 80, 0.70)",
-      info: "rgba(52, 152, 219, 0.70)",
-      success: "rgba(24, 188, 156, 0.70)",
-      warning: "rgba(243, 156, 18, 0.70)",
-      danger: "rgba(231, 76, 60, 0.70)"
-    },
-    readable: {
-      primary: "rgba(69, 130, 236, 0.4)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    spacelab: {
-      primary: "rgba(68, 110, 155, 0.25)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    united: {
-      primary: "rgba(221, 72, 20, 0.30)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    cosmo: {
-      primary: "rgba(39, 128, 227, 0.7)",
-      info: "rgba(153, 84, 187, 0.7)",
-      success: "rgba(63, 182, 24, 0.7)",
-      warning: "rgba(255, 117, 24, 0.7)",
-      danger: "rgba(255, 0, 57, 0.7)"
-    },
-    lumen: {
-      primary: "rgba(21, 140, 186, 0.70)",
-      info: "rgba(117, 202, 235, 0.90)",
-      success: "rgba(40, 182, 44, 0.70)",
-      warning: "rgba(255, 133, 27, 0.70)",
-      danger: "rgba(255, 65, 54, 0.70)"
-    },
-    paper: {
-      primary: "rgba(33, 150, 243, 0.35)",
-      info: "rgb(225, 190, 231)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(255, 224, 178)",
-      danger: "rgb(249, 189, 187)"
-    },
-    sandstone: {
-      primary: "rgba(50, 93, 136, 0.3)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    simplex: {
-      primary: "rgba(217, 35, 15, 0.25)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    yeti: {
-      primary: "rgba(0, 140, 186, 0.298039)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    }
-  }
-  function themeColor(color) {
-    return themeColors[_options.theme][color];
-  }
-
-  FlexDashboard.prototype = {
-    constructor: FlexDashboard,
-    init: init,
-    isMobilePhone: isMobilePhone,
-    isFillPage: isFillPage,
-    themeColor: themeColor
-  };
-
-  return FlexDashboard;
-
-})();
-
-// utils
-window.FlexDashboardUtils = {
-  resizableImage: function(img) {
-    var src = img.attr('src');
-    var url = 'url("' + src + '")';
-    img.parent().css('background', url)
-                .css('background-size', 'contain')
-                .css('background-repeat', 'no-repeat')
-                .css('background-position', 'center')
-                .addClass('image-container');
-  },
-  setLocation: function(href) {
-    if (history && history.pushState) {
-      history.pushState(null, null, href);
-    } else {
-      window.location.replace(href);
-    }
-    setTimeout(function() {
-        window.scrollTo(0, 0);
-    }, 10);
-    this.manageActiveNavbarMenu();
-  },
-  showPage: function(href) {
-    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
-    var baseUrl = this.urlWithoutHash(window.location.href);
-    var loc = baseUrl + href;
-    this.setLocation(loc);
-  },
-  showLinkedValue: function(href) {
-    // check for a page link
-    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
-      this.showPage(href);
-    else
-      window.open(href);
-  },
-  urlWithoutHash: function(url) {
-    var hashLoc = url.indexOf('#');
-    if (hashLoc != -1)
-      return url.substring(0, hashLoc);
-    else
-      return url;
-  },
-  urlHash: function(url) {
-    var hashLoc = url.indexOf('#');
-    if (hashLoc != -1)
-      return url.substring(hashLoc);
-    else
-      return "";
-  },
-  manageActiveNavbarMenu: function () {
-    // remove active from anyone currently active
-    $('.navbar ul.nav').find('li').removeClass('active');
-    // find the active tab
-    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
-    if (activeTab.length > 0) {
-      var tabId = activeTab.attr('id');
-      if (tabId)
-        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
-    }
-  }
-};
-
-window.FlexDashboard = new FlexDashboard();
-
-// empty content
-window.FlexDashboardComponents.push({
-  find: function(container) {
-    if (container.find('p').length == 0)
-      return container;
-    else
-      return $();
-  }
-})
-
-// plot image
-window.FlexDashboardComponents.push({
-
-  find: function(container) {
-    return container.children('p')
-                    .children('img:only-child');
-  },
-
-  layout: function(title, container, element, fillPage) {
-    FlexDashboardUtils.resizableImage(element);
-  }
-});
-
-// plot image (figure style)
-window.FlexDashboardComponents.push({
-
-  find: function(container) {
-    return container.children('div.figure').children('img');
-  },
-
-  layout: function(title, container, element, fillPage) {
-    FlexDashboardUtils.resizableImage(element);
-  }
-});
-
-// htmlwidget
-window.FlexDashboardComponents.push({
-
-  init: function(dashboardContainer) {
-    // trigger "shown" after initial layout to force static htmlwidgets
-    // in runtime: shiny to be resized after the dom has been transformed
-    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
-      setTimeout(function() {
-        dashboardContainer.trigger('shown');
-      }, 200);
-    });
-  },
-
-  find: function(container) {
-    return container.children('div[id^="htmlwidget-"],div.html-widget');
-  }
-});
-
-// gauge
-window.FlexDashboardComponents.push({
-
-  find: function(container) {
-    return container.children('div.html-widget.gauge');
-  },
-
-  flex: function(fillPage) {
-    return false;
-  },
-
-  layout: function(title, container, element, fillPage) {
-
-
-  }
-
-});
-
-// shiny output
-window.FlexDashboardComponents.push({
-  find: function(container) {
-    return container.children('div[class^="shiny-"]');
-  }
-});
-
-// datatables
-window.FlexDashboardComponents.push({
-  find: function(container) {
-    return container.find('.datatables');
-  },
-  flex: function(fillPage) {
-    return fillPage;
-  }
-});
-
-// bootstrap table
-window.FlexDashboardComponents.push({
-
-  find: function(container) {
-    var bsTable = container.find('table.table');
-    if (bsTable.length !== 0)
-      return bsTable;
-    else
-      return container.find('tr.header').parent('thead').parent('table');
-  },
-
-  flex: function(fillPage) {
-    return fillPage;
-  },
-
-  layout: function(title, container, element, fillPage) {
-
-    // alias variables
-    var bsTable = element;
-
-    // fixup xtable generated tables with a proper thead
-    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
-    if (headerRow.length > 0) {
-      var thead = $('<thead></thead>');
-      bsTable.prepend(thead);
-      headerRow.detach().appendTo(thead);
-    }
-
-    // improve appearance
-    container.addClass('bootstrap-table');
-
-    // for fill page provide scrolling w/ sticky headers
-    if (fillPage) {
-      // force scrollbar on overflow
-      container.addClass('flowing-content-shim');
-
-      // stable table headers when scrolling
-      bsTable.stickyTableHeaders({
-        scrollableArea: container
-      });
-    }
-  }
-});
-
-// embedded shiny app
-window.FlexDashboardComponents.push({
-
-  find: function(container) {
-    return container.find('iframe.shiny-frame');
-  },
-
-  flex: function(fillPage) {
-    return fillPage;
-  },
-
-  layout: function(title, container, element, fillPage) {
-    if (fillPage) {
-      element.attr('height', '100%');
-    } else {
-      // provide default height if necessary
-      var height = element.get(0).style.height;
-      if (!height)
-        height = element.attr('height');
-      if (!height)
-        element.attr('height', 500);
-    }
-  }
-});
-
-// shiny fillRow or fillCol
-window.FlexDashboardComponents.push({
-
-  find: function(container) {
-    return container.find('.flexfill-container');
-  },
-
-  flex: function(fillPage) {
-    return fillPage;
-  },
-
-  layout: function(title, container, element, fillPage) {
-    if (fillPage)
-      element.css('height', '100%');
-    else {
-      // provide default height if necessary
-      var height = element.get(0).style.height;
-      if (height === "100%" || height === "auto" || height === "initial" ||
-          height === "inherit" || !height) {
-        element.css('height', 500);
-      }
-    }
-  }
-});
-
-// valueBox
-window.FlexDashboardComponents.push({
-
-  type: "custom",
-
-  find: function(container) {
-    if (container.find('span.value-output, .shiny-valuebox-output').length)
-      return container;
-    else
-      return $();
-  },
-
-  flex: function(fillPage) {
-    return false;
-  },
-
-  layout: function(title, container, element, fillPage) {
-
-    // alias variables
-    var chartTitle = title;
-    var valueBox = element;
-
-    // add value-box class to container
-    container.addClass('value-box');
-
-    // value paragraph
-    var value = $('<p class="value"></p>');
-
-    // if we have shiny-text-output then just move it in
-    var valueOutputSpan = [];
-    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
-    if (shinyOutput.length) {
-      valueBox.children().remove();
-      shinyOutput.html("&mdash;");
-      value.append(shinyOutput);
-    } else {
-      // extract the value (remove leading vector index)
-      var chartValue = valueBox.text().trim();
-      chartValue = chartValue.replace("[1] ", "");
-      valueOutputSpan = valueBox.find('span.value-output').detach();
-      valueBox.children().remove();
-      value.text(chartValue);
-    }
-
-    // caption
-    var caption = $('<p class="caption"></p>');
-    caption.append(chartTitle);
-
-    // build inner div for value box and add it
-    var inner = $('<div class="inner"></div>');
-    inner.append(value);
-    inner.append(caption);
-    valueBox.append(inner);
-
-    // add icon if specified
-    var icon = $('<div class="icon"><i></i></div>');
-    valueBox.append(icon);
-    function setIcon(chartIcon) {
-      var iconLib = "";
-      var iconSplit = chartIcon.split(" ");
-      if (iconSplit.length > 1) {
-        iconLib = iconSplit[0];
-        chartIcon = iconSplit.slice(1).join(" ");
-      } else {
-        var components = chartIcon.split("-");
-        if (components.length > 1)
-          iconLib = components[0];
-      }
-      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
-    }
-    var chartIcon = valueBox.attr('data-icon');
-    if (chartIcon)
-      setIcon(chartIcon);
-
-    // set color based on data-background if necessary
-    var dataBackground = valueBox.attr('data-background');
-    if (dataBackground)
-      valueBox.css('background-color', bgColor);
-    else {
-      // default to bg-primary if no other background is specified
-      if (!valueBox.hasClass('bg-primary') &&
-          !valueBox.hasClass('bg-info') &&
-          !valueBox.hasClass('bg-warning') &&
-          !valueBox.hasClass('bg-success') &&
-          !valueBox.hasClass('bg-danger')) {
-        valueBox.addClass('bg-primary');
-      }
-    }
-
-    // handle data attributes in valueOutputSpan
-    function handleValueOutput(valueOutput) {
-
-      // caption
-      var dataCaption = valueOutput.attr('data-caption');
-      if (dataCaption)
-        caption.html(dataCaption);
-
-      // icon
-      var dataIcon = valueOutput.attr('data-icon');
-      if (dataIcon)
-        setIcon(dataIcon);
-
-      // color
-      var dataColor = valueOutput.attr('data-color');
-      if (dataColor) {
-        if (dataColor.indexOf('bg-') === 0) {
-          valueBox.css('background-color', '');
-          if (!valueBox.hasClass(dataColor)) {
-             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
-             valueBox.addClass(dataColor);
-          }
-        } else {
-          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
-          valueBox.css('background-color', dataColor);
-        }
-      }
-
-      // url
-      var dataHref = valueOutput.attr('data-href');
-      if (dataHref) {
-        valueBox.addClass('linked-value');
-        valueBox.off('click.value-box');
-        valueBox.on('click.value-box', function(e) {
-          window.FlexDashboardUtils.showLinkedValue(dataHref);
-        });
-      }
-    }
-
-    // check for a valueOutputSpan
-    if (valueOutputSpan.length > 0) {
-      handleValueOutput(valueOutputSpan);
-    }
-
-    // if we have a shinyOutput then bind a listener to handle
-    // new valueOutputSpan values
-    shinyOutput.on('shiny:value',
-      function(event) {
-        var element = $(event.target);
-        setTimeout(function() {
-          var valueOutputSpan = element.find('span.value-output');
-          if (valueOutputSpan.length > 0)
-            handleValueOutput(valueOutputSpan);
-        }, 10);
-      }
-    );
-  }
-});
-</script>
-
-<div id="dashboard-container">
-
-<div class="knitr-options" data-fig-width="576" data-fig-height="460">
-
-</div>
 <div id="column" class="section level2" data-width="500">
 <h2 data-width="500">Column</h2>
 <div id="private-vs.-government-expenditure-in-developed-countries-in-2019" class="section level3">
 <h3>Private vs. Government Expenditure in Developed Countries in 2019</h3>
-<div class="knitr-options" data-fig-width="576" data-fig-height="460">
-
-</div>
-<div id="htmlwidget-52b0c7be35e2651b3671" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-52b0c7be35e2651b3671">{"x":{"visdat":{"157016e9d408":["function () ","plotlyVisDat"]},"cur_data":"157016e9d408","attrs":{"157016e9d408":{"x":{},"y":{},"name":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Percent of Total Expenditure"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","categoryorder":"total descending","type":"category","categoryarray":["Canada","France","Germany","Italy","Japan","Republic of Korea","United Kingdom","United States of America"]},"barmode":"stack","colors":"viridis","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Canada","United States of America","France","Germany","Italy","United Kingdom","Japan","Republic of Korea"],"y":[70.16747284,50.84327316,75.3117218,77.72577667,73.91931152,79.46802521,83.85675812,59.52849579],"name":"Government Expenditure","type":"bar","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Canada","United States of America","France","Germany","Italy","United Kingdom","Japan","Republic of Korea"],"y":[29.83252716,49.15672684,24.68828201,22.27397156,26.08068275,20.51708603,16.1432457,40.47150421],"name":"Private Expenditure","type":"bar","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>ghed_df%&gt;%
+  # filter(country==&quot;Canada&quot;| country==&quot;Japan&quot;| country==&quot;Republic of Korea&quot;| country==&quot;France&quot;| country==&quot;Germany&quot;| country==&quot;Italy&quot;| country==&quot;United Kingdom&quot;| country==&quot;United States of America&quot;)%&gt;%
+  filter(year == 2019)%&gt;%
+  select(country, year, gghed_che, pvtd_che)%&gt;%
+  mutate(sum_per = gghed_che + pvtd_che)%&gt;%
+  pivot_longer(cols = contains(&quot;che&quot;),
+               names_to = &quot;exp_type&quot;,
+               values_to = &quot;exp_per&quot;)%&gt;%
+  mutate(exp_type = replace(exp_type, exp_type == &quot;gghed_che&quot;, &quot;Government Expenditure&quot;),
+         exp_type = replace(exp_type, exp_type == &quot;pvtd_che&quot;, &quot;Private Expenditure&quot;))%&gt;%
+  plot_ly(x=~country, y=~exp_per, name=~exp_type, color =~exp_type, type = &#39;bar&#39;, colors = &quot;viridis&quot;)%&gt;%
+  layout(yaxis = list(title = &#39;Percent of Total Expenditure&#39;), xaxis = list(title = &quot;Country&quot;,categoryorder = &quot;total descending&quot;), barmode = &#39;stack&#39;, colors = &quot;viridis&quot;)</code></pre>
+<pre><code>## Warning: Ignoring 8 observations</code></pre>
+<pre><code>## Warning: &#39;layout&#39; objects don&#39;t have these attributes: &#39;colors&#39;
+## Valid attributes include:
+## &#39;_deprecated&#39;, &#39;activeshape&#39;, &#39;annotations&#39;, &#39;autosize&#39;, &#39;autotypenumbers&#39;, &#39;calendar&#39;, &#39;clickmode&#39;, &#39;coloraxis&#39;, &#39;colorscale&#39;, &#39;colorway&#39;, &#39;computed&#39;, &#39;datarevision&#39;, &#39;dragmode&#39;, &#39;editrevision&#39;, &#39;editType&#39;, &#39;font&#39;, &#39;geo&#39;, &#39;grid&#39;, &#39;height&#39;, &#39;hidesources&#39;, &#39;hoverdistance&#39;, &#39;hoverlabel&#39;, &#39;hovermode&#39;, &#39;images&#39;, &#39;legend&#39;, &#39;mapbox&#39;, &#39;margin&#39;, &#39;meta&#39;, &#39;metasrc&#39;, &#39;modebar&#39;, &#39;newshape&#39;, &#39;paper_bgcolor&#39;, &#39;plot_bgcolor&#39;, &#39;polar&#39;, &#39;scene&#39;, &#39;selectdirection&#39;, &#39;selectionrevision&#39;, &#39;separators&#39;, &#39;shapes&#39;, &#39;showlegend&#39;, &#39;sliders&#39;, &#39;spikedistance&#39;, &#39;template&#39;, &#39;ternary&#39;, &#39;title&#39;, &#39;transition&#39;, &#39;uirevision&#39;, &#39;uniformtext&#39;, &#39;updatemenus&#39;, &#39;width&#39;, &#39;xaxis&#39;, &#39;yaxis&#39;, &#39;barmode&#39;, &#39;bargap&#39;, &#39;mapType&#39;</code></pre>
+<div id="htmlwidget-e1bfc5fdffe313082a56" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e1bfc5fdffe313082a56">{"x":{"visdat":{"43524cec3593":["function () ","plotlyVisDat"]},"cur_data":"43524cec3593","attrs":{"43524cec3593":{"x":{},"y":{},"name":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Percent of Total Expenditure"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","categoryorder":"total descending","type":"category","categoryarray":["Afghanistan","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia Plurinational States of","Bosnia and Herzegovina","Botswana","Brazil","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cabo Verde Republic of","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Cook Islands","Costa Rica","Côte d'Ivoire","Croatia","Cuba","Cyprus","Czech Republic","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia (Federated States of)","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Republic of Korea","Republic of Moldova","Romania","Russian Federation","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","South Africa","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Tajikistan","Thailand","The Republic of North Macedonia","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United Republic of Tanzania","United States of America","Uruguay","Uzbekistan","Vanuatu","Venezuela (Bolivarian Republic of)","Viet Nam","Zambia","Zimbabwe"]},"barmode":"stack","colors":"viridis","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Algeria","Angola","Botswana","Burkina Faso","Burundi","Benin","Cabo Verde Republic of","Cameroon","Central African Republic","Chad","Comoros","Congo","Côte d'Ivoire","Democratic Republic of the Congo","Equatorial Guinea","Eritrea","Eswatini","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea-Bissau","Kenya","Lesotho","Liberia","Madagascar","Malawi","Mali","Mauritania","Mauritius","Mozambique","Namibia","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","South Africa","South Sudan","Togo","Uganda","United Republic of Tanzania","Zambia","Zimbabwe","Antigua and Barbuda","Argentina","Bahamas","Barbados","Belize","Bolivia Plurinational States of","Brazil","Canada","Chile","Colombia","Costa Rica","Cuba","Dominica","Dominican Republic","Ecuador","El Salvador","Grenada","Guatemala","Guyana","Haiti","Honduras","Jamaica","Mexico","Nicaragua","Panama","Paraguay","Peru","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Suriname","Trinidad and Tobago","United States of America","Uruguay","Venezuela (Bolivarian Republic of)","Afghanistan","Bahrain","Djibouti","Egypt","Iran","Iraq","Jordan","Kuwait","Lebanon","Morocco","Oman","Pakistan","Qatar","Saudi Arabia","Sudan","Tunisia","United Arab Emirates","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Israel","Italy","Kazakhstan","Kyrgyzstan","Latvia","Lithuania","Luxembourg","Malta","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Republic of Moldova","Romania","Russian Federation","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Tajikistan","The Republic of North Macedonia","Turkey","Turkmenistan","Ukraine","United Kingdom","Uzbekistan","Bangladesh","Bhutan","India","Indonesia","Maldives","Myanmar","Nepal","Sri Lanka","Thailand","Timor-Leste","Australia","Brunei Darussalam","Cambodia","China","Cook Islands","Fiji","Japan","Kiribati","Lao People's Democratic Republic","Malaysia","Marshall Islands","Micronesia (Federated States of)","Mongolia","Nauru","New Zealand","Niue","Palau","Papua New Guinea","Philippines","Republic of Korea","Samoa","Singapore","Solomon Islands","Tonga","Tuvalu","Vanuatu","Viet Nam"],"y":[64.99978638,41.22381592,78.52378845,41.813591,33.37874603,22.65070915,65.76321411,3.35470438,10.57010651,17.31443024,16.06903648,37.59398651,29.08100128,15.8180418,21.25440788,17.60498047,50.73397827,22.70311928,60.31093597,27.24810219,40.24079514,22.52398682,6.37637377,45.97900772,43.53778076,16.09630394,32.18556213,32.59274292,33.64924622,37.47648621,47.04216003,21.28325844,46.90029144,35.69034195,15.94659233,39.94654465,47.29765701,25.033638,72.7336731,14.00404453,58.76000977,16.30242538,15.07707405,15.11674786,40.88365173,40.08139038,17.63170613,58.43976212,62.36080933,51.96248245,44.83425903,69.86820221,71.23578644,40.74078369,70.16747284,50.91718292,71.88446808,72.53588104,89.28463745,64.46092224,44.89685822,61.77099228,63.48025894,41.39058304,38.4250946,59.44681931,11.01837063,39.16377258,65.25022125,49.307724,60.91788864,66.11362457,45.99917603,62.89107895,49.25549316,47.4460144,66.311409,72.0158844,45.97866058,50.84327316,66.60054779,46.04178238,8.18920326,59.20456696,53.66573334,27.78465652,49.50386429,49.37045288,51.17518997,86.96113586,48.98128891,39.87647629,86.44443512,31.98480606,72.76243591,69.17456818,22.6874733,57.14232254,52.2978363,69.48703766,12.40508175,73.00772095,31.73548889,70.38102722,76.77693176,68.72327423,59.15585709,81.54312897,56.00630188,81.49842072,83.28964996,74.41664886,80.1669693,75.3117218,40.81561661,77.72577667,48.12552261,67.98222351,82.88878632,74.57801819,64.77963257,73.91931152,59.93822861,51.421772,60.55778122,65.08876801,85.86994171,63.10254288,84.9642334,60.83509445,65.89691925,85.82006073,71.38498688,60.9068985,59.6776619,80.1386261,61.1519165,82.2208786,58.35164261,78.81664276,72.37037659,70.61952972,84.88465881,32.10948563,27.31528664,58.9676857,77.91856384,17.99193954,44.79043961,79.46802521,41.58654022,18.62574577,73.56784058,32.78846359,48.93664932,79.29984283,15.75753212,24.80925369,47.22209549,71.65899658,55.90947723,71.68196106,94.31989288,24.30771637,55.97903824,87.63110352,65.38835144,83.85675812,82.29969788,36.93346786,52.19665146,41.16527939,28.3327961,56.64912033,86.30699921,75.56167603,98.65675354,44.98870468,57.68651962,40.59773254,59.52849579,72.64157104,50.20199585,74.73823547,58.05639648,74.27810669,57.04979324,43.7980957],"name":"Government Expenditure","type":"bar","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Algeria","Angola","Botswana","Burkina Faso","Burundi","Benin","Cabo Verde Republic of","Cameroon","Central African Republic","Chad","Comoros","Congo","Côte d'Ivoire","Democratic Republic of the Congo","Equatorial Guinea","Eritrea","Eswatini","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea-Bissau","Kenya","Lesotho","Liberia","Madagascar","Malawi","Mali","Mauritania","Mauritius","Mozambique","Namibia","Niger","Nigeria","Rwanda","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","South Africa","South Sudan","Togo","Uganda","United Republic of Tanzania","Zambia","Zimbabwe","Antigua and Barbuda","Argentina","Bahamas","Barbados","Belize","Bolivia Plurinational States of","Brazil","Canada","Chile","Colombia","Costa Rica","Cuba","Dominica","Dominican Republic","Ecuador","El Salvador","Grenada","Guatemala","Guyana","Haiti","Honduras","Jamaica","Mexico","Nicaragua","Panama","Paraguay","Peru","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Suriname","Trinidad and Tobago","United States of America","Uruguay","Venezuela (Bolivarian Republic of)","Afghanistan","Bahrain","Djibouti","Egypt","Iran","Iraq","Jordan","Kuwait","Lebanon","Morocco","Oman","Pakistan","Qatar","Saudi Arabia","Sudan","Tunisia","United Arab Emirates","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Israel","Italy","Kazakhstan","Kyrgyzstan","Latvia","Lithuania","Luxembourg","Malta","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Republic of Moldova","Romania","Russian Federation","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Tajikistan","The Republic of North Macedonia","Turkey","Turkmenistan","Ukraine","United Kingdom","Uzbekistan","Bangladesh","Bhutan","India","Indonesia","Maldives","Myanmar","Nepal","Sri Lanka","Thailand","Timor-Leste","Australia","Brunei Darussalam","Cambodia","China","Cook Islands","Fiji","Japan","Kiribati","Lao People's Democratic Republic","Malaysia","Marshall Islands","Micronesia (Federated States of)","Mongolia","Nauru","New Zealand","Niue","Palau","Papua New Guinea","Philippines","Republic of Korea","Samoa","Singapore","Solomon Islands","Tonga","Tuvalu","Vanuatu","Viet Nam"],"y":[34.95557785,55.60569763,15.32737446,42.38819504,40.96768951,53.01073074,27.39300728,82.43981934,61.30540466,62.25108337,66.36086273,54.056633,55.6829567,45.35538864,77.83176422,43.19562912,23.14836884,43.19190979,39.1208992,27.48450851,48.48457718,66.67956543,68.29944611,35.51103973,14.17715359,59.21680832,39.58620071,23.84466934,32.89606094,50.64942932,52.66551971,16.00112534,48.44717789,49.06088257,71.30365753,26.26396179,19.21982384,57.03206635,27.26632881,56.01371002,40.13647079,28.72546387,75.80754852,42.86341858,22.97167206,16.21423721,52.81442505,41.51376343,37.38851166,47.52725601,54.27687836,27.14195824,27.63630486,59.11333466,29.83252716,49.08281326,28.11552811,27.46307182,10.5857048,34.82003021,54.26577377,38.12518692,35.87895966,58.51715851,60.70773697,37.86107635,48.51952744,58.18896484,33.15736008,50.69227982,36.35137177,33.79375458,53.99055481,36.91308594,50.74451065,51.56189728,32.13827133,27.38944054,53.95791626,49.15672684,33.39944839,53.91928101,79.39915466,40.79542923,25.57739258,71.15663147,50.48118973,50.09696579,45.69065094,13.03886032,50.12977219,59.4057312,13.55556679,60.920578,27.2375679,30.82542801,70.75496674,42.49828339,47.70216751,30.51295662,86.59964752,26.99225616,67.96251678,29.47942924,23.22304344,29.73446846,40.8441391,18.44828796,43.29400635,18.5015831,16.71035385,25.56273651,19.82653046,24.68828201,58.65617371,22.27397156,51.7366066,32.01777649,17.11121368,25.42202377,33.1367569,26.08068275,40.06171799,46.25527954,39.17286682,34.55065536,12.79860306,36.8813324,15.03576469,39.16490936,34.07394028,14.17993736,28.55985451,39.02297974,36.91240311,19.86136818,38.8480835,17.77912521,40.00689697,21.18335342,27.62962532,29.38047409,15.11534023,67.89052582,71.36382294,41.03229523,22.08143234,81.90744781,54.529953,20.51708603,58.36039734,75.25727081,19.4673481,66.37770081,50.50718689,19.05467224,75.95656586,63.28133774,51.41779327,28.22714996,13.05520725,28.31803894,5.68010855,69.18743134,44.02029037,12.36889553,27.40017128,16.1432457,2.91084337,41.85754776,47.80334854,15.81010628,2.86158395,38.24585342,4.59717894,24.43832588,1.34324968,28.65948296,9.91931438,58.98740768,40.47150421,10.82224655,49.79800415,3.43970704,13.68886662,2.4387176,11.6769371,55.23139954],"name":"Private Expenditure","type":"bar","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="column-1" class="section level2" data-width="500">
 <h2 data-width="500">Column</h2>
 <div id="out-of-pocket-spending-as-of-current-health-expenditure" class="section level3">
 <h3>Out-of-pocket spending as % of Current Health Expenditure</h3>
-<div class="knitr-options" data-fig-width="576" data-fig-height="460">
-
-</div>
-<div id="htmlwidget-806c0a3eb13d47412a89" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-806c0a3eb13d47412a89">{"x":{"visdat":{"15704dddff84":["function () ","plotlyVisDat"]},"cur_data":"15704dddff84","attrs":{"15704dddff84":{"x":{},"y":{},"name":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Out-of-pocket (OOPS) as % of Current Health Expenditure"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","categoryorder":"total descending","type":"category","categoryarray":["Canada","France","Germany","Italy","Japan","Republic of Korea","United Kingdom","United States of America"]},"barmode":"stack","colors":"viridis","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Canada"],"y":[14.91467953],"name":"Canada","type":"bar","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["France"],"y":[9.26107979],"name":"France","type":"bar","marker":{"color":"rgba(70,50,126,1)","line":{"color":"rgba(70,50,126,1)"}},"textfont":{"color":"rgba(70,50,126,1)"},"error_y":{"color":"rgba(70,50,126,1)"},"error_x":{"color":"rgba(70,50,126,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Germany"],"y":[12.81640053],"name":"Germany","type":"bar","marker":{"color":"rgba(54,92,141,1)","line":{"color":"rgba(54,92,141,1)"}},"textfont":{"color":"rgba(54,92,141,1)"},"error_y":{"color":"rgba(54,92,141,1)"},"error_x":{"color":"rgba(54,92,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Italy"],"y":[23.31480408],"name":"Italy","type":"bar","marker":{"color":"rgba(39,127,142,1)","line":{"color":"rgba(39,127,142,1)"}},"textfont":{"color":"rgba(39,127,142,1)"},"error_y":{"color":"rgba(39,127,142,1)"},"error_x":{"color":"rgba(39,127,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Japan"],"y":[12.90735722],"name":"Japan","type":"bar","marker":{"color":"rgba(31,161,135,1)","line":{"color":"rgba(31,161,135,1)"}},"textfont":{"color":"rgba(31,161,135,1)"},"error_y":{"color":"rgba(31,161,135,1)"},"error_x":{"color":"rgba(31,161,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Republic of Korea"],"y":[30.24508095],"name":"Republic of Korea","type":"bar","marker":{"color":"rgba(74,193,109,1)","line":{"color":"rgba(74,193,109,1)"}},"textfont":{"color":"rgba(74,193,109,1)"},"error_y":{"color":"rgba(74,193,109,1)"},"error_x":{"color":"rgba(74,193,109,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United Kingdom"],"y":[17.0736084],"name":"United Kingdom","type":"bar","marker":{"color":"rgba(159,218,58,1)","line":{"color":"rgba(159,218,58,1)"}},"textfont":{"color":"rgba(159,218,58,1)"},"error_y":{"color":"rgba(159,218,58,1)"},"error_x":{"color":"rgba(159,218,58,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United States of America"],"y":[11.3115778],"name":"United States of America","type":"bar","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>#developed_nations
+ghed_df%&gt;%
+  filter(year==2019)%&gt;%
+  select(country, oops_che)%&gt;%
+  arrange(desc(oops_che))%&gt;%
+  plot_ly(x=~country, y=~oops_che, name=~country, color =~country, type = &#39;bar&#39;, colors = &quot;viridis&quot;)%&gt;%
+  layout(yaxis = list(title = &#39;Out-of-pocket (OOPS) as % of Current Health Expenditure&#39;), xaxis = list(title = &quot;Country&quot;), barmode = &#39;stack&#39;, colors = &quot;viridis&quot;)%&gt;%
+  layout(xaxis = list(categoryorder = &quot;total descending&quot;)) </code></pre>
+<pre><code>## Warning: Ignoring 4 observations</code></pre>
+<pre><code>## Warning: &#39;layout&#39; objects don&#39;t have these attributes: &#39;colors&#39;
+## Valid attributes include:
+## &#39;_deprecated&#39;, &#39;activeshape&#39;, &#39;annotations&#39;, &#39;autosize&#39;, &#39;autotypenumbers&#39;, &#39;calendar&#39;, &#39;clickmode&#39;, &#39;coloraxis&#39;, &#39;colorscale&#39;, &#39;colorway&#39;, &#39;computed&#39;, &#39;datarevision&#39;, &#39;dragmode&#39;, &#39;editrevision&#39;, &#39;editType&#39;, &#39;font&#39;, &#39;geo&#39;, &#39;grid&#39;, &#39;height&#39;, &#39;hidesources&#39;, &#39;hoverdistance&#39;, &#39;hoverlabel&#39;, &#39;hovermode&#39;, &#39;images&#39;, &#39;legend&#39;, &#39;mapbox&#39;, &#39;margin&#39;, &#39;meta&#39;, &#39;metasrc&#39;, &#39;modebar&#39;, &#39;newshape&#39;, &#39;paper_bgcolor&#39;, &#39;plot_bgcolor&#39;, &#39;polar&#39;, &#39;scene&#39;, &#39;selectdirection&#39;, &#39;selectionrevision&#39;, &#39;separators&#39;, &#39;shapes&#39;, &#39;showlegend&#39;, &#39;sliders&#39;, &#39;spikedistance&#39;, &#39;template&#39;, &#39;ternary&#39;, &#39;title&#39;, &#39;transition&#39;, &#39;uirevision&#39;, &#39;uniformtext&#39;, &#39;updatemenus&#39;, &#39;width&#39;, &#39;xaxis&#39;, &#39;yaxis&#39;, &#39;barmode&#39;, &#39;bargap&#39;, &#39;mapType&#39;</code></pre>
+<div id="htmlwidget-af47b93230864251cc80" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af47b93230864251cc80">{"x":{"visdat":{"43527182026a":["function () ","plotlyVisDat"]},"cur_data":"43527182026a","attrs":{"43527182026a":{"x":{},"y":{},"name":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Out-of-pocket (OOPS) as % of Current Health Expenditure"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","categoryorder":"total descending","type":"category","categoryarray":["Afghanistan","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia Plurinational States of","Bosnia and Herzegovina","Botswana","Brazil","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cabo Verde Republic of","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Cook Islands","Costa Rica","Côte d'Ivoire","Croatia","Cuba","Cyprus","Czech Republic","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia (Federated States of)","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Republic of Korea","Republic of Moldova","Romania","Russian Federation","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","South Africa","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Tajikistan","Thailand","The Republic of North Macedonia","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United Republic of Tanzania","United States of America","Uruguay","Uzbekistan","Vanuatu","Venezuela (Bolivarian Republic of)","Viet Nam","Zambia","Zimbabwe"]},"barmode":"stack","colors":"viridis","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Afghanistan"],"y":[79.2986145],"name":"Afghanistan","type":"bar","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Algeria"],"y":[33.4437561],"name":"Algeria","type":"bar","marker":{"color":"rgba(68,3,86,1)","line":{"color":"rgba(68,3,86,1)"}},"textfont":{"color":"rgba(68,3,86,1)"},"error_y":{"color":"rgba(68,3,86,1)"},"error_x":{"color":"rgba(68,3,86,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Andorra"],"y":[13.11475372],"name":"Andorra","type":"bar","marker":{"color":"rgba(69,5,88,1)","line":{"color":"rgba(69,5,88,1)"}},"textfont":{"color":"rgba(69,5,88,1)"},"error_y":{"color":"rgba(69,5,88,1)"},"error_x":{"color":"rgba(69,5,88,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Angola"],"y":[37.46487045],"name":"Angola","type":"bar","marker":{"color":"rgba(70,7,90,1)","line":{"color":"rgba(70,7,90,1)"}},"textfont":{"color":"rgba(70,7,90,1)"},"error_y":{"color":"rgba(70,7,90,1)"},"error_x":{"color":"rgba(70,7,90,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Antigua and Barbuda"],"y":[24.26510048],"name":"Antigua and Barbuda","type":"bar","marker":{"color":"rgba(70,9,92,1)","line":{"color":"rgba(70,9,92,1)"}},"textfont":{"color":"rgba(70,9,92,1)"},"error_y":{"color":"rgba(70,9,92,1)"},"error_x":{"color":"rgba(70,9,92,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Argentina"],"y":[27.65851593],"name":"Argentina","type":"bar","marker":{"color":"rgba(70,11,94,1)","line":{"color":"rgba(70,11,94,1)"}},"textfont":{"color":"rgba(70,11,94,1)"},"error_y":{"color":"rgba(70,11,94,1)"},"error_x":{"color":"rgba(70,11,94,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Armenia"],"y":[84.79429626],"name":"Armenia","type":"bar","marker":{"color":"rgba(71,13,96,1)","line":{"color":"rgba(71,13,96,1)"}},"textfont":{"color":"rgba(71,13,96,1)"},"error_y":{"color":"rgba(71,13,96,1)"},"error_x":{"color":"rgba(71,13,96,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Australia"],"y":[15.98108578],"name":"Australia","type":"bar","marker":{"color":"rgba(71,15,98,1)","line":{"color":"rgba(71,15,98,1)"}},"textfont":{"color":"rgba(71,15,98,1)"},"error_y":{"color":"rgba(71,15,98,1)"},"error_x":{"color":"rgba(71,15,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Austria"],"y":[19.07191277],"name":"Austria","type":"bar","marker":{"color":"rgba(71,17,100,1)","line":{"color":"rgba(71,17,100,1)"}},"textfont":{"color":"rgba(71,17,100,1)"},"error_y":{"color":"rgba(71,17,100,1)"},"error_x":{"color":"rgba(71,17,100,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Azerbaijan"],"y":[67.96251678],"name":"Azerbaijan","type":"bar","marker":{"color":"rgba(71,19,102,1)","line":{"color":"rgba(71,19,102,1)"}},"textfont":{"color":"rgba(71,19,102,1)"},"error_y":{"color":"rgba(71,19,102,1)"},"error_x":{"color":"rgba(71,19,102,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bahamas"],"y":[26.23400116],"name":"Bahamas","type":"bar","marker":{"color":"rgba(72,21,104,1)","line":{"color":"rgba(72,21,104,1)"}},"textfont":{"color":"rgba(72,21,104,1)"},"error_y":{"color":"rgba(72,21,104,1)"},"error_x":{"color":"rgba(72,21,104,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bahrain"],"y":[29.7322998],"name":"Bahrain","type":"bar","marker":{"color":"rgba(72,23,105,1)","line":{"color":"rgba(72,23,105,1)"}},"textfont":{"color":"rgba(72,23,105,1)"},"error_y":{"color":"rgba(72,23,105,1)"},"error_x":{"color":"rgba(72,23,105,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bangladesh"],"y":[72.67635345],"name":"Bangladesh","type":"bar","marker":{"color":"rgba(72,25,107,1)","line":{"color":"rgba(72,25,107,1)"}},"textfont":{"color":"rgba(72,25,107,1)"},"error_y":{"color":"rgba(72,25,107,1)"},"error_x":{"color":"rgba(72,25,107,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Barbados"],"y":[46.72623062],"name":"Barbados","type":"bar","marker":{"color":"rgba(72,27,109,1)","line":{"color":"rgba(72,27,109,1)"}},"textfont":{"color":"rgba(72,27,109,1)"},"error_y":{"color":"rgba(72,27,109,1)"},"error_x":{"color":"rgba(72,27,109,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Belarus"],"y":[25.69006348],"name":"Belarus","type":"bar","marker":{"color":"rgba(72,28,110,1)","line":{"color":"rgba(72,28,110,1)"}},"textfont":{"color":"rgba(72,28,110,1)"},"error_y":{"color":"rgba(72,28,110,1)"},"error_x":{"color":"rgba(72,28,110,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Belgium"],"y":[18.1728878],"name":"Belgium","type":"bar","marker":{"color":"rgba(72,30,111,1)","line":{"color":"rgba(72,30,111,1)"}},"textfont":{"color":"rgba(72,30,111,1)"},"error_y":{"color":"rgba(72,30,111,1)"},"error_x":{"color":"rgba(72,30,111,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Belize"],"y":[21.81062317],"name":"Belize","type":"bar","marker":{"color":"rgba(72,32,113,1)","line":{"color":"rgba(72,32,113,1)"}},"textfont":{"color":"rgba(72,32,113,1)"},"error_y":{"color":"rgba(72,32,113,1)"},"error_x":{"color":"rgba(72,32,113,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Benin"],"y":[47.04356766],"name":"Benin","type":"bar","marker":{"color":"rgba(72,33,115,1)","line":{"color":"rgba(72,33,115,1)"}},"textfont":{"color":"rgba(72,33,115,1)"},"error_y":{"color":"rgba(72,33,115,1)"},"error_x":{"color":"rgba(72,33,115,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bhutan"],"y":[17.79043007],"name":"Bhutan","type":"bar","marker":{"color":"rgba(72,36,117,1)","line":{"color":"rgba(72,36,117,1)"}},"textfont":{"color":"rgba(72,36,117,1)"},"error_y":{"color":"rgba(72,36,117,1)"},"error_x":{"color":"rgba(72,36,117,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bolivia Plurinational States of"],"y":[23.86875534],"name":"Bolivia Plurinational States of","type":"bar","marker":{"color":"rgba(72,37,118,1)","line":{"color":"rgba(72,37,118,1)"}},"textfont":{"color":"rgba(72,37,118,1)"},"error_y":{"color":"rgba(72,37,118,1)"},"error_x":{"color":"rgba(72,37,118,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bosnia and Herzegovina"],"y":[29.35281181],"name":"Bosnia and Herzegovina","type":"bar","marker":{"color":"rgba(72,39,119,1)","line":{"color":"rgba(72,39,119,1)"}},"textfont":{"color":"rgba(72,39,119,1)"},"error_y":{"color":"rgba(72,39,119,1)"},"error_x":{"color":"rgba(72,39,119,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Botswana"],"y":[3.1368885],"name":"Botswana","type":"bar","marker":{"color":"rgba(72,41,121,1)","line":{"color":"rgba(72,41,121,1)"}},"textfont":{"color":"rgba(72,41,121,1)"},"error_y":{"color":"rgba(72,41,121,1)"},"error_x":{"color":"rgba(72,41,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Brazil"],"y":[24.87984657],"name":"Brazil","type":"bar","marker":{"color":"rgba(71,42,122,1)","line":{"color":"rgba(71,42,122,1)"}},"textfont":{"color":"rgba(71,42,122,1)"},"error_y":{"color":"rgba(71,42,122,1)"},"error_x":{"color":"rgba(71,42,122,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Brunei Darussalam"],"y":[5.68010855],"name":"Brunei Darussalam","type":"bar","marker":{"color":"rgba(71,44,122,1)","line":{"color":"rgba(71,44,122,1)"}},"textfont":{"color":"rgba(71,44,122,1)"},"error_y":{"color":"rgba(71,44,122,1)"},"error_x":{"color":"rgba(71,44,122,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Bulgaria"],"y":[38.97313309],"name":"Bulgaria","type":"bar","marker":{"color":"rgba(71,46,124,1)","line":{"color":"rgba(71,46,124,1)"}},"textfont":{"color":"rgba(71,46,124,1)"},"error_y":{"color":"rgba(71,46,124,1)"},"error_x":{"color":"rgba(71,46,124,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Burkina Faso"],"y":[34.69356155],"name":"Burkina Faso","type":"bar","marker":{"color":"rgba(71,47,125,1)","line":{"color":"rgba(71,47,125,1)"}},"textfont":{"color":"rgba(71,47,125,1)"},"error_y":{"color":"rgba(71,47,125,1)"},"error_x":{"color":"rgba(71,47,125,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Burundi"],"y":[24.67635727],"name":"Burundi","type":"bar","marker":{"color":"rgba(70,49,126,1)","line":{"color":"rgba(70,49,126,1)"}},"textfont":{"color":"rgba(70,49,126,1)"},"error_y":{"color":"rgba(70,49,126,1)"},"error_x":{"color":"rgba(70,49,126,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Cabo Verde Republic of"],"y":[24.94076729],"name":"Cabo Verde Republic of","type":"bar","marker":{"color":"rgba(70,51,127,1)","line":{"color":"rgba(70,51,127,1)"}},"textfont":{"color":"rgba(70,51,127,1)"},"error_y":{"color":"rgba(70,51,127,1)"},"error_x":{"color":"rgba(70,51,127,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Cambodia"],"y":[64.39125061],"name":"Cambodia","type":"bar","marker":{"color":"rgba(70,52,128,1)","line":{"color":"rgba(70,52,128,1)"}},"textfont":{"color":"rgba(70,52,128,1)"},"error_y":{"color":"rgba(70,52,128,1)"},"error_x":{"color":"rgba(70,52,128,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Cameroon"],"y":[72.53070068],"name":"Cameroon","type":"bar","marker":{"color":"rgba(69,54,129,1)","line":{"color":"rgba(69,54,129,1)"}},"textfont":{"color":"rgba(69,54,129,1)"},"error_y":{"color":"rgba(69,54,129,1)"},"error_x":{"color":"rgba(69,54,129,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Canada"],"y":[14.91467953],"name":"Canada","type":"bar","marker":{"color":"rgba(69,56,130,1)","line":{"color":"rgba(69,56,130,1)"}},"textfont":{"color":"rgba(69,56,130,1)"},"error_y":{"color":"rgba(69,56,130,1)"},"error_x":{"color":"rgba(69,56,130,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Central African Republic"],"y":[60.31565094],"name":"Central African Republic","type":"bar","marker":{"color":"rgba(68,57,131,1)","line":{"color":"rgba(68,57,131,1)"}},"textfont":{"color":"rgba(68,57,131,1)"},"error_y":{"color":"rgba(68,57,131,1)"},"error_x":{"color":"rgba(68,57,131,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Chad"],"y":[57.22343826],"name":"Chad","type":"bar","marker":{"color":"rgba(68,59,132,1)","line":{"color":"rgba(68,59,132,1)"}},"textfont":{"color":"rgba(68,59,132,1)"},"error_y":{"color":"rgba(68,59,132,1)"},"error_x":{"color":"rgba(68,59,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Chile"],"y":[32.80002594],"name":"Chile","type":"bar","marker":{"color":"rgba(67,61,132,1)","line":{"color":"rgba(67,61,132,1)"}},"textfont":{"color":"rgba(67,61,132,1)"},"error_y":{"color":"rgba(67,61,132,1)"},"error_x":{"color":"rgba(67,61,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["China"],"y":[35.23001862],"name":"China","type":"bar","marker":{"color":"rgba(67,62,133,1)","line":{"color":"rgba(67,62,133,1)"}},"textfont":{"color":"rgba(67,62,133,1)"},"error_y":{"color":"rgba(67,62,133,1)"},"error_x":{"color":"rgba(67,62,133,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Colombia"],"y":[14.85696125],"name":"Colombia","type":"bar","marker":{"color":"rgba(66,64,134,1)","line":{"color":"rgba(66,64,134,1)"}},"textfont":{"color":"rgba(66,64,134,1)"},"error_y":{"color":"rgba(66,64,134,1)"},"error_x":{"color":"rgba(66,64,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Comoros"],"y":[61.82796478],"name":"Comoros","type":"bar","marker":{"color":"rgba(66,65,134,1)","line":{"color":"rgba(66,65,134,1)"}},"textfont":{"color":"rgba(66,65,134,1)"},"error_y":{"color":"rgba(66,65,134,1)"},"error_x":{"color":"rgba(66,65,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Congo"],"y":[45.86199188],"name":"Congo","type":"bar","marker":{"color":"rgba(65,67,135,1)","line":{"color":"rgba(65,67,135,1)"}},"textfont":{"color":"rgba(65,67,135,1)"},"error_y":{"color":"rgba(65,67,135,1)"},"error_x":{"color":"rgba(65,67,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Cook Islands"],"y":[6.41405201],"name":"Cook Islands","type":"bar","marker":{"color":"rgba(64,69,136,1)","line":{"color":"rgba(64,69,136,1)"}},"textfont":{"color":"rgba(64,69,136,1)"},"error_y":{"color":"rgba(64,69,136,1)"},"error_x":{"color":"rgba(64,69,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Costa Rica"],"y":[22.32456398],"name":"Costa Rica","type":"bar","marker":{"color":"rgba(64,70,136,1)","line":{"color":"rgba(64,70,136,1)"}},"textfont":{"color":"rgba(64,70,136,1)"},"error_y":{"color":"rgba(64,70,136,1)"},"error_x":{"color":"rgba(64,70,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Côte d'Ivoire"],"y":[37.29367447],"name":"Côte d'Ivoire","type":"bar","marker":{"color":"rgba(63,72,137,1)","line":{"color":"rgba(63,72,137,1)"}},"textfont":{"color":"rgba(63,72,137,1)"},"error_y":{"color":"rgba(63,72,137,1)"},"error_x":{"color":"rgba(63,72,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Croatia"],"y":[11.4647665],"name":"Croatia","type":"bar","marker":{"color":"rgba(62,73,137,1)","line":{"color":"rgba(62,73,137,1)"}},"textfont":{"color":"rgba(62,73,137,1)"},"error_y":{"color":"rgba(62,73,137,1)"},"error_x":{"color":"rgba(62,73,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Cuba"],"y":[10.5857048],"name":"Cuba","type":"bar","marker":{"color":"rgba(62,75,137,1)","line":{"color":"rgba(62,75,137,1)"}},"textfont":{"color":"rgba(62,75,137,1)"},"error_y":{"color":"rgba(62,75,137,1)"},"error_x":{"color":"rgba(62,75,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Cyprus"],"y":[30.56826973],"name":"Cyprus","type":"bar","marker":{"color":"rgba(61,77,138,1)","line":{"color":"rgba(61,77,138,1)"}},"textfont":{"color":"rgba(61,77,138,1)"},"error_y":{"color":"rgba(61,77,138,1)"},"error_x":{"color":"rgba(61,77,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Czech Republic"],"y":[14.15002537],"name":"Czech Republic","type":"bar","marker":{"color":"rgba(61,78,138,1)","line":{"color":"rgba(61,78,138,1)"}},"textfont":{"color":"rgba(61,78,138,1)"},"error_y":{"color":"rgba(61,78,138,1)"},"error_x":{"color":"rgba(61,78,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Democratic Republic of the Congo"],"y":[38.49700546],"name":"Democratic Republic of the Congo","type":"bar","marker":{"color":"rgba(60,79,138,1)","line":{"color":"rgba(60,79,138,1)"}},"textfont":{"color":"rgba(60,79,138,1)"},"error_y":{"color":"rgba(60,79,138,1)"},"error_x":{"color":"rgba(60,79,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Denmark"],"y":[14.1692524],"name":"Denmark","type":"bar","marker":{"color":"rgba(59,81,139,1)","line":{"color":"rgba(59,81,139,1)"}},"textfont":{"color":"rgba(59,81,139,1)"},"error_y":{"color":"rgba(59,81,139,1)"},"error_x":{"color":"rgba(59,81,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Djibouti"],"y":[24.15331268],"name":"Djibouti","type":"bar","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Dominica"],"y":[33.85964203],"name":"Dominica","type":"bar","marker":{"color":"rgba(58,83,139,1)","line":{"color":"rgba(58,83,139,1)"}},"textfont":{"color":"rgba(58,83,139,1)"},"error_y":{"color":"rgba(58,83,139,1)"},"error_x":{"color":"rgba(58,83,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Dominican Republic"],"y":[42.94845581],"name":"Dominican Republic","type":"bar","marker":{"color":"rgba(57,85,140,1)","line":{"color":"rgba(57,85,140,1)"}},"textfont":{"color":"rgba(57,85,140,1)"},"error_y":{"color":"rgba(57,85,140,1)"},"error_x":{"color":"rgba(57,85,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Ecuador"],"y":[30.87841606],"name":"Ecuador","type":"bar","marker":{"color":"rgba(57,86,140,1)","line":{"color":"rgba(57,86,140,1)"}},"textfont":{"color":"rgba(57,86,140,1)"},"error_y":{"color":"rgba(57,86,140,1)"},"error_x":{"color":"rgba(57,86,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Egypt"],"y":[62.74811172],"name":"Egypt","type":"bar","marker":{"color":"rgba(56,89,140,1)","line":{"color":"rgba(56,89,140,1)"}},"textfont":{"color":"rgba(56,89,140,1)"},"error_y":{"color":"rgba(56,89,140,1)"},"error_x":{"color":"rgba(56,89,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["El Salvador"],"y":[28.37231827],"name":"El Salvador","type":"bar","marker":{"color":"rgba(55,90,140,1)","line":{"color":"rgba(55,90,140,1)"}},"textfont":{"color":"rgba(55,90,140,1)"},"error_y":{"color":"rgba(55,90,140,1)"},"error_x":{"color":"rgba(55,90,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Equatorial Guinea"],"y":[75.46520996],"name":"Equatorial Guinea","type":"bar","marker":{"color":"rgba(55,91,141,1)","line":{"color":"rgba(55,91,141,1)"}},"textfont":{"color":"rgba(55,91,141,1)"},"error_y":{"color":"rgba(55,91,141,1)"},"error_x":{"color":"rgba(55,91,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Eritrea"],"y":[43.19562912],"name":"Eritrea","type":"bar","marker":{"color":"rgba(54,93,141,1)","line":{"color":"rgba(54,93,141,1)"}},"textfont":{"color":"rgba(54,93,141,1)"},"error_y":{"color":"rgba(54,93,141,1)"},"error_x":{"color":"rgba(54,93,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Estonia"],"y":[24.04536819],"name":"Estonia","type":"bar","marker":{"color":"rgba(53,94,141,1)","line":{"color":"rgba(53,94,141,1)"}},"textfont":{"color":"rgba(53,94,141,1)"},"error_y":{"color":"rgba(53,94,141,1)"},"error_x":{"color":"rgba(53,94,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Eswatini"],"y":[10.57721043],"name":"Eswatini","type":"bar","marker":{"color":"rgba(53,95,141,1)","line":{"color":"rgba(53,95,141,1)"}},"textfont":{"color":"rgba(53,95,141,1)"},"error_y":{"color":"rgba(53,95,141,1)"},"error_x":{"color":"rgba(53,95,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Ethiopia"],"y":[37.87532043],"name":"Ethiopia","type":"bar","marker":{"color":"rgba(52,97,141,1)","line":{"color":"rgba(52,97,141,1)"}},"textfont":{"color":"rgba(52,97,141,1)"},"error_y":{"color":"rgba(52,97,141,1)"},"error_x":{"color":"rgba(52,97,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Fiji"],"y":[13.19460297],"name":"Fiji","type":"bar","marker":{"color":"rgba(51,98,141,1)","line":{"color":"rgba(51,98,141,1)"}},"textfont":{"color":"rgba(51,98,141,1)"},"error_y":{"color":"rgba(51,98,141,1)"},"error_x":{"color":"rgba(51,98,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Finland"],"y":[17.44896507],"name":"Finland","type":"bar","marker":{"color":"rgba(51,99,141,1)","line":{"color":"rgba(51,99,141,1)"}},"textfont":{"color":"rgba(51,99,141,1)"},"error_y":{"color":"rgba(51,99,141,1)"},"error_x":{"color":"rgba(51,99,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["France"],"y":[9.26107979],"name":"France","type":"bar","marker":{"color":"rgba(50,101,142,1)","line":{"color":"rgba(50,101,142,1)"}},"textfont":{"color":"rgba(50,101,142,1)"},"error_y":{"color":"rgba(50,101,142,1)"},"error_x":{"color":"rgba(50,101,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Gabon"],"y":[23.08802223],"name":"Gabon","type":"bar","marker":{"color":"rgba(49,102,142,1)","line":{"color":"rgba(49,102,142,1)"}},"textfont":{"color":"rgba(49,102,142,1)"},"error_y":{"color":"rgba(49,102,142,1)"},"error_x":{"color":"rgba(49,102,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Gambia"],"y":[23.19362068],"name":"Gambia","type":"bar","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Georgia"],"y":[46.7677536],"name":"Georgia","type":"bar","marker":{"color":"rgba(48,105,142,1)","line":{"color":"rgba(48,105,142,1)"}},"textfont":{"color":"rgba(48,105,142,1)"},"error_y":{"color":"rgba(48,105,142,1)"},"error_x":{"color":"rgba(48,105,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Germany"],"y":[12.81640053],"name":"Germany","type":"bar","marker":{"color":"rgba(48,106,142,1)","line":{"color":"rgba(48,106,142,1)"}},"textfont":{"color":"rgba(48,106,142,1)"},"error_y":{"color":"rgba(48,106,142,1)"},"error_x":{"color":"rgba(48,106,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Ghana"],"y":[36.21754074],"name":"Ghana","type":"bar","marker":{"color":"rgba(47,108,142,1)","line":{"color":"rgba(47,108,142,1)"}},"textfont":{"color":"rgba(47,108,142,1)"},"error_y":{"color":"rgba(47,108,142,1)"},"error_x":{"color":"rgba(47,108,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Greece"],"y":[35.17697144],"name":"Greece","type":"bar","marker":{"color":"rgba(46,109,142,1)","line":{"color":"rgba(46,109,142,1)"}},"textfont":{"color":"rgba(46,109,142,1)"},"error_y":{"color":"rgba(46,109,142,1)"},"error_x":{"color":"rgba(46,109,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Grenada"],"y":[54.42095566],"name":"Grenada","type":"bar","marker":{"color":"rgba(46,110,142,1)","line":{"color":"rgba(46,110,142,1)"}},"textfont":{"color":"rgba(46,110,142,1)"},"error_y":{"color":"rgba(46,110,142,1)"},"error_x":{"color":"rgba(46,110,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Guatemala"],"y":[55.9891777],"name":"Guatemala","type":"bar","marker":{"color":"rgba(45,112,142,1)","line":{"color":"rgba(45,112,142,1)"}},"textfont":{"color":"rgba(45,112,142,1)"},"error_y":{"color":"rgba(45,112,142,1)"},"error_x":{"color":"rgba(45,112,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Guinea"],"y":[59.2154274],"name":"Guinea","type":"bar","marker":{"color":"rgba(45,113,142,1)","line":{"color":"rgba(45,113,142,1)"}},"textfont":{"color":"rgba(45,113,142,1)"},"error_y":{"color":"rgba(45,113,142,1)"},"error_x":{"color":"rgba(45,113,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Guinea-Bissau"],"y":[65.15560913],"name":"Guinea-Bissau","type":"bar","marker":{"color":"rgba(44,113,142,1)","line":{"color":"rgba(44,113,142,1)"}},"textfont":{"color":"rgba(44,113,142,1)"},"error_y":{"color":"rgba(44,113,142,1)"},"error_x":{"color":"rgba(44,113,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Guyana"],"y":[34.83069611],"name":"Guyana","type":"bar","marker":{"color":"rgba(44,115,142,1)","line":{"color":"rgba(44,115,142,1)"}},"textfont":{"color":"rgba(44,115,142,1)"},"error_y":{"color":"rgba(44,115,142,1)"},"error_x":{"color":"rgba(44,115,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Haiti"],"y":[43.29529953],"name":"Haiti","type":"bar","marker":{"color":"rgba(43,116,142,1)","line":{"color":"rgba(43,116,142,1)"}},"textfont":{"color":"rgba(43,116,142,1)"},"error_y":{"color":"rgba(43,116,142,1)"},"error_x":{"color":"rgba(43,116,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Honduras"],"y":[52.60909653],"name":"Honduras","type":"bar","marker":{"color":"rgba(42,118,142,1)","line":{"color":"rgba(42,118,142,1)"}},"textfont":{"color":"rgba(42,118,142,1)"},"error_y":{"color":"rgba(42,118,142,1)"},"error_x":{"color":"rgba(42,118,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Hungary"],"y":[28.15956116],"name":"Hungary","type":"bar","marker":{"color":"rgba(42,119,142,1)","line":{"color":"rgba(42,119,142,1)"}},"textfont":{"color":"rgba(42,119,142,1)"},"error_y":{"color":"rgba(42,119,142,1)"},"error_x":{"color":"rgba(42,119,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Iceland"],"y":[15.46228123],"name":"Iceland","type":"bar","marker":{"color":"rgba(42,120,142,1)","line":{"color":"rgba(42,120,142,1)"}},"textfont":{"color":"rgba(42,120,142,1)"},"error_y":{"color":"rgba(42,120,142,1)"},"error_x":{"color":"rgba(42,120,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["India"],"y":[54.78163528],"name":"India","type":"bar","marker":{"color":"rgba(41,122,142,1)","line":{"color":"rgba(41,122,142,1)"}},"textfont":{"color":"rgba(41,122,142,1)"},"error_y":{"color":"rgba(41,122,142,1)"},"error_x":{"color":"rgba(41,122,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Indonesia"],"y":[34.76155853],"name":"Indonesia","type":"bar","marker":{"color":"rgba(41,123,142,1)","line":{"color":"rgba(41,123,142,1)"}},"textfont":{"color":"rgba(41,123,142,1)"},"error_y":{"color":"rgba(41,123,142,1)"},"error_x":{"color":"rgba(41,123,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Iran"],"y":[39.49374771],"name":"Iran","type":"bar","marker":{"color":"rgba(40,124,142,1)","line":{"color":"rgba(40,124,142,1)"}},"textfont":{"color":"rgba(40,124,142,1)"},"error_y":{"color":"rgba(40,124,142,1)"},"error_x":{"color":"rgba(40,124,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Iraq"],"y":[50.09696579],"name":"Iraq","type":"bar","marker":{"color":"rgba(39,126,142,1)","line":{"color":"rgba(39,126,142,1)"}},"textfont":{"color":"rgba(39,126,142,1)"},"error_y":{"color":"rgba(39,126,142,1)"},"error_x":{"color":"rgba(39,126,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Ireland"],"y":[11.71556568],"name":"Ireland","type":"bar","marker":{"color":"rgba(39,127,142,1)","line":{"color":"rgba(39,127,142,1)"}},"textfont":{"color":"rgba(39,127,142,1)"},"error_y":{"color":"rgba(39,127,142,1)"},"error_x":{"color":"rgba(39,127,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Israel"],"y":[20.97997284],"name":"Israel","type":"bar","marker":{"color":"rgba(39,128,142,1)","line":{"color":"rgba(39,128,142,1)"}},"textfont":{"color":"rgba(39,128,142,1)"},"error_y":{"color":"rgba(39,128,142,1)"},"error_x":{"color":"rgba(39,128,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Italy"],"y":[23.31480408],"name":"Italy","type":"bar","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Jamaica"],"y":[16.43760681],"name":"Jamaica","type":"bar","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Japan"],"y":[12.90735722],"name":"Japan","type":"bar","marker":{"color":"rgba(37,132,142,1)","line":{"color":"rgba(37,132,142,1)"}},"textfont":{"color":"rgba(37,132,142,1)"},"error_y":{"color":"rgba(37,132,142,1)"},"error_x":{"color":"rgba(37,132,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Jordan"],"y":[30.28982544],"name":"Jordan","type":"bar","marker":{"color":"rgba(37,133,142,1)","line":{"color":"rgba(37,133,142,1)"}},"textfont":{"color":"rgba(37,133,142,1)"},"error_y":{"color":"rgba(37,133,142,1)"},"error_x":{"color":"rgba(37,133,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Kazakhstan"],"y":[33.86382675],"name":"Kazakhstan","type":"bar","marker":{"color":"rgba(36,134,142,1)","line":{"color":"rgba(36,134,142,1)"}},"textfont":{"color":"rgba(36,134,142,1)"},"error_y":{"color":"rgba(36,134,142,1)"},"error_x":{"color":"rgba(36,134,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Kenya"],"y":[24.29976273],"name":"Kenya","type":"bar","marker":{"color":"rgba(35,136,142,1)","line":{"color":"rgba(35,136,142,1)"}},"textfont":{"color":"rgba(35,136,142,1)"},"error_y":{"color":"rgba(35,136,142,1)"},"error_x":{"color":"rgba(35,136,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Kiribati"],"y":[0.1049399],"name":"Kiribati","type":"bar","marker":{"color":"rgba(35,137,142,1)","line":{"color":"rgba(35,137,142,1)"}},"textfont":{"color":"rgba(35,137,142,1)"},"error_y":{"color":"rgba(35,137,142,1)"},"error_x":{"color":"rgba(35,137,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Kuwait"],"y":[11.79424191],"name":"Kuwait","type":"bar","marker":{"color":"rgba(35,138,141,1)","line":{"color":"rgba(35,138,141,1)"}},"textfont":{"color":"rgba(35,138,141,1)"},"error_y":{"color":"rgba(35,138,141,1)"},"error_x":{"color":"rgba(35,138,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Kyrgyzstan"],"y":[46.181427],"name":"Kyrgyzstan","type":"bar","marker":{"color":"rgba(34,140,141,1)","line":{"color":"rgba(34,140,141,1)"}},"textfont":{"color":"rgba(34,140,141,1)"},"error_y":{"color":"rgba(34,140,141,1)"},"error_x":{"color":"rgba(34,140,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Lao People's Democratic Republic"],"y":[41.83228683],"name":"Lao People's Democratic Republic","type":"bar","marker":{"color":"rgba(34,141,141,1)","line":{"color":"rgba(34,141,141,1)"}},"textfont":{"color":"rgba(34,141,141,1)"},"error_y":{"color":"rgba(34,141,141,1)"},"error_x":{"color":"rgba(34,141,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Latvia"],"y":[35.71981812],"name":"Latvia","type":"bar","marker":{"color":"rgba(33,142,141,1)","line":{"color":"rgba(33,142,141,1)"}},"textfont":{"color":"rgba(33,142,141,1)"},"error_y":{"color":"rgba(33,142,141,1)"},"error_x":{"color":"rgba(33,142,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Lebanon"],"y":[33.53593826],"name":"Lebanon","type":"bar","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Lesotho"],"y":[13.76152897],"name":"Lesotho","type":"bar","marker":{"color":"rgba(33,145,140,1)","line":{"color":"rgba(33,145,140,1)"}},"textfont":{"color":"rgba(33,145,140,1)"},"error_y":{"color":"rgba(33,145,140,1)"},"error_x":{"color":"rgba(33,145,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Liberia"],"y":[54.39604568],"name":"Liberia","type":"bar","marker":{"color":"rgba(32,146,140,1)","line":{"color":"rgba(32,146,140,1)"}},"textfont":{"color":"rgba(32,146,140,1)"},"error_y":{"color":"rgba(32,146,140,1)"},"error_x":{"color":"rgba(32,146,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Lithuania"],"y":[32.27022171],"name":"Lithuania","type":"bar","marker":{"color":"rgba(32,147,140,1)","line":{"color":"rgba(32,147,140,1)"}},"textfont":{"color":"rgba(32,147,140,1)"},"error_y":{"color":"rgba(32,147,140,1)"},"error_x":{"color":"rgba(32,147,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Luxembourg"],"y":[9.62240314],"name":"Luxembourg","type":"bar","marker":{"color":"rgba(31,148,140,1)","line":{"color":"rgba(31,148,140,1)"}},"textfont":{"color":"rgba(31,148,140,1)"},"error_y":{"color":"rgba(31,148,140,1)"},"error_x":{"color":"rgba(31,148,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Madagascar"],"y":[32.51625061],"name":"Madagascar","type":"bar","marker":{"color":"rgba(31,150,139,1)","line":{"color":"rgba(31,150,139,1)"}},"textfont":{"color":"rgba(31,150,139,1)"},"error_y":{"color":"rgba(31,150,139,1)"},"error_x":{"color":"rgba(31,150,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Malawi"],"y":[16.86487961],"name":"Malawi","type":"bar","marker":{"color":"rgba(31,151,139,1)","line":{"color":"rgba(31,151,139,1)"}},"textfont":{"color":"rgba(31,151,139,1)"},"error_y":{"color":"rgba(31,151,139,1)"},"error_x":{"color":"rgba(31,151,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Malaysia"],"y":[34.57383347],"name":"Malaysia","type":"bar","marker":{"color":"rgba(31,152,139,1)","line":{"color":"rgba(31,152,139,1)"}},"textfont":{"color":"rgba(31,152,139,1)"},"error_y":{"color":"rgba(31,152,139,1)"},"error_x":{"color":"rgba(31,152,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Maldives"],"y":[16.45225716],"name":"Maldives","type":"bar","marker":{"color":"rgba(31,154,138,1)","line":{"color":"rgba(31,154,138,1)"}},"textfont":{"color":"rgba(31,154,138,1)"},"error_y":{"color":"rgba(31,154,138,1)"},"error_x":{"color":"rgba(31,154,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Mali"],"y":[31.3529644],"name":"Mali","type":"bar","marker":{"color":"rgba(30,155,138,1)","line":{"color":"rgba(30,155,138,1)"}},"textfont":{"color":"rgba(30,155,138,1)"},"error_y":{"color":"rgba(30,155,138,1)"},"error_x":{"color":"rgba(30,155,138,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Malta"],"y":[34.64808273],"name":"Malta","type":"bar","marker":{"color":"rgba(30,156,137,1)","line":{"color":"rgba(30,156,137,1)"}},"textfont":{"color":"rgba(30,156,137,1)"},"error_y":{"color":"rgba(30,156,137,1)"},"error_x":{"color":"rgba(30,156,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Marshall Islands"],"y":[11.66249561],"name":"Marshall Islands","type":"bar","marker":{"color":"rgba(31,158,137,1)","line":{"color":"rgba(31,158,137,1)"}},"textfont":{"color":"rgba(31,158,137,1)"},"error_y":{"color":"rgba(31,158,137,1)"},"error_x":{"color":"rgba(31,158,137,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Mauritania"],"y":[45.02108765],"name":"Mauritania","type":"bar","marker":{"color":"rgba(31,159,136,1)","line":{"color":"rgba(31,159,136,1)"}},"textfont":{"color":"rgba(31,159,136,1)"},"error_y":{"color":"rgba(31,159,136,1)"},"error_x":{"color":"rgba(31,159,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Mauritius"],"y":[45.7204628],"name":"Mauritius","type":"bar","marker":{"color":"rgba(31,161,136,1)","line":{"color":"rgba(31,161,136,1)"}},"textfont":{"color":"rgba(31,161,136,1)"},"error_y":{"color":"rgba(31,161,136,1)"},"error_x":{"color":"rgba(31,161,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Mexico"],"y":[42.12209702],"name":"Mexico","type":"bar","marker":{"color":"rgba(31,161,135,1)","line":{"color":"rgba(31,161,135,1)"}},"textfont":{"color":"rgba(31,161,135,1)"},"error_y":{"color":"rgba(31,161,135,1)"},"error_x":{"color":"rgba(31,161,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Micronesia (Federated States of)"],"y":[2.86158395],"name":"Micronesia (Federated States of)","type":"bar","marker":{"color":"rgba(31,162,135,1)","line":{"color":"rgba(31,162,135,1)"}},"textfont":{"color":"rgba(31,162,135,1)"},"error_y":{"color":"rgba(31,162,135,1)"},"error_x":{"color":"rgba(31,162,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Monaco"],"y":[7.96347046],"name":"Monaco","type":"bar","marker":{"color":"rgba(32,164,134,1)","line":{"color":"rgba(32,164,134,1)"}},"textfont":{"color":"rgba(32,164,134,1)"},"error_y":{"color":"rgba(32,164,134,1)"},"error_x":{"color":"rgba(32,164,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Mongolia"],"y":[34.76733398],"name":"Mongolia","type":"bar","marker":{"color":"rgba(33,165,133,1)","line":{"color":"rgba(33,165,133,1)"}},"textfont":{"color":"rgba(33,165,133,1)"},"error_y":{"color":"rgba(33,165,133,1)"},"error_x":{"color":"rgba(33,165,133,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Montenegro"],"y":[38.55628967],"name":"Montenegro","type":"bar","marker":{"color":"rgba(33,166,133,1)","line":{"color":"rgba(33,166,133,1)"}},"textfont":{"color":"rgba(33,166,133,1)"},"error_y":{"color":"rgba(33,166,133,1)"},"error_x":{"color":"rgba(33,166,133,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Morocco"],"y":[46.81051254],"name":"Morocco","type":"bar","marker":{"color":"rgba(34,168,132,1)","line":{"color":"rgba(34,168,132,1)"}},"textfont":{"color":"rgba(34,168,132,1)"},"error_y":{"color":"rgba(34,168,132,1)"},"error_x":{"color":"rgba(34,168,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Mozambique"],"y":[9.97822762],"name":"Mozambique","type":"bar","marker":{"color":"rgba(35,169,131,1)","line":{"color":"rgba(35,169,131,1)"}},"textfont":{"color":"rgba(35,169,131,1)"},"error_y":{"color":"rgba(35,169,131,1)"},"error_x":{"color":"rgba(35,169,131,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Myanmar"],"y":[75.95468903],"name":"Myanmar","type":"bar","marker":{"color":"rgba(36,170,131,1)","line":{"color":"rgba(36,170,131,1)"}},"textfont":{"color":"rgba(36,170,131,1)"},"error_y":{"color":"rgba(36,170,131,1)"},"error_x":{"color":"rgba(36,170,131,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Namibia"],"y":[8.23502064],"name":"Namibia","type":"bar","marker":{"color":"rgba(37,172,130,1)","line":{"color":"rgba(37,172,130,1)"}},"textfont":{"color":"rgba(37,172,130,1)"},"error_y":{"color":"rgba(37,172,130,1)"},"error_x":{"color":"rgba(37,172,130,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Nauru"],"y":[1.14929473],"name":"Nauru","type":"bar","marker":{"color":"rgba(38,173,129,1)","line":{"color":"rgba(38,173,129,1)"}},"textfont":{"color":"rgba(38,173,129,1)"},"error_y":{"color":"rgba(38,173,129,1)"},"error_x":{"color":"rgba(38,173,129,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Nepal"],"y":[57.91304016],"name":"Nepal","type":"bar","marker":{"color":"rgba(40,174,128,1)","line":{"color":"rgba(40,174,128,1)"}},"textfont":{"color":"rgba(40,174,128,1)"},"error_y":{"color":"rgba(40,174,128,1)"},"error_x":{"color":"rgba(40,174,128,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Netherlands"],"y":[10.57730865],"name":"Netherlands","type":"bar","marker":{"color":"rgba(41,175,127,1)","line":{"color":"rgba(41,175,127,1)"}},"textfont":{"color":"rgba(41,175,127,1)"},"error_y":{"color":"rgba(41,175,127,1)"},"error_x":{"color":"rgba(41,175,127,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["New Zealand"],"y":[12.24473381],"name":"New Zealand","type":"bar","marker":{"color":"rgba(43,176,127,1)","line":{"color":"rgba(43,176,127,1)"}},"textfont":{"color":"rgba(43,176,127,1)"},"error_y":{"color":"rgba(43,176,127,1)"},"error_x":{"color":"rgba(43,176,127,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Nicaragua"],"y":[34.41120529],"name":"Nicaragua","type":"bar","marker":{"color":"rgba(45,178,125,1)","line":{"color":"rgba(45,178,125,1)"}},"textfont":{"color":"rgba(45,178,125,1)"},"error_y":{"color":"rgba(45,178,125,1)"},"error_x":{"color":"rgba(45,178,125,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Niger"],"y":[46.09529114],"name":"Niger","type":"bar","marker":{"color":"rgba(46,179,124,1)","line":{"color":"rgba(46,179,124,1)"}},"textfont":{"color":"rgba(46,179,124,1)"},"error_y":{"color":"rgba(46,179,124,1)"},"error_x":{"color":"rgba(46,179,124,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Nigeria"],"y":[70.52402496],"name":"Nigeria","type":"bar","marker":{"color":"rgba(48,180,124,1)","line":{"color":"rgba(48,180,124,1)"}},"textfont":{"color":"rgba(48,180,124,1)"},"error_y":{"color":"rgba(48,180,124,1)"},"error_x":{"color":"rgba(48,180,124,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Niue"],"y":[1.34324968],"name":"Niue","type":"bar","marker":{"color":"rgba(50,182,122,1)","line":{"color":"rgba(50,182,122,1)"}},"textfont":{"color":"rgba(50,182,122,1)"},"error_y":{"color":"rgba(50,182,122,1)"},"error_x":{"color":"rgba(50,182,122,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Norway"],"y":[13.8597908],"name":"Norway","type":"bar","marker":{"color":"rgba(52,182,121,1)","line":{"color":"rgba(52,182,121,1)"}},"textfont":{"color":"rgba(52,182,121,1)"},"error_y":{"color":"rgba(52,182,121,1)"},"error_x":{"color":"rgba(52,182,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Oman"],"y":[6.55615425],"name":"Oman","type":"bar","marker":{"color":"rgba(54,183,121,1)","line":{"color":"rgba(54,183,121,1)"}},"textfont":{"color":"rgba(54,183,121,1)"},"error_y":{"color":"rgba(54,183,121,1)"},"error_x":{"color":"rgba(54,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Pakistan"],"y":[53.80849075],"name":"Pakistan","type":"bar","marker":{"color":"rgba(56,185,119,1)","line":{"color":"rgba(56,185,119,1)"}},"textfont":{"color":"rgba(56,185,119,1)"},"error_y":{"color":"rgba(56,185,119,1)"},"error_x":{"color":"rgba(56,185,119,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Palau"],"y":[12.00240326],"name":"Palau","type":"bar","marker":{"color":"rgba(58,186,118,1)","line":{"color":"rgba(58,186,118,1)"}},"textfont":{"color":"rgba(58,186,118,1)"},"error_y":{"color":"rgba(58,186,118,1)"},"error_x":{"color":"rgba(58,186,118,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Panama"],"y":[27.57014084],"name":"Panama","type":"bar","marker":{"color":"rgba(60,188,116,1)","line":{"color":"rgba(60,188,116,1)"}},"textfont":{"color":"rgba(60,188,116,1)"},"error_y":{"color":"rgba(60,188,116,1)"},"error_x":{"color":"rgba(60,188,116,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Papua New Guinea"],"y":[9.91931438],"name":"Papua New Guinea","type":"bar","marker":{"color":"rgba(63,188,115,1)","line":{"color":"rgba(63,188,115,1)"}},"textfont":{"color":"rgba(63,188,115,1)"},"error_y":{"color":"rgba(63,188,115,1)"},"error_x":{"color":"rgba(63,188,115,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Paraguay"],"y":[41.62508392],"name":"Paraguay","type":"bar","marker":{"color":"rgba(65,189,114,1)","line":{"color":"rgba(65,189,114,1)"}},"textfont":{"color":"rgba(65,189,114,1)"},"error_y":{"color":"rgba(65,189,114,1)"},"error_x":{"color":"rgba(65,189,114,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Peru"],"y":[28.13241577],"name":"Peru","type":"bar","marker":{"color":"rgba(67,191,112,1)","line":{"color":"rgba(67,191,112,1)"}},"textfont":{"color":"rgba(67,191,112,1)"},"error_y":{"color":"rgba(67,191,112,1)"},"error_x":{"color":"rgba(67,191,112,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Philippines"],"y":[48.55948639],"name":"Philippines","type":"bar","marker":{"color":"rgba(70,192,111,1)","line":{"color":"rgba(70,192,111,1)"}},"textfont":{"color":"rgba(70,192,111,1)"},"error_y":{"color":"rgba(70,192,111,1)"},"error_x":{"color":"rgba(70,192,111,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Poland"],"y":[20.44481277],"name":"Poland","type":"bar","marker":{"color":"rgba(73,193,110,1)","line":{"color":"rgba(73,193,110,1)"}},"textfont":{"color":"rgba(73,193,110,1)"},"error_y":{"color":"rgba(73,193,110,1)"},"error_x":{"color":"rgba(73,193,110,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Portugal"],"y":[30.45287704],"name":"Portugal","type":"bar","marker":{"color":"rgba(75,194,108,1)","line":{"color":"rgba(75,194,108,1)"}},"textfont":{"color":"rgba(75,194,108,1)"},"error_y":{"color":"rgba(75,194,108,1)"},"error_x":{"color":"rgba(75,194,108,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Qatar"],"y":[12.32652092],"name":"Qatar","type":"bar","marker":{"color":"rgba(78,195,107,1)","line":{"color":"rgba(78,195,107,1)"}},"textfont":{"color":"rgba(78,195,107,1)"},"error_y":{"color":"rgba(78,195,107,1)"},"error_x":{"color":"rgba(78,195,107,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Republic of Korea"],"y":[30.24508095],"name":"Republic of Korea","type":"bar","marker":{"color":"rgba(81,196,106,1)","line":{"color":"rgba(81,196,106,1)"}},"textfont":{"color":"rgba(81,196,106,1)"},"error_y":{"color":"rgba(81,196,106,1)"},"error_x":{"color":"rgba(81,196,106,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Republic of Moldova"],"y":[35.69403076],"name":"Republic of Moldova","type":"bar","marker":{"color":"rgba(84,197,104,1)","line":{"color":"rgba(84,197,104,1)"}},"textfont":{"color":"rgba(84,197,104,1)"},"error_y":{"color":"rgba(84,197,104,1)"},"error_x":{"color":"rgba(84,197,104,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Romania"],"y":[18.87716866],"name":"Romania","type":"bar","marker":{"color":"rgba(86,198,103,1)","line":{"color":"rgba(86,198,103,1)"}},"textfont":{"color":"rgba(86,198,103,1)"},"error_y":{"color":"rgba(86,198,103,1)"},"error_x":{"color":"rgba(86,198,103,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Russian Federation"],"y":[36.57374573],"name":"Russian Federation","type":"bar","marker":{"color":"rgba(89,200,100,1)","line":{"color":"rgba(89,200,100,1)"}},"textfont":{"color":"rgba(89,200,100,1)"},"error_y":{"color":"rgba(89,200,100,1)"},"error_x":{"color":"rgba(89,200,100,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Rwanda"],"y":[11.67218018],"name":"Rwanda","type":"bar","marker":{"color":"rgba(92,200,99,1)","line":{"color":"rgba(92,200,99,1)"}},"textfont":{"color":"rgba(92,200,99,1)"},"error_y":{"color":"rgba(92,200,99,1)"},"error_x":{"color":"rgba(92,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Saint Kitts and Nevis"],"y":[46.36796951],"name":"Saint Kitts and Nevis","type":"bar","marker":{"color":"rgba(95,201,97,1)","line":{"color":"rgba(95,201,97,1)"}},"textfont":{"color":"rgba(95,201,97,1)"},"error_y":{"color":"rgba(95,201,97,1)"},"error_x":{"color":"rgba(95,201,97,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Saint Lucia"],"y":[46.25265121],"name":"Saint Lucia","type":"bar","marker":{"color":"rgba(98,203,95,1)","line":{"color":"rgba(98,203,95,1)"}},"textfont":{"color":"rgba(98,203,95,1)"},"error_y":{"color":"rgba(98,203,95,1)"},"error_x":{"color":"rgba(98,203,95,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Saint Vincent and the Grenadines"],"y":[29.11405945],"name":"Saint Vincent and the Grenadines","type":"bar","marker":{"color":"rgba(101,203,94,1)","line":{"color":"rgba(101,203,94,1)"}},"textfont":{"color":"rgba(101,203,94,1)"},"error_y":{"color":"rgba(101,203,94,1)"},"error_x":{"color":"rgba(101,203,94,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Samoa"],"y":[10.13819122],"name":"Samoa","type":"bar","marker":{"color":"rgba(104,204,92,1)","line":{"color":"rgba(104,204,92,1)"}},"textfont":{"color":"rgba(104,204,92,1)"},"error_y":{"color":"rgba(104,204,92,1)"},"error_x":{"color":"rgba(104,204,92,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["San Marino"],"y":[16.98494148],"name":"San Marino","type":"bar","marker":{"color":"rgba(107,205,90,1)","line":{"color":"rgba(107,205,90,1)"}},"textfont":{"color":"rgba(107,205,90,1)"},"error_y":{"color":"rgba(107,205,90,1)"},"error_x":{"color":"rgba(107,205,90,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Sao Tome and Principe"],"y":[17.65802956],"name":"Sao Tome and Principe","type":"bar","marker":{"color":"rgba(110,206,88,1)","line":{"color":"rgba(110,206,88,1)"}},"textfont":{"color":"rgba(110,206,88,1)"},"error_y":{"color":"rgba(110,206,88,1)"},"error_x":{"color":"rgba(110,206,88,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Saudi Arabia"],"y":[16.49995804],"name":"Saudi Arabia","type":"bar","marker":{"color":"rgba(113,207,87,1)","line":{"color":"rgba(113,207,87,1)"}},"textfont":{"color":"rgba(113,207,87,1)"},"error_y":{"color":"rgba(113,207,87,1)"},"error_x":{"color":"rgba(113,207,87,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Senegal"],"y":[50.99054718],"name":"Senegal","type":"bar","marker":{"color":"rgba(117,208,84,1)","line":{"color":"rgba(117,208,84,1)"}},"textfont":{"color":"rgba(117,208,84,1)"},"error_y":{"color":"rgba(117,208,84,1)"},"error_x":{"color":"rgba(117,208,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Serbia"],"y":[37.04018402],"name":"Serbia","type":"bar","marker":{"color":"rgba(120,209,83,1)","line":{"color":"rgba(120,209,83,1)"}},"textfont":{"color":"rgba(120,209,83,1)"},"error_y":{"color":"rgba(120,209,83,1)"},"error_x":{"color":"rgba(120,209,83,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Seychelles"],"y":[25.22789001],"name":"Seychelles","type":"bar","marker":{"color":"rgba(123,210,80,1)","line":{"color":"rgba(123,210,80,1)"}},"textfont":{"color":"rgba(123,210,80,1)"},"error_y":{"color":"rgba(123,210,80,1)"},"error_x":{"color":"rgba(123,210,80,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Sierra Leone"],"y":[55.18257141],"name":"Sierra Leone","type":"bar","marker":{"color":"rgba(127,211,78,1)","line":{"color":"rgba(127,211,78,1)"}},"textfont":{"color":"rgba(127,211,78,1)"},"error_y":{"color":"rgba(127,211,78,1)"},"error_x":{"color":"rgba(127,211,78,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Singapore"],"y":[30.15112877],"name":"Singapore","type":"bar","marker":{"color":"rgba(130,211,76,1)","line":{"color":"rgba(130,211,76,1)"}},"textfont":{"color":"rgba(130,211,76,1)"},"error_y":{"color":"rgba(130,211,76,1)"},"error_x":{"color":"rgba(130,211,76,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Slovakia"],"y":[19.15934753],"name":"Slovakia","type":"bar","marker":{"color":"rgba(133,213,74,1)","line":{"color":"rgba(133,213,74,1)"}},"textfont":{"color":"rgba(133,213,74,1)"},"error_y":{"color":"rgba(133,213,74,1)"},"error_x":{"color":"rgba(133,213,74,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Slovenia"],"y":[11.66131687],"name":"Slovenia","type":"bar","marker":{"color":"rgba(137,213,72,1)","line":{"color":"rgba(137,213,72,1)"}},"textfont":{"color":"rgba(137,213,72,1)"},"error_y":{"color":"rgba(137,213,72,1)"},"error_x":{"color":"rgba(137,213,72,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Solomon Islands"],"y":[3.43970704],"name":"Solomon Islands","type":"bar","marker":{"color":"rgba(140,214,70,1)","line":{"color":"rgba(140,214,70,1)"}},"textfont":{"color":"rgba(140,214,70,1)"},"error_y":{"color":"rgba(140,214,70,1)"},"error_x":{"color":"rgba(140,214,70,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["South Africa"],"y":[5.69271421],"name":"South Africa","type":"bar","marker":{"color":"rgba(143,215,68,1)","line":{"color":"rgba(143,215,68,1)"}},"textfont":{"color":"rgba(143,215,68,1)"},"error_y":{"color":"rgba(143,215,68,1)"},"error_x":{"color":"rgba(143,215,68,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["South Sudan"],"y":[23.52758598],"name":"South Sudan","type":"bar","marker":{"color":"rgba(147,215,65,1)","line":{"color":"rgba(147,215,65,1)"}},"textfont":{"color":"rgba(147,215,65,1)"},"error_y":{"color":"rgba(147,215,65,1)"},"error_x":{"color":"rgba(147,215,65,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Spain"],"y":[21.81145477],"name":"Spain","type":"bar","marker":{"color":"rgba(150,216,63,1)","line":{"color":"rgba(150,216,63,1)"}},"textfont":{"color":"rgba(150,216,63,1)"},"error_y":{"color":"rgba(150,216,63,1)"},"error_x":{"color":"rgba(150,216,63,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Sri Lanka"],"y":[45.63660049],"name":"Sri Lanka","type":"bar","marker":{"color":"rgba(154,217,60,1)","line":{"color":"rgba(154,217,60,1)"}},"textfont":{"color":"rgba(154,217,60,1)"},"error_y":{"color":"rgba(154,217,60,1)"},"error_x":{"color":"rgba(154,217,60,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Sudan"],"y":[67.38342285],"name":"Sudan","type":"bar","marker":{"color":"rgba(158,217,59,1)","line":{"color":"rgba(158,217,59,1)"}},"textfont":{"color":"rgba(158,217,59,1)"},"error_y":{"color":"rgba(158,217,59,1)"},"error_x":{"color":"rgba(158,217,59,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Suriname"],"y":[16.09253311],"name":"Suriname","type":"bar","marker":{"color":"rgba(161,218,56,1)","line":{"color":"rgba(161,218,56,1)"}},"textfont":{"color":"rgba(161,218,56,1)"},"error_y":{"color":"rgba(161,218,56,1)"},"error_x":{"color":"rgba(161,218,56,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Sweden"],"y":[13.87638187],"name":"Sweden","type":"bar","marker":{"color":"rgba(165,219,54,1)","line":{"color":"rgba(165,219,54,1)"}},"textfont":{"color":"rgba(165,219,54,1)"},"error_y":{"color":"rgba(165,219,54,1)"},"error_x":{"color":"rgba(165,219,54,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Switzerland"],"y":[25.29318237],"name":"Switzerland","type":"bar","marker":{"color":"rgba(169,219,51,1)","line":{"color":"rgba(169,219,51,1)"}},"textfont":{"color":"rgba(169,219,51,1)"},"error_y":{"color":"rgba(169,219,51,1)"},"error_x":{"color":"rgba(169,219,51,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Tajikistan"],"y":[71.22299957],"name":"Tajikistan","type":"bar","marker":{"color":"rgba(172,220,49,1)","line":{"color":"rgba(172,220,49,1)"}},"textfont":{"color":"rgba(172,220,49,1)"},"error_y":{"color":"rgba(172,220,49,1)"},"error_x":{"color":"rgba(172,220,49,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Thailand"],"y":[8.66959858],"name":"Thailand","type":"bar","marker":{"color":"rgba(176,221,47,1)","line":{"color":"rgba(176,221,47,1)"}},"textfont":{"color":"rgba(176,221,47,1)"},"error_y":{"color":"rgba(176,221,47,1)"},"error_x":{"color":"rgba(176,221,47,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["The Republic of North Macedonia"],"y":[40.38256836],"name":"The Republic of North Macedonia","type":"bar","marker":{"color":"rgba(179,221,44,1)","line":{"color":"rgba(179,221,44,1)"}},"textfont":{"color":"rgba(179,221,44,1)"},"error_y":{"color":"rgba(179,221,44,1)"},"error_x":{"color":"rgba(179,221,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Timor-Leste"],"y":[8.15130901],"name":"Timor-Leste","type":"bar","marker":{"color":"rgba(183,222,42,1)","line":{"color":"rgba(183,222,42,1)"}},"textfont":{"color":"rgba(183,222,42,1)"},"error_y":{"color":"rgba(183,222,42,1)"},"error_x":{"color":"rgba(183,222,42,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Togo"],"y":[66.20977783],"name":"Togo","type":"bar","marker":{"color":"rgba(186,222,40,1)","line":{"color":"rgba(186,222,40,1)"}},"textfont":{"color":"rgba(186,222,40,1)"},"error_y":{"color":"rgba(186,222,40,1)"},"error_x":{"color":"rgba(186,222,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Tonga"],"y":[9.8578825],"name":"Tonga","type":"bar","marker":{"color":"rgba(190,223,38,1)","line":{"color":"rgba(190,223,38,1)"}},"textfont":{"color":"rgba(190,223,38,1)"},"error_y":{"color":"rgba(190,223,38,1)"},"error_x":{"color":"rgba(190,223,38,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Trinidad and Tobago"],"y":[46.91281891],"name":"Trinidad and Tobago","type":"bar","marker":{"color":"rgba(194,223,35,1)","line":{"color":"rgba(194,223,35,1)"}},"textfont":{"color":"rgba(194,223,35,1)"},"error_y":{"color":"rgba(194,223,35,1)"},"error_x":{"color":"rgba(194,223,35,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Tunisia"],"y":[37.93780899],"name":"Tunisia","type":"bar","marker":{"color":"rgba(198,224,33,1)","line":{"color":"rgba(198,224,33,1)"}},"textfont":{"color":"rgba(198,224,33,1)"},"error_y":{"color":"rgba(198,224,33,1)"},"error_x":{"color":"rgba(198,224,33,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Turkey"],"y":[16.8898201],"name":"Turkey","type":"bar","marker":{"color":"rgba(201,225,31,1)","line":{"color":"rgba(201,225,31,1)"}},"textfont":{"color":"rgba(201,225,31,1)"},"error_y":{"color":"rgba(201,225,31,1)"},"error_x":{"color":"rgba(201,225,31,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Turkmenistan"],"y":[76.7882309],"name":"Turkmenistan","type":"bar","marker":{"color":"rgba(205,225,29,1)","line":{"color":"rgba(205,225,29,1)"}},"textfont":{"color":"rgba(205,225,29,1)"},"error_y":{"color":"rgba(205,225,29,1)"},"error_x":{"color":"rgba(205,225,29,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Tuvalu"],"y":[0.32330775],"name":"Tuvalu","type":"bar","marker":{"color":"rgba(209,225,28,1)","line":{"color":"rgba(209,225,28,1)"}},"textfont":{"color":"rgba(209,225,28,1)"},"error_y":{"color":"rgba(209,225,28,1)"},"error_x":{"color":"rgba(209,225,28,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Uganda"],"y":[38.26028824],"name":"Uganda","type":"bar","marker":{"color":"rgba(212,226,26,1)","line":{"color":"rgba(212,226,26,1)"}},"textfont":{"color":"rgba(212,226,26,1)"},"error_y":{"color":"rgba(212,226,26,1)"},"error_x":{"color":"rgba(212,226,26,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Ukraine"],"y":[51.11892319],"name":"Ukraine","type":"bar","marker":{"color":"rgba(216,226,25,1)","line":{"color":"rgba(216,226,25,1)"}},"textfont":{"color":"rgba(216,226,25,1)"},"error_y":{"color":"rgba(216,226,25,1)"},"error_x":{"color":"rgba(216,226,25,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United Arab Emirates"],"y":[12.50749207],"name":"United Arab Emirates","type":"bar","marker":{"color":"rgba(219,227,25,1)","line":{"color":"rgba(219,227,25,1)"}},"textfont":{"color":"rgba(219,227,25,1)"},"error_y":{"color":"rgba(219,227,25,1)"},"error_x":{"color":"rgba(219,227,25,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United Kingdom"],"y":[17.0736084],"name":"United Kingdom","type":"bar","marker":{"color":"rgba(222,227,24,1)","line":{"color":"rgba(222,227,24,1)"}},"textfont":{"color":"rgba(222,227,24,1)"},"error_y":{"color":"rgba(222,227,24,1)"},"error_x":{"color":"rgba(222,227,24,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United Republic of Tanzania"],"y":[22.15128326],"name":"United Republic of Tanzania","type":"bar","marker":{"color":"rgba(226,228,24,1)","line":{"color":"rgba(226,228,24,1)"}},"textfont":{"color":"rgba(226,228,24,1)"},"error_y":{"color":"rgba(226,228,24,1)"},"error_x":{"color":"rgba(226,228,24,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United States of America"],"y":[11.3115778],"name":"United States of America","type":"bar","marker":{"color":"rgba(230,228,25,1)","line":{"color":"rgba(230,228,25,1)"}},"textfont":{"color":"rgba(230,228,25,1)"},"error_y":{"color":"rgba(230,228,25,1)"},"error_x":{"color":"rgba(230,228,25,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Uruguay"],"y":[15.46145821],"name":"Uruguay","type":"bar","marker":{"color":"rgba(233,229,26,1)","line":{"color":"rgba(233,229,26,1)"}},"textfont":{"color":"rgba(233,229,26,1)"},"error_y":{"color":"rgba(233,229,26,1)"},"error_x":{"color":"rgba(233,229,26,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Uzbekistan"],"y":[57.68497086],"name":"Uzbekistan","type":"bar","marker":{"color":"rgba(237,229,27,1)","line":{"color":"rgba(237,229,27,1)"}},"textfont":{"color":"rgba(237,229,27,1)"},"error_y":{"color":"rgba(237,229,27,1)"},"error_x":{"color":"rgba(237,229,27,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Vanuatu"],"y":[8.53738308],"name":"Vanuatu","type":"bar","marker":{"color":"rgba(240,229,29,1)","line":{"color":"rgba(240,229,29,1)"}},"textfont":{"color":"rgba(240,229,29,1)"},"error_y":{"color":"rgba(240,229,29,1)"},"error_x":{"color":"rgba(240,229,29,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Venezuela (Bolivarian Republic of)"],"y":[18.46409607],"name":"Venezuela (Bolivarian Republic of)","type":"bar","marker":{"color":"rgba(244,230,30,1)","line":{"color":"rgba(244,230,30,1)"}},"textfont":{"color":"rgba(244,230,30,1)"},"error_y":{"color":"rgba(244,230,30,1)"},"error_x":{"color":"rgba(244,230,30,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Viet Nam"],"y":[42.95318604],"name":"Viet Nam","type":"bar","marker":{"color":"rgba(247,230,32,1)","line":{"color":"rgba(247,230,32,1)"}},"textfont":{"color":"rgba(247,230,32,1)"},"error_y":{"color":"rgba(247,230,32,1)"},"error_x":{"color":"rgba(247,230,32,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Zambia"],"y":[10.23160172],"name":"Zambia","type":"bar","marker":{"color":"rgba(250,231,34,1)","line":{"color":"rgba(250,231,34,1)"}},"textfont":{"color":"rgba(250,231,34,1)"},"error_y":{"color":"rgba(250,231,34,1)"},"error_x":{"color":"rgba(250,231,34,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Zimbabwe"],"y":[24.37662288],"name":"Zimbabwe","type":"bar","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="social-health-insurance-as-of-current-health-expenditure" class="section level3">
 <h3>Social Health Insurance as % of Current Health Expenditure</h3>
-<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+<pre class="r"><code>developed_nations%&gt;%
+  filter(year==2019)%&gt;%
+  select(country, shi_che)%&gt;%
+  arrange(desc(shi_che))%&gt;%
+  plot_ly(x=~country, y=~shi_che, name=~country, color =~country, type = &#39;bar&#39;, colors = &quot;viridis&quot;)%&gt;%
+  layout(yaxis = list(title = &#39;Social Health Insurance (SHI) as % of Current Health Expenditure (CHE)&#39;), xaxis = list(title = &quot;Country&quot;), barmode = &#39;stack&#39;, colors = &quot;viridis&quot;)%&gt;%
+  layout(xaxis = list(categoryorder = &quot;total descending&quot;))</code></pre>
+<pre><code>## Warning: &#39;layout&#39; objects don&#39;t have these attributes: &#39;colors&#39;
+## Valid attributes include:
+## &#39;_deprecated&#39;, &#39;activeshape&#39;, &#39;annotations&#39;, &#39;autosize&#39;, &#39;autotypenumbers&#39;, &#39;calendar&#39;, &#39;clickmode&#39;, &#39;coloraxis&#39;, &#39;colorscale&#39;, &#39;colorway&#39;, &#39;computed&#39;, &#39;datarevision&#39;, &#39;dragmode&#39;, &#39;editrevision&#39;, &#39;editType&#39;, &#39;font&#39;, &#39;geo&#39;, &#39;grid&#39;, &#39;height&#39;, &#39;hidesources&#39;, &#39;hoverdistance&#39;, &#39;hoverlabel&#39;, &#39;hovermode&#39;, &#39;images&#39;, &#39;legend&#39;, &#39;mapbox&#39;, &#39;margin&#39;, &#39;meta&#39;, &#39;metasrc&#39;, &#39;modebar&#39;, &#39;newshape&#39;, &#39;paper_bgcolor&#39;, &#39;plot_bgcolor&#39;, &#39;polar&#39;, &#39;scene&#39;, &#39;selectdirection&#39;, &#39;selectionrevision&#39;, &#39;separators&#39;, &#39;shapes&#39;, &#39;showlegend&#39;, &#39;sliders&#39;, &#39;spikedistance&#39;, &#39;template&#39;, &#39;ternary&#39;, &#39;title&#39;, &#39;transition&#39;, &#39;uirevision&#39;, &#39;uniformtext&#39;, &#39;updatemenus&#39;, &#39;width&#39;, &#39;xaxis&#39;, &#39;yaxis&#39;, &#39;barmode&#39;, &#39;bargap&#39;, &#39;mapType&#39;</code></pre>
+<div id="htmlwidget-f2a6579e53c209d0ccdf" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f2a6579e53c209d0ccdf">{"x":{"visdat":{"435237a83b8":["function () ","plotlyVisDat"]},"cur_data":"435237a83b8","attrs":{"435237a83b8":{"x":{},"y":{},"name":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Social Health Insurance (SHI) as % of Current Health Expenditure (CHE)"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","categoryorder":"total descending","type":"category","categoryarray":["Canada","France","Germany","Italy","Japan","Republic of Korea","United Kingdom","United States of America"]},"barmode":"stack","colors":"viridis","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Canada"],"y":[1.44149053],"name":"Canada","type":"bar","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["France"],"y":[71.43441772],"name":"France","type":"bar","marker":{"color":"rgba(70,50,126,1)","line":{"color":"rgba(70,50,126,1)"}},"textfont":{"color":"rgba(70,50,126,1)"},"error_y":{"color":"rgba(70,50,126,1)"},"error_x":{"color":"rgba(70,50,126,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Germany"],"y":[70.88641357],"name":"Germany","type":"bar","marker":{"color":"rgba(54,92,141,1)","line":{"color":"rgba(54,92,141,1)"}},"textfont":{"color":"rgba(54,92,141,1)"},"error_y":{"color":"rgba(54,92,141,1)"},"error_x":{"color":"rgba(54,92,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Italy"],"y":[0.16554052],"name":"Italy","type":"bar","marker":{"color":"rgba(39,127,142,1)","line":{"color":"rgba(39,127,142,1)"}},"textfont":{"color":"rgba(39,127,142,1)"},"error_y":{"color":"rgba(39,127,142,1)"},"error_x":{"color":"rgba(39,127,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Japan"],"y":[75.70535278],"name":"Japan","type":"bar","marker":{"color":"rgba(31,161,135,1)","line":{"color":"rgba(31,161,135,1)"}},"textfont":{"color":"rgba(31,161,135,1)"},"error_y":{"color":"rgba(31,161,135,1)"},"error_x":{"color":"rgba(31,161,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Republic of Korea"],"y":[49.26175308],"name":"Republic of Korea","type":"bar","marker":{"color":"rgba(74,193,109,1)","line":{"color":"rgba(74,193,109,1)"}},"textfont":{"color":"rgba(74,193,109,1)"},"error_y":{"color":"rgba(74,193,109,1)"},"error_x":{"color":"rgba(74,193,109,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United Kingdom"],"y":[0],"name":"United Kingdom","type":"bar","marker":{"color":"rgba(159,218,58,1)","line":{"color":"rgba(159,218,58,1)"}},"textfont":{"color":"rgba(159,218,58,1)"},"error_y":{"color":"rgba(159,218,58,1)"},"error_x":{"color":"rgba(159,218,58,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United States of America"],"y":[23.59239388],"name":"United States of America","type":"bar","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 
-</div>
-<div id="htmlwidget-76904f9e2614cab33256" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-76904f9e2614cab33256">{"x":{"visdat":{"15707c778636":["function () ","plotlyVisDat"]},"cur_data":"15707c778636","attrs":{"15707c778636":{"x":{},"y":{},"name":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"yaxis":{"domain":[0,1],"automargin":true,"title":"Social Health Insurance (SHI) as % of Current Health Expenditure (CHE)"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","categoryorder":"total descending","type":"category","categoryarray":["Canada","France","Germany","Italy","Japan","Republic of Korea","United Kingdom","United States of America"]},"barmode":"stack","colors":"viridis","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Canada"],"y":[1.44149053],"name":"Canada","type":"bar","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["France"],"y":[71.43441772],"name":"France","type":"bar","marker":{"color":"rgba(70,50,126,1)","line":{"color":"rgba(70,50,126,1)"}},"textfont":{"color":"rgba(70,50,126,1)"},"error_y":{"color":"rgba(70,50,126,1)"},"error_x":{"color":"rgba(70,50,126,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Germany"],"y":[70.88641357],"name":"Germany","type":"bar","marker":{"color":"rgba(54,92,141,1)","line":{"color":"rgba(54,92,141,1)"}},"textfont":{"color":"rgba(54,92,141,1)"},"error_y":{"color":"rgba(54,92,141,1)"},"error_x":{"color":"rgba(54,92,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Italy"],"y":[0.16554052],"name":"Italy","type":"bar","marker":{"color":"rgba(39,127,142,1)","line":{"color":"rgba(39,127,142,1)"}},"textfont":{"color":"rgba(39,127,142,1)"},"error_y":{"color":"rgba(39,127,142,1)"},"error_x":{"color":"rgba(39,127,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Japan"],"y":[75.70535278],"name":"Japan","type":"bar","marker":{"color":"rgba(31,161,135,1)","line":{"color":"rgba(31,161,135,1)"}},"textfont":{"color":"rgba(31,161,135,1)"},"error_y":{"color":"rgba(31,161,135,1)"},"error_x":{"color":"rgba(31,161,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Republic of Korea"],"y":[49.26175308],"name":"Republic of Korea","type":"bar","marker":{"color":"rgba(74,193,109,1)","line":{"color":"rgba(74,193,109,1)"}},"textfont":{"color":"rgba(74,193,109,1)"},"error_y":{"color":"rgba(74,193,109,1)"},"error_x":{"color":"rgba(74,193,109,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United Kingdom"],"y":[0],"name":"United Kingdom","type":"bar","marker":{"color":"rgba(159,218,58,1)","line":{"color":"rgba(159,218,58,1)"}},"textfont":{"color":"rgba(159,218,58,1)"},"error_y":{"color":"rgba(159,218,58,1)"},"error_x":{"color":"rgba(159,218,58,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["United States of America"],"y":[23.59239388],"name":"United States of America","type":"bar","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
+
+
 
 </div>
 
 <script>
 
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
 $(document).ready(function () {
+  bootstrapStylePandocTables();
+});
 
-  // add bootstrap table styles to pandoc tables
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 
-  // initialize mathjax
-  var script = document.createElement("script");
-  script.type = "text/javascript";
-  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-  document.getElementsByTagName("head")[0].appendChild(script);
+</script>
 
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
 });
 </script>
 
-<div id="flexdashboard-source-code">
-<pre class="line-numbers"><code class="language-r">---
-title: "Dashboard"
-output: 
-  flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
-    source_code: embed
-    
----
-
-```{r setup, message = FALSE, echo = FALSE}
-library(flexdashboard)
-library(tidyverse)
-library(p8105.datasets)
-library(plotly)
-library(readxl)
-```
-
-```{r, include=FALSE}
-ghed_df <- 
-  read_excel("./data/GHED_data.XLSX")
-
-ghed_df<-ghed_df %>% 
-    janitor::clean_names() 
-
-developed_nations<-ghed_df%>%
-  filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")
-```
-
-Column {data-width=500}
------------------------------------------------------------------------
-
-### Private vs. Government Expenditure in Developed Countries in 2019
-```{r}
-ghed_df%>%
-  filter(country=="Canada"| country=="Japan"| country=="Republic of Korea"| country=="France"| country=="Germany"| country=="Italy"| country=="United Kingdom"| country=="United States of America")%>%
-  filter(year == 2019)%>%
-  select(country, year, gghed_che, pvtd_che)%>%
-  mutate(sum_per = gghed_che + pvtd_che)%>%
-  pivot_longer(cols = contains("che"),
-               names_to = "exp_type",
-               values_to = "exp_per")%>%
-  mutate(exp_type = replace(exp_type, exp_type == "gghed_che", "Government Expenditure"),
-         exp_type = replace(exp_type, exp_type == "pvtd_che", "Private Expenditure"))%>%
-  plot_ly(x=~country, y=~exp_per, name=~exp_type, color =~exp_type, type = 'bar', colors = "viridis")%>%
-  layout(yaxis = list(title = 'Percent of Total Expenditure'), xaxis = list(title = "Country",categoryorder = "total descending"), barmode = 'stack', colors = "viridis")
-
-```
-
-Column {data-width=500}
------------------------------------------------------------------------
-### Out-of-pocket spending as % of Current Health Expenditure
-```{r}
-developed_nations%>%
-  filter(year==2019)%>%
-  select(country, oops_che)%>%
-  arrange(desc(oops_che))%>%
-  plot_ly(x=~country, y=~oops_che, name=~country, color =~country, type = 'bar', colors = "viridis")%>%
-  layout(yaxis = list(title = 'Out-of-pocket (OOPS) as % of Current Health Expenditure'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
-  layout(xaxis = list(categoryorder = "total descending")) 
-```
-### Social Health Insurance as % of Current Health Expenditure
-```{r}
-developed_nations%>%
-  filter(year==2019)%>%
-  select(country, shi_che)%>%
-  arrange(desc(shi_che))%>%
-  plot_ly(x=~country, y=~shi_che, name=~country, color =~country, type = 'bar', colors = "viridis")%>%
-  layout(yaxis = list(title = 'Social Health Insurance (SHI) as % of Current Health Expenditure (CHE)'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
-  layout(xaxis = list(categoryorder = "total descending"))
-```
-
-
-
-</code></pre>
-</div>
-<script type="text/javascript">
+<!-- code folding -->
+<script>
 $(document).ready(function () {
-  FlexDashboard.init({
-    theme: "cosmo",
-    fillPage: true,
-    orientation: "columns",
-    storyboard: false,
-    defaultFigWidth: 576,
-    defaultFigHeight: 460,
-    defaultFigWidthMobile: 360,
-    defaultFigHeightMobile: 460,
-    resize_reload: true
-  });
+  window.initializeCodeFolding("hide" === "show");
 });
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
 </script>
 
 </body>

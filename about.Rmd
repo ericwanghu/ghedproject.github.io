@@ -5,7 +5,7 @@ title: "About Us"
 <br>
 <center>
 
-### Trisha Dwiveldi
+### Trisha Dwivedi
 
 <img src="images/trisha.jpg" style="width:40%">
 
