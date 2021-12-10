@@ -185,7 +185,7 @@ Note that total spending per capita ranges from \$1500 to \$11000 and government
 The developing economies we dive into are from a list of countries with developing economies by region in the Country classification document from the UN website: Morocco, Uganda, South Africa, Senegal, Nepal, Iraq, Haiti, Mexico, and Argentina.
 
 
-```{r, message=FALSE}
+```{r, message=FALSE, warning = FALSE}
 total_spending_developing_plot = 
   ghed_df %>%
   select(country, country_code, region_who, income_group, year, che_gdp, che_pc_usd) %>%
@@ -213,7 +213,7 @@ total_spending_developing_plot =
 ```
 
 
-```{r, message=FALSE}
+```{r, message=FALSE, warning = FALSE}
 govt_spending_developing_plot = 
   ghed_df %>%
   select(country, country_code, region_who, income_group, year, gghed_pc_usd) %>%
