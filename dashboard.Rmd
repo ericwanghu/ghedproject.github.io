@@ -1,11 +1,10 @@
 ---
-title: "Dashboard"
+title: "Like A G-7"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
     source_code: embed
-    
 ---
 
 ```{r setup, message = FALSE, echo = FALSE}
@@ -54,20 +53,12 @@ Column {data-width=500}
 -----------------------------------------------------------------------
 
 ### Out-of-pocket spending as % of Current Health Expenditure
-<<<<<<< HEAD
-```{r}
-developed_nations %>%
-  filter(year==2019) %>%
-  select(country, oops_che) %>%
-  arrange(desc(oops_che)) %>%
-=======
+
 ```{r, message=FALSE}
-#developed_nations
 ghed_df%>%
   filter(year==2019)%>%
   select(country, oops_che)%>%
   arrange(desc(oops_che))%>%
->>>>>>> 468fc49e8668fff8b001876dca5dd6dc551710af
   plot_ly(x=~country, y=~oops_che, name=~country, color =~country, type = 'bar', colors = "viridis")%>%
   add_trace(data=undeveloped_nations, x=~country, y=~oops_che, name=~country, color =~country, type = 'bar', colors = "viridis", visible="legendonly") %>% 
   layout(yaxis = list(title = 'Out-of-pocket (OOPS) as % of Current Health Expenditure'), xaxis = list(title = "Country"), barmode = 'stack', colors = "viridis")%>%
